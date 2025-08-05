@@ -263,14 +263,14 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-secondary);
   border-radius: 8px;
   border-left: 4px solid transparent;
   transition: all 0.3s ease;
 }
 
 .policy-type-item:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card);
 }
 
 .policy-type-item:nth-child(1) {
