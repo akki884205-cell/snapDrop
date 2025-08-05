@@ -1,7 +1,7 @@
 /* Include the same sidebar and main content styles from dashboard */
 .policies-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #2b4c6b 0%, #3d5a75 100%);
   color: white;
   display: flex;
 }
