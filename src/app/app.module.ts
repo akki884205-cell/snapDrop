@@ -19,7 +19,8 @@ import { ServiceSensorComponent } from './service-sensor/service-sensor.componen
     AnimatedBackgroundComponent,
     DashboardComponent,
     PoliciesComponent,
-    ReportsComponent
+    ReportsComponent,
+    ServiceSensorComponent
   ],
   imports: [
     BrowserModule,
