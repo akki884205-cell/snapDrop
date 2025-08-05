@@ -32,6 +32,15 @@ export class AuthService {
 
   // Mock user database
   private mockUsers: { [email: string]: { password: string; user: User } } = {
+    'admin': {
+      password: 'admin',
+      user: {
+        id: '1',
+        email: 'admin',
+        name: 'Administrator',
+        role: 'admin'
+      }
+    },
     'admin@snapdrop.com': {
       password: 'admin123',
       user: {
