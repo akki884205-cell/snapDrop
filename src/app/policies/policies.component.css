@@ -153,22 +153,28 @@
   position: relative;
   display: flex;
   align-items: center;
+  background: rgba(0, 30, 60, 0.6);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  width: 350px;
 }
 
 .search-icon {
   position: absolute;
-  left: 12px;
+  left: 16px;
   color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
 }
 
 .search-input {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  padding: 10px 12px 10px 40px;
+  background: transparent;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 50px 12px 45px;
   color: white;
   font-size: 14px;
-  width: 300px;
+  width: 100%;
   transition: all 0.3s ease;
 }
 
@@ -178,8 +184,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #00bfff;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .filter-btn {
