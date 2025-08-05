@@ -271,7 +271,9 @@ export class PoliciesComponent implements OnInit {
   }
 
   toggleActionDropdown(index: number): void {
+    event?.stopPropagation();
     this.showActionDropdown = this.showActionDropdown === index ? null : index;
+    console.log('Toggle dropdown for index:', index, 'Current:', this.showActionDropdown);
   }
 
   onEditPolicy(policy: Policy, index: number): void {
