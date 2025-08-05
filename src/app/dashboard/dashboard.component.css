@@ -1,0 +1,487 @@
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+}
+
+/* Header Styles */
+.dashboard-header {
+  background: rgba(0, 20, 40, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 24px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 64px;
+}
+
+.header-left .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.header-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-item.active {
+  background: rgba(0, 191, 255, 0.2);
+  color: #00bfff;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 71, 87, 0.2);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  color: #ff4757;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 71, 87, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Main Content */
+.dashboard-main {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 24px;
+  grid-template-areas: 
+    "statistics policy-types format-types"
+    "policy-status policy-status policy-status"
+    "detailed-status detailed-status additional-status";
+}
+
+/* Card Styles */
+.card {
+  background: rgba(0, 20, 40, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  margin-bottom: 20px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Statistics Card */
+.statistics-card {
+  grid-area: statistics;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: white;
+}
+
+.stat-value.large {
+  font-size: 28px;
+}
+
+.stat-value.medium {
+  font-size: 20px;
+}
+
+/* Policy Types Card */
+.policy-types-card {
+  grid-area: policy-types;
+}
+
+.policy-types-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.policy-type-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.policy-type-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.policy-type-item:nth-child(1) {
+  border-left-color: #4FC3F7;
+}
+
+.policy-type-item:nth-child(2) {
+  border-left-color: #81C784;
+}
+
+.policy-type-item:nth-child(3) {
+  border-left-color: #FFB74D;
+}
+
+.policy-type-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.policy-type-icon.domain {
+  background: rgba(79, 195, 247, 0.2);
+  color: #4FC3F7;
+}
+
+.policy-type-icon.port {
+  background: rgba(129, 199, 132, 0.2);
+  color: #81C784;
+}
+
+.policy-type-icon.application {
+  background: rgba(255, 183, 77, 0.2);
+  color: #FFB74D;
+}
+
+.policy-type-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.policy-type-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.policy-type-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Format Types Card */
+.format-types-card {
+  grid-area: format-types;
+}
+
+.format-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pie-chart {
+  position: relative;
+}
+
+.chart-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-color.database {
+  background: #4FC3F7;
+}
+
+.legend-color.application {
+  background: #81C784;
+}
+
+.legend-color.port {
+  background: #FFB74D;
+}
+
+.legend-color.security {
+  background: #F06292;
+}
+
+/* Policy Status Card */
+.policy-status-card {
+  grid-area: policy-status;
+}
+
+.status-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progress-bar {
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+}
+
+.progress-segment {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.progress-segment.active {
+  background: linear-gradient(90deg, #FF9800, #FFC107);
+}
+
+.progress-segment.inactive {
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+}
+
+.progress-segment.pending {
+  background: linear-gradient(90deg, #F44336, #FF5722);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.label-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.label-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Detailed Status Card */
+.detailed-status-card {
+  grid-area: detailed-status;
+}
+
+.detailed-status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.status-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.3;
+}
+
+.status-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Additional Status Card */
+.additional-status-card {
+  grid-area: additional-status;
+}
+
+.additional-status-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "statistics policy-types"
+      "format-types format-types"
+      "policy-status policy-status"
+      "detailed-status detailed-status"
+      "additional-status additional-status";
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 16px;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "statistics"
+      "policy-types"
+      "format-types"
+      "policy-status"
+      "detailed-status"
+      "additional-status";
+  }
+  
+  .header-content {
+    flex-direction: column;
+    height: auto;
+    padding: 16px 0;
+    gap: 16px;
+  }
+  
+  .header-nav {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .stats-grid,
+  .detailed-status-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-legend {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-item span {
+    display: none;
+  }
+  
+  .welcome-text {
+    display: none;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+}
