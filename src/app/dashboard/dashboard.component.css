@@ -393,7 +393,7 @@
 
 .progress-bar {
   height: 24px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-secondary);
   border-radius: 12px;
   display: flex;
   overflow: hidden;
