@@ -11,6 +11,7 @@ export interface Policy {
   lastUpdated: string;
   creationTime: string;
   actions: string;
+  toggleActive: boolean;
   status: 'COMPLETED' | 'Failed' | 'In Progress';
 }
 
