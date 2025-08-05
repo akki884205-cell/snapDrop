@@ -28,6 +28,7 @@ export class PoliciesComponent implements OnInit {
   showCreateModal: boolean = false;
   showUploadModal: boolean = false;
   selectedFile: File | null = null;
+  showActionDropdown: number | null = null;
 
   newPolicy = {
     name: '',
