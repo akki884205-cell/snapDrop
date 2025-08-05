@@ -149,7 +149,7 @@ export class PoliciesComponent implements OnInit {
   }
 
   onUploadFile(): void {
-    console.log('Upload file clicked');
+    this.showUploadModal = true;
   }
 
   getStatusClass(status: string): string {
