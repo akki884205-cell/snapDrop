@@ -17,7 +17,8 @@ import { ReportsComponent } from './reports/reports.component';
     LoginComponent,
     AnimatedBackgroundComponent,
     DashboardComponent,
-    PoliciesComponent
+    PoliciesComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
