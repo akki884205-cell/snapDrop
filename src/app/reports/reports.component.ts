@@ -28,7 +28,7 @@ export class ReportsComponent implements OnInit {
   }
 
   onViewServiceSensor(): void {
-    console.log('View Service Sensor clicked');
+    this.router.navigate(['/service-sensor']);
   }
 
   onLogout(): void {
