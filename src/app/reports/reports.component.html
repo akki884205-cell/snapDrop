@@ -86,6 +86,13 @@
 
       <!-- Reports Content -->
       <div class="reports-content" *ngIf="activeTab === 'reports'">
+        <div class="empty-state">
+          <p>Reports content will be displayed here</p>
+        </div>
+      </div>
+
+      <!-- Dashboards Content -->
+      <div class="dashboards-content" *ngIf="activeTab === 'dashboards'">
         <div class="report-card">
           <div class="card-header">
             <div class="card-icon">
@@ -106,13 +113,6 @@
           <div class="card-footer">
             <button class="view-button" (click)="onViewServiceSensor()">View</button>
           </div>
-        </div>
-      </div>
-
-      <!-- Dashboards Content -->
-      <div class="dashboards-content" *ngIf="activeTab === 'dashboards'">
-        <div class="empty-state">
-          <p>Dashboards content will be displayed here</p>
         </div>
       </div>
     </main>
