@@ -287,9 +287,9 @@
 
 /* Table Styles */
 .table-container {
-  background: rgba(0, 30, 60, 0.7);
+  background: var(--bg-card);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 24px;
