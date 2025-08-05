@@ -140,7 +140,15 @@
               <td class="policy-target">{{ policy.target }}</td>
               <td class="policy-updated">{{ policy.lastUpdated }}</td>
               <td class="policy-creation">{{ policy.creationTime }}</td>
-              <td class="policy-checkboxes">{{ policy.actions }}</td>
+              <td class="policy-checkboxes">
+                <div class="policy-toggle-switch" [class.active]="policy.toggleActive" (click)="onTogglePolicy(i)">
+                  <div class="toggle-handle">
+                    <svg *ngIf="policy.toggleActive" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                  </div>
+                </div>
+              </td>
               <td class="policy-status">
                 <div class="status-container">
                   <div class="status-indicator" [class]="getStatusIndicatorClass(policy.status)"></div>
