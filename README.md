@@ -15,19 +15,9 @@ A modern Angular application with animated login interface and mock REST API aut
 
 You can test the application with these demo accounts:
 
-### Primary Login (Required)
-- **Username**: `admin`
-- **Password**: `admin`
-
-### Additional Demo Accounts
-- **Email**: `admin@snapdrop.com`
-- **Password**: `admin123`
-
-- **Email**: `user@snapdrop.com`
-- **Password**: `user123`
-
-- **Email**: `demo@snapdrop.com`
-- **Password**: `demo123`
+- **admin@snapdrop.com** / **admin123**
+- **user@snapdrop.com** / **user123**
+- **demo@snapdrop.com** / **demo123**
 
 ## Getting Started
 
