@@ -484,11 +484,11 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 240px;
   }
 
   .main-content {
-    margin-left: 200px;
+    margin-left: 240px;
   }
 
   .dashboard-main {
