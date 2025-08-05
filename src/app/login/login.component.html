@@ -1,0 +1,81 @@
+<div class="login-container">
+  <div class="background-animation"></div>
+  
+  <div class="content-wrapper">
+    <div class="branding-section">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4H24C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" stroke="white" stroke-width="2"/>
+            <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1 class="logo-text">SnapDrop</h1>
+      </div>
+      <p class="tagline">Lorem ipsum dolor sit</p>
+    </div>
+
+    <div class="login-section">
+      <div class="login-card">
+        <h2 class="login-title">Login</h2>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="form-group">
+            <label for="email" class="form-label">Email ID</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email"
+              class="form-input"
+              [class.error]="email?.invalid && email?.touched"
+              placeholder="Enter Email ID"
+            >
+            <div *ngIf="email?.invalid && email?.touched" class="error-message">
+              <span *ngIf="email?.errors?.['required']">Email is required</span>
+              <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              formControlName="password"
+              class="form-input"
+              [class.error]="password?.invalid && password?.touched"
+              placeholder="Enter Password"
+            >
+            <div *ngIf="password?.invalid && password?.touched" class="error-message">
+              <span *ngIf="password?.errors?.['required']">Password is required</span>
+              <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              type="button" 
+              class="forgot-password-link"
+              (click)="onForgotPassword()"
+            >
+              Forgot Password?
+            </button>
+            
+            <button 
+              type="submit" 
+              class="login-button"
+              [disabled]="isLoading"
+            >
+              <span *ngIf="!isLoading">LOGIN</span>
+              <span *ngIf="isLoading">LOGGING IN...</span>
+            </button>
+          </div>
+
+          <div *ngIf="loginError" class="login-error">
+            {{ loginError }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
