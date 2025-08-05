@@ -74,7 +74,7 @@
   margin: 4px 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--nav-item-color);
   font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
@@ -84,8 +84,8 @@
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--nav-item-hover-bg);
+  color: var(--nav-item-hover-color);
   transform: translateY(-1px);
 }
 
