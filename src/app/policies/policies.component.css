@@ -39,6 +39,7 @@
   height: 28px;
   background: var(--bg-secondary);
   border-radius: 6px;
+  color: var(--text-primary);
 }
 
 .logo-text {
