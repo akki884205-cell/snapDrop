@@ -342,7 +342,7 @@
 .policy-target,
 .policy-creation,
 .policy-checkboxes {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   text-align: center;
 }
 
