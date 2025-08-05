@@ -449,7 +449,7 @@
 @media (max-width: 1200px) {
   .dashboard-grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "statistics policy-types"
       "format-types format-types"
       "policy-status policy-status"
@@ -459,13 +459,21 @@
 }
 
 @media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 200px;
+  }
+
   .dashboard-main {
     padding: 16px;
   }
-  
+
   .dashboard-grid {
     grid-template-columns: 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "statistics"
       "policy-types"
       "format-types"
@@ -473,39 +481,56 @@
       "detailed-status"
       "additional-status";
   }
-  
-  .header-content {
-    flex-direction: column;
-    height: auto;
-    padding: 16px 0;
-    gap: 16px;
-  }
-  
-  .header-nav {
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
+
   .stats-grid,
   .detailed-status-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .chart-legend {
     grid-template-columns: 1fr;
+  }
+
+  .top-header {
+    padding: 0 16px;
   }
 }
 
 @media (max-width: 480px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .sidebar-header {
+    padding: 16px 8px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
   .nav-item span {
     display: none;
   }
-  
+
+  .nav-item {
+    padding: 12px 8px;
+    justify-content: center;
+  }
+
   .welcome-text {
     display: none;
   }
-  
+
   .card {
     padding: 16px;
+  }
+
+  .top-header {
+    padding: 0 8px;
   }
 }
