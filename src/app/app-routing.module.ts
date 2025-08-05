@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent },
   { path: 'service-sensor', component: ServiceSensorComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '**', redirectTo: '' }
 ];
 
