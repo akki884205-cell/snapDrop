@@ -299,6 +299,7 @@
 .policies-table {
   width: 100%;
   border-collapse: collapse;
+  position: relative;
 }
 
 .policies-table th {
