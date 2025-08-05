@@ -10,7 +10,7 @@ import { ThemeService, Theme } from '../services/theme.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser: User | null = null;
-  selectedTheme: string = 'default';
+  selectedTheme: Theme = 'dark';
   currentDateTime: string = '';
 
   profileData = {
@@ -22,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
