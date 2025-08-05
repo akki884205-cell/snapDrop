@@ -9,7 +9,7 @@ import { AuthService, User } from '../services/auth.service';
 })
 export class ReportsComponent implements OnInit {
   currentUser: User | null = null;
-  activeTab: string = 'reports';
+  activeTab: string = 'dashboards';
 
   constructor(
     private authService: AuthService,
