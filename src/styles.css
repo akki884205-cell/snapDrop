@@ -51,6 +51,15 @@ body.theme-dark {
   --text-muted: rgba(255, 255, 255, 0.6);
   --border-color: rgba(255, 255, 255, 0.08);
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* Additional variables for dark theme */
+  --nav-item-color: rgba(255, 255, 255, 0.6);
+  --nav-item-hover-bg: rgba(255, 255, 255, 0.08);
+  --nav-item-hover-color: rgba(255, 255, 255, 0.9);
+  --input-bg: rgba(0, 30, 60, 0.6);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --dropdown-bg: rgba(0, 20, 40, 0.95);
+  --header-bg: rgba(0, 20, 40, 0.8);
 }
 
 body {
