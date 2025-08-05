@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { AnimatedBackgroundComponent } from './login/animated-background.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PoliciesComponent } from './policies/policies.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
