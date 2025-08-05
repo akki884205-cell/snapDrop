@@ -126,9 +126,9 @@
 
 /* Top Header */
 .top-header {
-  background: rgba(0, 20, 40, 0.8);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
   padding: 0 24px;
   height: 64px;
   display: flex;
