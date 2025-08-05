@@ -7,75 +7,99 @@
 
 /* Sidebar Styles */
 .sidebar {
-  width: 240px;
-  background: rgba(0, 20, 40, 0.9);
-  backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  width: 280px;
+  background: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-header {
-  padding: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 32px 24px 24px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .logo-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
 }
 
 .logo-text {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   margin: 0;
   color: white;
+  letter-spacing: 0.5px;
 }
 
 .sidebar-nav {
-  padding: 24px 0;
+  padding: 32px 0;
 }
 
 .nav-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 12px 24px;
+  gap: 8px;
+  padding: 20px 16px;
+  margin: 8px 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
-  font-weight: 500;
-  border-left: 3px solid transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-radius: 12px;
+  position: relative;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
 }
 
 .nav-item.active {
-  background: rgba(0, 191, 255, 0.15);
-  color: #00bfff;
-  border-left-color: #00bfff;
+  background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(79, 195, 247, 0.3);
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 40px;
+  background: #FFD54F;
+  border-radius: 0 2px 2px 0;
 }
 
 .nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
 }
 
 /* Main Content Area */
