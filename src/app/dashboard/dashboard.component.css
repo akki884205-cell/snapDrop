@@ -7,7 +7,7 @@
 
 /* Sidebar Styles */
 .sidebar {
-  width: 280px;
+  width: 100px;
   background: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 100vh;
@@ -19,53 +19,55 @@
 }
 
 .sidebar-header {
-  padding: 32px 24px 24px 24px;
+  padding: 16px 8px 16px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 
 .logo-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .logo-text {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
   margin: 0;
   color: white;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  text-align: center;
 }
 
 .sidebar-nav {
-  padding: 32px 0;
+  padding: 16px 0;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 20px 16px;
-  margin: 8px 16px;
+  gap: 6px;
+  padding: 12px 8px;
+  margin: 4px 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  border-radius: 12px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
   position: relative;
 }
 
@@ -84,11 +86,11 @@
 .nav-item.active::before {
   content: '';
   position: absolute;
-  left: -16px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
-  height: 40px;
+  width: 3px;
+  height: 30px;
   background: #FFD54F;
   border-radius: 0 2px 2px 0;
 }
@@ -105,7 +107,7 @@
 /* Main Content Area */
 .main-content {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 100px;
   display: flex;
   flex-direction: column;
 }
@@ -484,11 +486,11 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 240px;
+    width: 100px;
   }
 
   .main-content {
-    margin-left: 240px;
+    margin-left: 100px;
   }
 
   .dashboard-main {
@@ -522,34 +524,35 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 80px;
+    width: 70px;
   }
 
   .main-content {
-    margin-left: 80px;
+    margin-left: 70px;
   }
 
   .sidebar-header {
-    padding: 16px 8px;
+    padding: 12px 4px;
   }
 
   .logo-text {
-    display: none;
+    font-size: 8px;
   }
 
   .nav-item span {
-    display: none;
+    font-size: 8px;
   }
 
   .nav-item {
-    padding: 16px 8px;
-    margin: 8px;
-    gap: 0;
+    padding: 10px 4px;
+    margin: 2px 4px;
+    gap: 4px;
   }
 
   .nav-item.active::before {
-    left: -8px;
-    height: 30px;
+    left: -4px;
+    height: 25px;
+    width: 2px;
   }
 
   .welcome-text {
