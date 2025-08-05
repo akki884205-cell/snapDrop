@@ -57,9 +57,9 @@ export class ProfileComponent implements OnInit {
     this.currentDateTime = now.toLocaleDateString('en-GB', options).replace(',', ' |');
   }
 
-  onThemeChange(theme: string): void {
+  onThemeChange(theme: Theme): void {
     this.selectedTheme = theme;
-    // Here you could implement actual theme switching logic
+    this.themeService.setTheme(theme);
     console.log('Theme changed to:', theme);
   }
 
