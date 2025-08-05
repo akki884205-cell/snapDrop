@@ -265,6 +265,11 @@ export class PoliciesComponent implements OnInit {
     console.log('Downloading upload format template');
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    this.showActionDropdown = null;
+  }
+
   toggleActionDropdown(index: number): void {
     this.showActionDropdown = this.showActionDropdown === index ? null : index;
   }
