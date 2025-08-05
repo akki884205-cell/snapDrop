@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log('Login successful:', response);
           this.isLoading = false;
-          // Handle successful login (redirect, etc.)
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Login failed:', error);
