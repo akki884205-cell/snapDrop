@@ -25,6 +25,15 @@ export class PoliciesComponent implements OnInit {
   searchTerm: string = '';
   selectedFilters: string[] = [];
   showSuccessMessage: boolean = false;
+  showCreateModal: boolean = false;
+
+  newPolicy = {
+    name: '',
+    type: 'Domain',
+    description: '',
+    autoRefresh: false,
+    applyPolicy: false
+  };
   
   policies: Policy[] = [
     {
