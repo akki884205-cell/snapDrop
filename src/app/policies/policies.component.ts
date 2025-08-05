@@ -163,6 +163,10 @@ export class PoliciesComponent implements OnInit {
     this.showSuccessMessage = false;
   }
 
+  onTogglePolicy(policyIndex: number): void {
+    this.filteredPolicies[policyIndex].toggleActive = !this.filteredPolicies[policyIndex].toggleActive;
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
