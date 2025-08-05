@@ -9,14 +9,14 @@
 /* Sidebar Styles */
 .sidebar {
   width: 100px;
-  background: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
   min-height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1000;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 }
 
 .sidebar-header {
