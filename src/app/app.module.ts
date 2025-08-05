@@ -21,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
     DashboardComponent,
     PoliciesComponent,
     ReportsComponent,
-    ServiceSensorComponent
+    ServiceSensorComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
