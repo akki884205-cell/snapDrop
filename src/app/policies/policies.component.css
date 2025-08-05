@@ -1,154 +1,578 @@
-.activation-container {
+/* Include the same sidebar and main content styles from dashboard */
+.policies-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #2b4c6b 0%, #3d5a75 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.checklist-card {
-  background: rgba(0, 30, 60, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.checklist-title {
   color: white;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.3px;
-}
-
-.dropdown-btn {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.dropdown-btn:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.checklist-items {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 
-.checklist-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
+/* Sidebar Styles - Copy from dashboard */
+.sidebar {
+  width: 100px;
+  background: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-header {
+  padding: 16px 8px 16px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.checklist-item:last-child {
-  border-bottom: none;
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.item-content {
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.logo-text {
+  font-size: 10px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  padding: 16px 0;
+}
+
+.main-nav {
+  flex: 1;
+}
+
+.bottom-nav {
+  margin-top: auto;
+  padding-bottom: 16px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  margin: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(79, 195, 247, 0.3);
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 30px;
+  background: #FFD54F;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Policies Content */
+.policies-main {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Controls Section */
+.controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px 10px 40px;
+  color: white;
+  font-size: 14px;
+  width: 300px;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00bfff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.action-section {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.item-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+.add-policy-dropdown {
+  position: relative;
+}
+
+.add-policy-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.item-icon.completed {
-  background: #4CAF50;
-  border-color: #4CAF50;
+  gap: 8px;
+  background: linear-gradient(135deg, #00bfff 0%, #0066cc 100%);
+  border: none;
   color: white;
-}
-
-.icon-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.item-label {
-  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 16px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-}
-
-.toggle-switch {
-  width: 44px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.toggle-switch.active {
+.add-policy-btn:hover {
+  background: linear-gradient(135deg, #0099cc 0%, #004d99 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: rgba(0, 20, 40, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 1000;
+  display: none;
+}
+
+.add-policy-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-icon {
+  font-size: 16px;
+}
+
+/* Table Styles */
+.table-container {
+  background: rgba(0, 30, 60, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.policies-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.policies-table th {
+  background: rgba(0, 40, 80, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.sort-icon {
+  color: rgba(255, 255, 255, 0.4);
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.policies-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.table-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.policy-id {
+  color: #4FC3F7;
+  font-weight: 500;
+  font-family: monospace;
+}
+
+.policy-name,
+.policy-type,
+.policy-filters,
+.policy-target,
+.policy-creation,
+.policy-checkboxes {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.policy-updated {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.policy-status {
+  padding: 14px 16px;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.indicator-completed {
   background: #4CAF50;
 }
 
-.toggle-handle {
+.indicator-failed {
+  background: #F44336;
+}
+
+.indicator-progress {
+  background: #FF9800;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-completed {
+  background: #FF8A65;
+  color: white;
+}
+
+.status-failed {
+  background: rgba(244, 67, 54, 0.9);
+  color: white;
+}
+
+.status-progress {
+  background: rgba(255, 152, 0, 0.9);
+  color: white;
+}
+
+.policy-actions {
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Pagination */
+.pagination-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.pagination-info {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pagination-current {
+  color: white;
+  font-weight: 500;
+  padding: 8px 12px;
+}
+
+/* Success Message */
+.success-message {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.success-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(76, 175, 80, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.success-icon {
   width: 20px;
   height: 20px;
   background: white;
+  color: #4CAF50;
   border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
 }
 
-.toggle-switch.active .toggle-handle {
-  transform: translateX(20px);
+.success-text {
+  font-weight: 600;
+}
+
+.success-detail {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.success-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .activation-container {
+  .sidebar {
+    width: 100px;
+  }
+  
+  .main-content {
+    margin-left: 100px;
+  }
+  
+  .policies-main {
     padding: 16px;
   }
   
-  .checklist-card {
-    padding: 16px;
+  .controls-section {
+    flex-direction: column;
+    align-items: stretch;
   }
   
-  .checklist-title {
-    font-size: 14px;
+  .search-input {
+    width: 100%;
   }
   
-  .item-label {
-    font-size: 13px;
+  .policies-table {
+    font-size: 12px;
+  }
+  
+  .policies-table th,
+  .policies-table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 70px;
+  }
+  
+  .main-content {
+    margin-left: 70px;
+  }
+  
+  .logo-text {
+    font-size: 8px;
+  }
+  
+  .nav-item span {
+    font-size: 8px;
+  }
+  
+  .nav-item {
+    padding: 10px 4px;
+    margin: 2px 4px;
+    gap: 4px;
+  }
+  
+  .nav-item.active::before {
+    left: -4px;
+    height: 25px;
+    width: 2px;
   }
 }
