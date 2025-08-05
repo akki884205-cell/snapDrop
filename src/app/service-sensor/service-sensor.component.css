@@ -1,8 +1,8 @@
 /* Service Sensor Container */
 .service-sensor-container {
   min-height: 100vh;
-  background: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
 }
 
