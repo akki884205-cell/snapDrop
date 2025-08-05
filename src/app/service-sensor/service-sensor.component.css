@@ -154,18 +154,18 @@
 }
 
 .breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
 }
 
 .breadcrumb-current {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
 }
 
 /* Page Title */
 .page-title {
   font-size: 24px;
   font-weight: 600;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 32px 0;
 }
 
