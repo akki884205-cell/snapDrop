@@ -329,6 +329,42 @@
 .policy-creation,
 .policy-checkboxes {
   color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.policy-toggle-switch {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+.policy-toggle-switch.active {
+  background: #4CAF50;
+}
+
+.policy-toggle-switch .toggle-handle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4CAF50;
+}
+
+.policy-toggle-switch.active .toggle-handle {
+  transform: translateX(20px);
 }
 
 .policy-updated {
