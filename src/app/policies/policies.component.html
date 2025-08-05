@@ -132,7 +132,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let policy of filteredPolicies" class="table-row">
+            <tr *ngFor="let policy of filteredPolicies; let i = index" class="table-row">
               <td class="policy-id">{{ policy.id }}</td>
               <td class="policy-name">{{ policy.name }}</td>
               <td class="policy-type">{{ policy.type }}</td>
