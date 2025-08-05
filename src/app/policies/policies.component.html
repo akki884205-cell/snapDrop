@@ -268,4 +268,71 @@
       </div>
     </div>
   </div>
+
+  <!-- Upload File Modal -->
+  <div class="modal-overlay" *ngIf="showUploadModal" (click)="onCancelUpload()">
+    <div class="modal-container upload-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload File</h2>
+        <button class="modal-close" (click)="onCancelUpload()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="upload-area"
+             (drop)="onFileDrop($event)"
+             (dragover)="onDragOver($event)"
+             (dragleave)="onDragLeave($event)">
+          <div class="upload-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+          </div>
+          <p class="upload-text">Drag and drop your files here to upload</p>
+        </div>
+
+        <div class="upload-divider">
+          <span>OR</span>
+        </div>
+
+        <div class="file-selection">
+          <label class="file-label">Choose File</label>
+          <div class="file-input-container">
+            <input
+              type="file"
+              id="fileInput"
+              (change)="onFileSelected($event)"
+              class="file-input"
+              accept=".abc,.txt,.csv"
+            >
+            <div class="file-display">
+              <span class="file-name">{{ selectedFile?.name || 'Sample file.abc' }}</span>
+              <button class="file-browse-btn" onclick="document.getElementById('fileInput').click()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="template-download">
+          <button class="template-btn" (click)="onDownloadTemplate()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+            </svg>
+            Download the upload format here
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="onCancelUpload()">Cancel</button>
+        <button class="btn-upload" (click)="onUploadFileSubmit()">Upload</button>
+      </div>
+    </div>
+  </div>
 </div>
