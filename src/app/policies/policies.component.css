@@ -301,33 +301,33 @@
 }
 
 .policies-table th {
-  background: rgba(0, 40, 80, 0.8);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-weight: 500;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-color);
   position: relative;
 }
 
 .sort-icon {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   margin-left: 4px;
   font-size: 12px;
 }
 
 .policies-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
   font-size: 13px;
   vertical-align: middle;
 }
 
 .table-row:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-secondary);
 }
 
 .policy-id {
