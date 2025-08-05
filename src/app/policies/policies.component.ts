@@ -144,6 +144,15 @@ export class PoliciesComponent implements OnInit {
     }
   }
 
+  getStatusIndicatorClass(status: string): string {
+    switch (status) {
+      case 'COMPLETED': return 'indicator-completed';
+      case 'Failed': return 'indicator-failed';
+      case 'In Progress': return 'indicator-progress';
+      default: return '';
+    }
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
