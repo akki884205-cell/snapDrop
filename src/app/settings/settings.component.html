@@ -1,0 +1,101 @@
+<div class="settings-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4H24C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" stroke="white" stroke-width="2"/>
+            <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1 class="logo-text">SnapDrop</h1>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <div class="main-nav">
+        <div class="nav-item" routerLink="/dashboard">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </div>
+          <span>HOME</span>
+        </div>
+        <div class="nav-item" routerLink="/policies">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.9 16,12.4 16,13V16C16,17.1 15.1,18 14,18H10C8.9,18 8,17.1 8,16V13C8,12.4 8.4,11.9 9,11.5V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,9.2 10.2,10V11.5H13.8V10C13.8,9.2 12.8,8.2 12,8.2Z"/>
+            </svg>
+          </div>
+          <span>POLICIES</span>
+        </div>
+        <div class="nav-item" routerLink="/reports">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M17,12H15.5L13.5,7H10.5L8.5,12H7L9.5,6H14.5L17,12Z"/>
+            </svg>
+          </div>
+          <span>REPORTS</span>
+        </div>
+      </div>
+      
+      <div class="bottom-nav">
+        <div class="nav-item" routerLink="/profile">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+            </svg>
+          </div>
+          <span>PROFILE</span>
+        </div>
+        <div class="nav-item active">
+          <div class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+            </svg>
+          </div>
+          <span>SETTINGS</span>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Settings Content -->
+    <main class="settings-main">
+      <!-- Page Title -->
+      <h1 class="page-title">Profile</h1>
+
+      <!-- URL/IP Blocking Preference Section -->
+      <div class="settings-section">
+        <h3 class="section-title">URL/IP Blocking Preference</h3>
+        
+        <div class="dropdown-container">
+          <div class="custom-dropdown" (click)="toggleDropdown()">
+            <span class="selected-value">{{ urlIpBlockingPreference }}</span>
+            <svg class="dropdown-arrow" [class.open]="showDropdown" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </div>
+          
+          <div class="dropdown-menu" *ngIf="showDropdown">
+            <div 
+              *ngFor="let option of blockingOptions" 
+              class="dropdown-item"
+              [class.selected]="option.value === urlIpBlockingPreference"
+              (click)="selectOption(option.value)"
+            >
+              {{ option.label }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Dropdown overlay to close when clicking outside -->
+<div class="dropdown-overlay" *ngIf="showDropdown" (click)="showDropdown = false"></div>
