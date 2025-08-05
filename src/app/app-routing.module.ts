@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'policies', component: PoliciesComponent },
+  { path: 'reports', component: ReportsComponent },
   { path: '**', redirectTo: '' }
 ];
 
