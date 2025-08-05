@@ -259,14 +259,14 @@
 
 .axis-label {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   line-height: 1;
 }
 
 .chart-area {
   flex: 1;
   position: relative;
-  background: rgba(0, 40, 80, 0.3);
+  background: var(--bg-secondary);
   border-radius: 8px;
   overflow: hidden;
 }
