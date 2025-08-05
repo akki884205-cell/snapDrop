@@ -4,11 +4,53 @@
   box-sizing: border-box;
 }
 
+/* Theme Variables */
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  --bg-secondary: rgba(0, 30, 60, 0.7);
+  --bg-card: rgba(0, 30, 60, 0.7);
+  --bg-sidebar: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Default/Light Theme */
+body.theme-default {
+  --bg-primary: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --bg-secondary: rgba(255, 255, 255, 0.9);
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-sidebar: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+body.theme-dark {
+  --bg-primary: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  --bg-secondary: rgba(0, 30, 60, 0.7);
+  --bg-card: rgba(0, 30, 60, 0.7);
+  --bg-sidebar: linear-gradient(180deg, #1a3557 0%, #0f2442 100%);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 html, body {
