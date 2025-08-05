@@ -31,8 +31,12 @@ export class ProfileComponent implements OnInit {
     if (!this.currentUser) {
       this.router.navigate(['/']);
     }
+
+    // Get current theme
+    this.selectedTheme = this.themeService.getCurrentTheme();
+
     this.updateDateTime();
-    
+
     // Update time every second
     setInterval(() => {
       this.updateDateTime();
