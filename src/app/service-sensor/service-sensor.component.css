@@ -216,7 +216,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .service-row:last-child {
@@ -225,13 +225,13 @@
 
 .service-label {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-secondary);
 }
 
 .service-value {
   font-size: 14px;
   font-weight: 500;
-  color: white;
+  color: var(--text-primary);
 }
 
 /* Usage Cards */
