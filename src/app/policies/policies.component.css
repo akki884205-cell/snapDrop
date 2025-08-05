@@ -485,6 +485,14 @@
   margin-top: 4px;
 }
 
+/* For last few rows, position dropdown upward */
+.table-row:nth-last-child(-n+2) .action-dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
 .action-dropdown-item {
   display: flex;
   align-items: center;
