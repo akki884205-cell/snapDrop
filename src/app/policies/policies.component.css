@@ -214,21 +214,22 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #00bfff 0%, #0066cc 100%);
+  background: #4A90A4;
   border: none;
   color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 20px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 144, 164, 0.3);
 }
 
 .add-policy-btn:hover {
-  background: linear-gradient(135deg, #0099cc 0%, #004d99 100%);
+  background: #3A7A8E;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(74, 144, 164, 0.4);
 }
 
 .dropdown-menu {
