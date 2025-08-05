@@ -2,7 +2,7 @@
   <div class="checklist-card">
     <div class="header-section">
       <h2 class="checklist-title">Activation Checklist</h2>
-      <button class="dropdown-btn">
+      <button class="dropdown-btn" (click)="onDropdownClick()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
           <path d="M7 10l5 5 5-5z"/>
         </svg>
@@ -10,40 +10,17 @@
     </div>
     
     <div class="checklist-items">
-      <div class="checklist-item">
+      <div *ngFor="let item of checklistItems" class="checklist-item">
         <div class="item-content">
-          <div class="item-icon completed">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+          <div class="item-icon" [class.completed]="item.completed">
+            <svg *ngIf="item.completed" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
             </svg>
+            <div *ngIf="!item.completed" class="icon-dot"></div>
           </div>
-          <span class="item-label">Step 1</span>
+          <span class="item-label">{{ item.label }}</span>
         </div>
-        <div class="toggle-switch active">
-          <div class="toggle-handle"></div>
-        </div>
-      </div>
-      
-      <div class="checklist-item">
-        <div class="item-content">
-          <div class="item-icon">
-            <div class="icon-dot"></div>
-          </div>
-          <span class="item-label">Step 2</span>
-        </div>
-        <div class="toggle-switch">
-          <div class="toggle-handle"></div>
-        </div>
-      </div>
-      
-      <div class="checklist-item">
-        <div class="item-content">
-          <div class="item-icon">
-            <div class="icon-dot"></div>
-          </div>
-          <span class="item-label">Step 3</span>
-        </div>
-        <div class="toggle-switch">
+        <div class="toggle-switch" [class.active]="item.active" (click)="onToggleItem(item.id)">
           <div class="toggle-handle"></div>
         </div>
       </div>
