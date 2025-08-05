@@ -26,6 +26,8 @@ export class PoliciesComponent implements OnInit {
   selectedFilters: string[] = [];
   showSuccessMessage: boolean = false;
   showCreateModal: boolean = false;
+  showUploadModal: boolean = false;
+  selectedFile: File | null = null;
 
   newPolicy = {
     name: '',
