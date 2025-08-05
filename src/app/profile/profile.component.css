@@ -304,12 +304,12 @@
 
 .theme-label {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .theme-option.selected .theme-label {
-  color: white;
+  color: var(--text-primary);
 }
 
 /* Responsive Design */
