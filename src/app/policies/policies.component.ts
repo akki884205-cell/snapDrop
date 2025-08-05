@@ -143,7 +143,7 @@ export class PoliciesComponent implements OnInit {
   }
 
   onCreateNew(): void {
-    console.log('Create new clicked');
+    this.showCreateModal = true;
   }
 
   onUploadFile(): void {
