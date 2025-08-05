@@ -176,6 +176,47 @@ export class PoliciesComponent implements OnInit {
     this.filteredPolicies[policyIndex].toggleActive = !this.filteredPolicies[policyIndex].toggleActive;
   }
 
+  onCancelModal(): void {
+    this.showCreateModal = false;
+    this.resetForm();
+  }
+
+  onAddPolicy(): void {
+    // Add the new policy to the list
+    const newPolicyId = (this.policies.length + 1).toString().padStart(6, '0');
+    const newPolicy: Policy = {
+      id: newPolicyId,
+      name: this.newPolicy.name || 'New Policy',
+      type: this.newPolicy.type,
+      filters: 'Label',
+      target: 'Label',
+      lastUpdated: new Date().toLocaleString(),
+      creationTime: 'Label',
+      actions: 'Label',
+      toggleActive: this.newPolicy.applyPolicy,
+      status: 'In Progress'
+    };
+
+    this.policies.push(newPolicy);
+    this.filterPolicies();
+    this.showCreateModal = false;
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+    this.resetForm();
+  }
+
+  private resetForm(): void {
+    this.newPolicy = {
+      name: '',
+      type: 'Domain',
+      description: '',
+      autoRefresh: false,
+      applyPolicy: false
+    };
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
