@@ -262,8 +262,8 @@
 /* Dashboards Content */
 .dashboards-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   min-height: 200px;
 }
 
