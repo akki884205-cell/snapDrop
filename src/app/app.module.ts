@@ -10,6 +10,7 @@ import { AnimatedBackgroundComponent } from './login/animated-background.compone
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PoliciesComponent } from './policies/policies.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ServiceSensorComponent } from './service-sensor/service-sensor.component';
 
 @NgModule({
   declarations: [
