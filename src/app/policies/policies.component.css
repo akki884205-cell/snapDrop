@@ -442,6 +442,7 @@
 
 .policy-actions {
   text-align: center;
+  position: relative;
 }
 
 .action-buttons {
