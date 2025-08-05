@@ -251,7 +251,7 @@
 .section-title {
   font-size: 18px;
   font-weight: 600;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 20px 0;
 }
 
