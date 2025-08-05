@@ -629,6 +629,17 @@
   margin-bottom: 20px;
 }
 
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.half-width {
+  flex: 1;
+  margin-bottom: 0;
+}
+
 .form-label {
   display: block;
   font-size: 14px;
