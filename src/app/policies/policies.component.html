@@ -198,4 +198,71 @@
       </div>
     </main>
   </div>
+
+  <!-- Create New Policy Modal -->
+  <div class="modal-overlay" *ngIf="showCreateModal" (click)="onCancelModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Create New Policy</h2>
+        <button class="modal-close" (click)="onCancelModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Name*</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Add policy name"
+            [(ngModel)]="newPolicy.name"
+          >
+          <small class="form-hint">Enter name or keywords</small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Type*</label>
+          <div class="select-wrapper">
+            <select class="form-select" [(ngModel)]="newPolicy.type">
+              <option value="Domain">Domain</option>
+              <option value="IP Port">IP Port</option>
+              <option value="Application">Application</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea
+            class="form-textarea"
+            placeholder="Type a detailed name"
+            [(ngModel)]="newPolicy.description"
+          ></textarea>
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="autoRefresh"
+              [(ngModel)]="newPolicy.autoRefresh"
+            >
+            <label for="autoRefresh" class="checkbox-label">Auto refresh whenever reloaded</label>
+          </div>
+        </div>
+
+        <div class="form-group apply-section">
+          <span class="apply-label">Apply this policy</span>
+          <div class="apply-toggle" [class.active]="newPolicy.applyPolicy" (click)="newPolicy.applyPolicy = !newPolicy.applyPolicy">
+            <div class="toggle-handle"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="onCancelModal()">Cancel</button>
+        <button class="btn-add" (click)="onAddPolicy()">Add</button>
+      </div>
+    </div>
+  </div>
 </div>
