@@ -138,13 +138,13 @@
   display: flex;
   gap: 8px;
   margin-bottom: 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .tab-button {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   padding: 12px 16px;
   font-size: 14px;
   font-weight: 500;
@@ -155,11 +155,11 @@
 }
 
 .tab-button:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
 }
 
 .tab-button.active {
-  color: white;
+  color: var(--text-primary);
   border-bottom-color: #4FC3F7;
 }
 
