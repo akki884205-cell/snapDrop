@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PoliciesComponent } from './policies/policies.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ServiceSensorComponent } from './service-sensor/service-sensor.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
