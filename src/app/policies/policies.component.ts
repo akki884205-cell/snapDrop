@@ -36,6 +36,7 @@ export class PoliciesComponent implements OnInit {
       lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
       creationTime: 'Label',
       actions: 'Label',
+      toggleActive: true,
       status: 'COMPLETED'
     },
     {
@@ -47,6 +48,7 @@ export class PoliciesComponent implements OnInit {
       lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
       creationTime: 'Label',
       actions: 'Label',
+      toggleActive: false,
       status: 'Failed'
     },
     {
@@ -58,6 +60,7 @@ export class PoliciesComponent implements OnInit {
       lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
       creationTime: 'Label',
       actions: 'Label',
+      toggleActive: false,
       status: 'In Progress'
     }
   ];
