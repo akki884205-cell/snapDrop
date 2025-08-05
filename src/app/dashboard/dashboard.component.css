@@ -2,26 +2,28 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-}
-
-/* Header Styles */
-.dashboard-header {
-  background: rgba(0, 20, 40, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0 24px;
-}
-
-.header-content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1400px;
-  margin: 0 auto;
-  height: 64px;
 }
 
-.header-left .logo-container {
+/* Sidebar Styles */
+.sidebar {
+  width: 240px;
+  background: rgba(0, 20, 40, 0.9);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  padding: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -40,22 +42,21 @@
   color: white;
 }
 
-.header-nav {
-  display: flex;
-  gap: 32px;
+.sidebar-nav {
+  padding: 24px 0;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 6px;
+  gap: 12px;
+  padding: 12px 24px;
   cursor: pointer;
   transition: all 0.3s ease;
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   font-weight: 500;
+  border-left: 3px solid transparent;
 }
 
 .nav-item:hover {
@@ -64,14 +65,37 @@
 }
 
 .nav-item.active {
-  background: rgba(0, 191, 255, 0.2);
+  background: rgba(0, 191, 255, 0.15);
   color: #00bfff;
+  border-left-color: #00bfff;
 }
 
 .nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Header */
+.top-header {
+  background: rgba(0, 20, 40, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .header-right {
@@ -110,11 +134,11 @@
   transform: translateY(-1px);
 }
 
-/* Main Content */
+/* Dashboard Main Content */
 .dashboard-main {
   padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .dashboard-grid {
