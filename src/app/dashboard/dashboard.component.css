@@ -522,11 +522,11 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 60px;
+    width: 80px;
   }
 
   .main-content {
-    margin-left: 60px;
+    margin-left: 80px;
   }
 
   .sidebar-header {
@@ -542,8 +542,14 @@
   }
 
   .nav-item {
-    padding: 12px 8px;
-    justify-content: center;
+    padding: 16px 8px;
+    margin: 8px;
+    gap: 0;
+  }
+
+  .nav-item.active::before {
+    left: -8px;
+    height: 30px;
   }
 
   .welcome-text {
