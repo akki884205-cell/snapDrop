@@ -154,9 +154,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(0, 30, 60, 0.6);
+  background: var(--input-bg);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--input-border);
   padding: 0;
   width: 350px;
 }
@@ -164,7 +164,7 @@
 .search-icon {
   position: absolute;
   left: 16px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
   z-index: 1;
 }
 
@@ -173,19 +173,19 @@
   border: none;
   border-radius: 20px;
   padding: 12px 50px 12px 45px;
-  color: white;
+  color: var(--text-primary);
   font-size: 14px;
   width: 100%;
   transition: all 0.3s ease;
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
 }
 
 .search-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-card);
 }
 
 .filter-btn {
