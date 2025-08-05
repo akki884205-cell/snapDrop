@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'policies', component: PoliciesComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'service-sensor', component: ServiceSensorComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '' }
 ];
 
