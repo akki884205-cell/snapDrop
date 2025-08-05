@@ -265,6 +265,27 @@ export class PoliciesComponent implements OnInit {
     console.log('Downloading upload format template');
   }
 
+  toggleActionDropdown(index: number): void {
+    this.showActionDropdown = this.showActionDropdown === index ? null : index;
+  }
+
+  onEditPolicy(policy: Policy, index: number): void {
+    console.log('Edit policy:', policy);
+    this.showActionDropdown = null;
+    // Add edit logic here
+  }
+
+  onDeletePolicy(policy: Policy, index: number): void {
+    console.log('Delete policy:', policy);
+    // Remove policy from array
+    const policyIndex = this.policies.findIndex(p => p.id === policy.id);
+    if (policyIndex > -1) {
+      this.policies.splice(policyIndex, 1);
+      this.filterPolicies();
+    }
+    this.showActionDropdown = null;
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
