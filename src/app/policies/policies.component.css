@@ -292,7 +292,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 24px;
 }
 
