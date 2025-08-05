@@ -12,6 +12,7 @@ import { PoliciesComponent } from './policies/policies.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ServiceSensorComponent } from './service-sensor/service-sensor.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
