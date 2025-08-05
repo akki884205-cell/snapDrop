@@ -208,7 +208,7 @@
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
 }
 
 /* Statistics Card */
@@ -230,13 +230,13 @@
 
 .stat-label {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .stat-value {
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
 }
 
 .stat-value.large {
