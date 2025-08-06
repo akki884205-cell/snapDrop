@@ -145,6 +145,9 @@ export class PoliciesComponent implements OnInit {
       return matchesSearch && (this.selectedFilters.length === 0 || matchesFilters);
     });
 
+    // Apply current sorting if any
+    this.applySorting();
+
     // Reset to first page when filtering
     this.currentPage = 1;
     this.updatePagination();
