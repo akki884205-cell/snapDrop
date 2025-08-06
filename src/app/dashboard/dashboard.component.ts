@@ -58,9 +58,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
-    if (!this.currentUser) {
-      this.router.navigate(['/']);
-    }
+    // Temporarily disable auth check for design review
+    // if (!this.currentUser) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   onLogout(): void {
