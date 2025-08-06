@@ -32,7 +32,7 @@ export class PoliciesComponent implements OnInit {
 
   // Pagination properties
   currentPage: number = 1;
-  pageSize: number = 25;
+  pageSize: number = 10;
   totalItems: number = 0;
   totalPages: number = 0;
   pageSizeOptions: number[] = [10, 25, 50, 100];
