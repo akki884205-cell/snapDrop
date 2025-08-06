@@ -39,6 +39,20 @@ export class PoliciesComponent implements OnInit {
   displayedPolicies: Policy[] = [];
   showPageSizeDropdown: boolean = false;
 
+  // Sorting properties
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' | '' = '';
+  sortableColumns = [
+    { key: 'id', label: 'Policy ID' },
+    { key: 'name', label: 'Name' },
+    { key: 'type', label: 'Type' },
+    { key: 'filters', label: 'Filters' },
+    { key: 'target', label: 'Target' },
+    { key: 'lastUpdated', label: 'Last Updated' },
+    { key: 'creationTime', label: 'Creation Time' },
+    { key: 'status', label: 'Status' }
+  ];
+
   newPolicy = {
     name: '',
     type: 'Domain',
