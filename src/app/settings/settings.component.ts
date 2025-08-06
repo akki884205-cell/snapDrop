@@ -45,6 +45,14 @@ export class SettingsComponent implements OnInit {
     console.log('URL/IP Blocking Preference changed to:', option);
   }
 
+  setDarkTheme(): void {
+    this.themeService.setTheme('dark');
+  }
+
+  setLightTheme(): void {
+    this.themeService.setTheme('default');
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
