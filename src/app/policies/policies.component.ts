@@ -73,6 +73,29 @@ export class PoliciesComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.filteredPolicies = [...this.policies];
+    this.updatePagination();
+  }
+
+  private generateSamplePolicies(count: number): Policy[] {
+    const policies: Policy[] = [];
+    const types = ['Domain', 'IP Port', 'Application'];
+    const statuses: ('COMPLETED' | 'Failed' | 'In Progress')[] = ['COMPLETED', 'Failed', 'In Progress'];
+
+    for (let i = 1; i <= count; i++) {
+      policies.push({
+        id: i.toString().padStart(6, '0'),
+        name: `Policy ${i}`,
+        type: types[i % types.length],
+        filters: `Filter ${i}`,
+        target: `Target ${i}`,
+        lastUpdated: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        creationTime: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        actions: 'Label',
+        toggleActive: Math.random() > 0.5,
+        status: statuses[i % statuses.length]
+      });
+    }
+    return policies;
   }
 
   onSearch(): void {
