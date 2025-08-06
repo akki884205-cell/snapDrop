@@ -239,6 +239,98 @@ export class PoliciesComponent implements OnInit {
     this.showPageSizeDropdown = !this.showPageSizeDropdown;
   }
 
+  // Sorting methods
+  onSort(column: string): void {
+    if (this.sortColumn === column) {
+      // Toggle sort direction
+      if (this.sortDirection === 'asc') {
+        this.sortDirection = 'desc';
+      } else if (this.sortDirection === 'desc') {
+        this.sortDirection = '';
+        this.sortColumn = '';
+      } else {
+        this.sortDirection = 'asc';
+      }
+    } else {
+      // New column
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    this.applySorting();
+    this.currentPage = 1; // Reset to first page when sorting
+    this.updatePagination();
+  }
+
+  private applySorting(): void {
+    if (!this.sortColumn || !this.sortDirection) {
+      // No sorting, use original order
+      this.filteredPolicies = [...this.policies.filter(policy => this.matchesSearch(policy))];
+      return;
+    }
+
+    this.filteredPolicies.sort((a, b) => {
+      let aValue = this.getSortValue(a, this.sortColumn);
+      let bValue = this.getSortValue(b, this.sortColumn);
+
+      // Handle different data types
+      if (this.sortColumn === 'lastUpdated' || this.sortColumn === 'creationTime') {
+        aValue = new Date(aValue).getTime();
+        bValue = new Date(bValue).getTime();
+      } else if (this.sortColumn === 'id') {
+        aValue = parseInt(aValue) || 0;
+        bValue = parseInt(bValue) || 0;
+      } else {
+        aValue = aValue.toString().toLowerCase();
+        bValue = bValue.toString().toLowerCase();
+      }
+
+      if (aValue < bValue) {
+        return this.sortDirection === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return this.sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  private getSortValue(policy: Policy, column: string): any {
+    switch (column) {
+      case 'id': return policy.id;
+      case 'name': return policy.name;
+      case 'type': return policy.type;
+      case 'filters': return policy.filters;
+      case 'target': return policy.target;
+      case 'lastUpdated': return policy.lastUpdated;
+      case 'creationTime': return policy.creationTime;
+      case 'status': return policy.status;
+      default: return '';
+    }
+  }
+
+  private matchesSearch(policy: Policy): boolean {
+    if (!this.searchTerm) return true;
+
+    return Object.values(policy).some(value =>
+      value.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  getSortIcon(column: string): string {
+    if (this.sortColumn !== column) {
+      return 'sort-none';
+    }
+
+    if (this.sortDirection === 'asc') {
+      return 'sort-asc';
+    } else if (this.sortDirection === 'desc') {
+      return 'sort-desc';
+    }
+
+    return 'sort-none';
+  }
+
   onAddNewPolicy(): void {
     this.showSuccessMessage = true;
     setTimeout(() => {
