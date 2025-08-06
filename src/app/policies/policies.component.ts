@@ -379,7 +379,8 @@ export class PoliciesComponent implements OnInit {
     const policyIndex = this.policies.findIndex(p => p.id === policy.id);
     if (policyIndex > -1) {
       this.policies.splice(policyIndex, 1);
-      this.filterPolicies();
+      this.filteredPolicies = this.filteredPolicies.filter(p => p.id !== policy.id);
+      this.updatePagination();
     }
     this.showActionDropdown = null;
   }
