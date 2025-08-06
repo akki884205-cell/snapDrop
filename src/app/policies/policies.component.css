@@ -349,6 +349,60 @@
   margin-bottom: 24px;
 }
 
+/* Sortable Headers */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.sortable:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sort-arrows {
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 6px;
+  vertical-align: middle;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+
+.sortable:hover .sort-arrows {
+  opacity: 0.6;
+}
+
+.sort-arrows .sort-arrow-up,
+.sort-arrows .sort-arrow-down {
+  display: block;
+  line-height: 1;
+  margin: -2px 0;
+}
+
+/* Sort states */
+.sort-arrows.sort-asc {
+  opacity: 1;
+}
+
+.sort-arrows.sort-asc .sort-arrow-down {
+  opacity: 0.3;
+}
+
+.sort-arrows.sort-desc {
+  opacity: 1;
+}
+
+.sort-arrows.sort-desc .sort-arrow-up {
+  opacity: 0.3;
+}
+
+.sort-arrows.sort-none .sort-arrow-up,
+.sort-arrows.sort-none .sort-arrow-down {
+  opacity: 0.3;
+}
+
 .policies-table {
   width: 100%;
   border-collapse: collapse;
