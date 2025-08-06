@@ -292,7 +292,8 @@ export class PoliciesComponent implements OnInit {
     };
 
     this.policies.push(newPolicy);
-    this.filterPolicies();
+    this.filteredPolicies = [...this.policies];
+    this.updatePagination();
     this.showCreateModal = false;
     this.showSuccessMessage = true;
     setTimeout(() => {
