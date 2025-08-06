@@ -356,6 +356,7 @@ export class PoliciesComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     this.showActionDropdown = null;
+    this.showPageSizeDropdown = false;
   }
 
   toggleActionDropdown(index: number): void {
