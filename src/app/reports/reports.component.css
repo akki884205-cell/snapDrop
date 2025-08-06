@@ -4,6 +4,30 @@
   background: var(--bg-primary);
   color: var(--text-primary);
   display: flex;
+  flex-direction: column;
+}
+
+/* App Header */
+.app-header {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-content {
+  display: flex;
+  margin-top: 80px;
+  min-height: calc(100vh - 80px);
 }
 
 /* Sidebar Styles */
