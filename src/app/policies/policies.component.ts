@@ -264,7 +264,10 @@ export class PoliciesComponent implements OnInit {
   }
 
   onTogglePolicy(policyIndex: number): void {
-    this.filteredPolicies[policyIndex].toggleActive = !this.filteredPolicies[policyIndex].toggleActive;
+    const actualIndex = (this.currentPage - 1) * this.pageSize + policyIndex;
+    if (actualIndex < this.filteredPolicies.length) {
+      this.filteredPolicies[actualIndex].toggleActive = !this.filteredPolicies[actualIndex].toggleActive;
+    }
   }
 
   onCancelModal(): void {
