@@ -185,15 +185,86 @@
   overflow-y: auto;
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto;
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  grid-template-areas: 
-    "statistics policy-types format-types"
-    "policy-status policy-status policy-status"
-    "detailed-status detailed-status additional-status";
+}
+
+/* Policy Statistics Section */
+.policy-statistics-section {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.policy-stats-header {
+  background: #f8f9fa;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.policy-stats-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.policy-stats-row {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 24px;
+  flex: 1;
+  text-align: center;
+}
+
+.stat-separator {
+  width: 1px;
+  height: 60px;
+  background: #e5e7eb;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Policy Types Section */
+.policy-types-section {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.policy-types-header {
+  background: #f8f9fa;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.policy-types-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
 }
 
 /* Card Styles */
