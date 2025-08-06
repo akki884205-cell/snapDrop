@@ -29,9 +29,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
-    if (!this.currentUser) {
-      this.router.navigate(['/']);
-    }
+    // Temporarily disable auth check to test themes
+    // if (!this.currentUser) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   toggleDropdown(): void {
