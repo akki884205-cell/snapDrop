@@ -40,7 +40,6 @@
   <div class="app-content">
     <!-- Sidebar -->
     <aside class="sidebar">
-
     <nav class="sidebar-nav">
       <div class="main-nav">
         <div class="nav-item active">
@@ -92,203 +91,208 @@
 
   <!-- Main Content Area -->
   <div class="main-content">
-
     <!-- Dashboard Content -->
     <main class="dashboard-main">
-    <div class="dashboard-container-new">
+      <div class="dashboard-layout">
+        
+        <!-- First Row: Policy Statistics -->
+        <div class="policy-statistics-section">
+          <div class="section-header">
+            <h3>Policy Statistics</h3>
+          </div>
+          <div class="stats-horizontal">
+            <div class="stat-item">
+              <span class="stat-label">Total Policies</span>
+              <span class="stat-value">{{ policyStats.totalPolicies }}</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label">Active</span>
+              <span class="stat-value">{{ policyStats.active }}</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label">Inactive</span>
+              <span class="stat-value">{{ policyStats.inactive }}</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label">Rejected</span>
+              <span class="stat-value">{{ policyStats.rejected }}</span>
+            </div>
+          </div>
+        </div>
 
-      <!-- Policy Statistics -->
-      <div class="policy-statistics-card">
-        <div class="card-header">
-          <h3>Policy Statistics</h3>
+        <!-- Second Row: Policy Types and Format Types -->
+        <div class="second-row">
+          <!-- Policy Types -->
+          <div class="policy-types-section">
+            <div class="section-header">
+              <h3>Policy Types</h3>
+            </div>
+            <div class="policy-types-grid">
+              <div class="policy-type-row">
+                <div class="policy-type-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+                <div class="policy-type-info">
+                  <span class="policy-type-label">Domain</span>
+                  <span class="policy-type-value">{{ policyTypes.domain }}</span>
+                </div>
+              </div>
+              <div class="policy-type-row">
+                <div class="policy-type-icon port-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                  </svg>
+                </div>
+                <div class="policy-type-info">
+                  <span class="policy-type-label">IP Port</span>
+                  <span class="policy-type-value">{{ policyTypes.port }}</span>
+                </div>
+              </div>
+              <div class="policy-type-row">
+                <div class="policy-type-icon app-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                  </svg>
+                </div>
+                <div class="policy-type-info">
+                  <span class="policy-type-label">Application</span>
+                  <span class="policy-type-value">{{ policyTypes.application }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Format Types -->
+          <div class="format-types-section">
+            <div class="section-header">
+              <h3>Format Types</h3>
+            </div>
+            <div class="format-content">
+              <div class="pie-chart">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#4A90E2" stroke-width="15"
+                          stroke-dasharray="65.97 219.91"
+                          stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#7ED321" stroke-width="15"
+                          stroke-dasharray="43.98 219.91"
+                          stroke-dashoffset="-65.97" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#F5A623" stroke-width="15"
+                          stroke-dasharray="43.98 219.91"
+                          stroke-dashoffset="-109.95" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#D0021B" stroke-width="15"
+                          stroke-dasharray="65.97 219.91"
+                          stroke-dashoffset="-153.93" transform="rotate(-90 50 50)"/>
+                </svg>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #4A90E2;"></div>
+                  <span>Database</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #7ED321;"></div>
+                  <span>Application</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #F5A623;"></div>
+                  <span>Port</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #D0021B;"></div>
+                  <span>Security</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stats-row">
-          <div class="stat-column">
-            <span class="stat-label">Total Policies</span>
-            <span class="stat-number">{{ policyStats.totalPolicies }}</span>
+
+        <!-- Third Row: Policy Status Progress -->
+        <div class="policy-status-section">
+          <div class="section-header">
+            <h3>Policy Status</h3>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat-column">
-            <span class="stat-label">Active</span>
-            <span class="stat-number">{{ policyStats.active }}</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-column">
-            <span class="stat-label">Inactive</span>
-            <span class="stat-number">{{ policyStats.inactive }}</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-column">
-            <span class="stat-label">Rejected</span>
-            <span class="stat-number">{{ policyStats.rejected }}</span>
+          <div class="status-progress">
+            <div class="progress-bar">
+              <div class="progress-active" [style.width.%]="getPolicyStatusPercentage('active')"></div>
+              <div class="progress-inactive" [style.width.%]="getPolicyStatusPercentage('inactive')"></div>
+              <div class="progress-pending" [style.width.%]="getPolicyStatusPercentage('pending')"></div>
+            </div>
+            <div class="progress-labels">
+              <div class="progress-label">
+                <span class="label-name">Active</span>
+                <span class="label-number">{{ policyStatus.active }}</span>
+              </div>
+              <div class="progress-label">
+                <span class="label-name">Inactive</span>
+                <span class="label-number">{{ policyStatus.inactive }}</span>
+              </div>
+              <div class="progress-label">
+                <span class="label-name">Pending</span>
+                <span class="label-number">{{ policyStatus.pending }}</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Fourth Row: Policy Status Details -->
+        <div class="policy-details-row">
+          <!-- Left Policy Status -->
+          <div class="policy-detail-section">
+            <div class="section-header">
+              <h3>Policy status</h3>
+            </div>
+            <div class="status-grid">
+              <div class="status-box">
+                <span class="status-label">Traffic Input Rate</span>
+                <span class="status-number">{{ detailedPolicyStatus.trafficInputRate }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">Client Hello Received</span>
+                <span class="status-number">{{ detailedPolicyStatus.clientHelloReceived }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">HTTP Packet Received</span>
+                <span class="status-number">{{ detailedPolicyStatus.httpPacketReceived }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">SSL Domains Found</span>
+                <span class="status-number">{{ detailedPolicyStatus.sslDomainsFound }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">HTTP Domains Found</span>
+                <span class="status-number">{{ detailedPolicyStatus.httpDomainsFound }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">Domains Matched with Policy</span>
+                <span class="status-number">{{ detailedPolicyStatus.domainsMatchedWithPolicy }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Policy Status -->
+          <div class="policy-detail-section">
+            <div class="section-header">
+              <h3>Policy status</h3>
+            </div>
+            <div class="status-grid">
+              <div class="status-box">
+                <span class="status-label">Packets Matched</span>
+                <span class="status-number">{{ additionalPolicyStatus.packetsMatched }}</span>
+              </div>
+              <div class="status-box">
+                <span class="status-label">IP/Port Packets Matched</span>
+                <span class="status-number">{{ additionalPolicyStatus.ipPortPacketsMatched }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Policy Types -->
-      <div class="card policy-types-card">
-        <div class="card-header">
-          <h3>Policy Types</h3>
-        </div>
-        <div class="policy-types-grid">
-          <div class="policy-type-item">
-            <div class="policy-type-icon domain">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-            <div class="policy-type-content">
-              <span class="policy-type-label">Domain</span>
-              <span class="policy-type-value">{{ policyTypes.domain }}</span>
-            </div>
-          </div>
-          <div class="policy-type-item">
-            <div class="policy-type-icon port">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </div>
-            <div class="policy-type-content">
-              <span class="policy-type-label">Port</span>
-              <span class="policy-type-value">{{ policyTypes.port }}</span>
-            </div>
-          </div>
-          <div class="policy-type-item">
-            <div class="policy-type-icon application">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
-              </svg>
-            </div>
-            <div class="policy-type-content">
-              <span class="policy-type-label">Application</span>
-              <span class="policy-type-value">{{ policyTypes.application }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Format Types Chart -->
-      <div class="card format-types-card">
-        <div class="card-header">
-          <h3>Format Types</h3>
-        </div>
-        <div class="format-chart-container">
-          <div class="pie-chart">
-            <svg width="120" height="120" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#4FC3F7" stroke-width="20"
-                      stroke-dasharray="94.25 314.16"
-                      stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#81C784" stroke-width="20"
-                      stroke-dasharray="78.54 314.16"
-                      stroke-dashoffset="-94.25" transform="rotate(-90 60 60)"/>
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#FFB74D" stroke-width="20"
-                      stroke-dasharray="62.83 314.16"
-                      stroke-dashoffset="-172.79" transform="rotate(-90 60 60)"/>
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#F06292" stroke-width="20"
-                      stroke-dasharray="78.54 314.16"
-                      stroke-dashoffset="-235.62" transform="rotate(-90 60 60)"/>
-            </svg>
-          </div>
-          <div class="chart-legend">
-            <div class="legend-item">
-              <div class="legend-color database"></div>
-              <span>Database</span>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color application"></div>
-              <span>Application</span>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color port"></div>
-              <span>Port</span>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color security"></div>
-              <span>Security</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Policy Status Progress -->
-      <div class="card policy-status-card">
-        <div class="card-header">
-          <h3>Policy Status</h3>
-        </div>
-        <div class="status-progress">
-          <div class="progress-bar">
-            <div class="progress-segment active" [style.width.%]="getPolicyStatusPercentage('active')"></div>
-            <div class="progress-segment inactive" [style.width.%]="getPolicyStatusPercentage('inactive')"></div>
-            <div class="progress-segment pending" [style.width.%]="getPolicyStatusPercentage('pending')"></div>
-          </div>
-          <div class="progress-labels">
-            <div class="progress-label">
-              <span class="label-text">Active</span>
-              <span class="label-value">{{ policyStatus.active }}</span>
-            </div>
-            <div class="progress-label">
-              <span class="label-text">Inactive</span>
-              <span class="label-value">{{ policyStatus.inactive }}</span>
-            </div>
-            <div class="progress-label">
-              <span class="label-text">Pending</span>
-              <span class="label-value">{{ policyStatus.pending }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed Policy Status -->
-      <div class="card detailed-status-card">
-        <div class="card-header">
-          <h3>Policy status</h3>
-        </div>
-        <div class="detailed-status-grid">
-          <div class="status-item">
-            <span class="status-label">Traffic Input Rate</span>
-            <span class="status-value">{{ detailedPolicyStatus.trafficInputRate }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">Client Hello Received</span>
-            <span class="status-value">{{ detailedPolicyStatus.clientHelloReceived }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">HTTP Packet Received</span>
-            <span class="status-value">{{ detailedPolicyStatus.httpPacketReceived }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">SSL Domains Found</span>
-            <span class="status-value">{{ detailedPolicyStatus.sslDomainsFound }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">HTTP Domains Found</span>
-            <span class="status-value">{{ detailedPolicyStatus.httpDomainsFound }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">Domains Matched with Policy</span>
-            <span class="status-value">{{ detailedPolicyStatus.domainsMatchedWithPolicy }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Additional Policy Status -->
-      <div class="card additional-status-card">
-        <div class="card-header">
-          <h3>Policy status</h3>
-        </div>
-        <div class="additional-status-grid">
-          <div class="status-item">
-            <span class="status-label">Packets Matched</span>
-            <span class="status-value">{{ additionalPolicyStatus.packetsMatched }}</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">IP/Port Packets Matched</span>
-            <span class="status-value">{{ additionalPolicyStatus.ipPortPacketsMatched }}</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
     </main>
   </div>
   </div>
