@@ -113,12 +113,12 @@ export class PoliciesComponent implements OnInit {
 
   private filterPolicies(): void {
     this.filteredPolicies = this.policies.filter(policy => {
-      const matchesSearch = !this.searchTerm || 
-        Object.values(policy).some(value => 
+      const matchesSearch = !this.searchTerm ||
+        Object.values(policy).some(value =>
           value.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
         );
-      
-      const matchesFilters = this.selectedFilters.length === 0 || 
+
+      const matchesFilters = this.selectedFilters.length === 0 ||
         this.selectedFilters.some(filter => {
           switch (filter) {
             case 'policyId': return policy.id.toLowerCase().includes(this.searchTerm.toLowerCase());
@@ -127,9 +127,102 @@ export class PoliciesComponent implements OnInit {
             default: return true;
           }
         });
-      
+
       return matchesSearch && (this.selectedFilters.length === 0 || matchesFilters);
     });
+
+    // Reset to first page when filtering
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  // Pagination methods
+  private updatePagination(): void {
+    this.totalItems = this.filteredPolicies.length;
+    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+    // Ensure current page is within bounds
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = Math.max(1, this.totalPages);
+    }
+
+    this.updateDisplayedPolicies();
+  }
+
+  private updateDisplayedPolicies(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayedPolicies = this.filteredPolicies.slice(startIndex, endIndex);
+  }
+
+  onPageSizeChange(newPageSize: number): void {
+    this.pageSize = newPageSize;
+    this.currentPage = 1;
+    this.showPageSizeDropdown = false;
+    this.updatePagination();
+  }
+
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updateDisplayedPolicies();
+    }
+  }
+
+  onPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayedPolicies();
+    }
+  }
+
+  onNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateDisplayedPolicies();
+    }
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPages = 6; // Show maximum 6 page numbers
+
+    if (this.totalPages <= maxPages) {
+      // Show all pages if total pages is less than max
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Show pages around current page
+      let start = Math.max(1, this.currentPage - 2);
+      let end = Math.min(this.totalPages, start + maxPages - 1);
+
+      // Adjust start if we're near the end
+      if (end - start < maxPages - 1) {
+        start = Math.max(1, end - maxPages + 1);
+      }
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  }
+
+  getShowingText(): string {
+    if (this.totalItems === 0) {
+      return 'Showing 0 to 0 of 0 entries';
+    }
+
+    const start = (this.currentPage - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage * this.pageSize, this.totalItems);
+
+    return `Showing ${start} to ${end} of ${this.totalItems} entries`;
+  }
+
+  togglePageSizeDropdown(): void {
+    this.showPageSizeDropdown = !this.showPageSizeDropdown;
   }
 
   onAddNewPolicy(): void {
