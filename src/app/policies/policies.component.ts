@@ -47,44 +47,7 @@ export class PoliciesComponent implements OnInit {
     applyPolicy: false
   };
   
-  policies: Policy[] = [
-    {
-      id: '888888',
-      name: 'abcdef',
-      type: 'Application',
-      filters: 'Label',
-      target: 'Label',
-      lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
-      creationTime: 'Label',
-      actions: 'Label',
-      toggleActive: true,
-      status: 'COMPLETED'
-    },
-    {
-      id: '888888',
-      name: 'abcdef',
-      type: 'Application',
-      filters: 'Label',
-      target: 'Label',
-      lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
-      creationTime: 'Label',
-      actions: 'Label',
-      toggleActive: false,
-      status: 'Failed'
-    },
-    {
-      id: '888888',
-      name: 'abcdef',
-      type: 'Application',
-      filters: 'Label',
-      target: 'Label',
-      lastUpdated: 'Sep 28, 8888, 12:56:58 PM',
-      creationTime: 'Label',
-      actions: 'Label',
-      toggleActive: false,
-      status: 'In Progress'
-    }
-  ];
+  policies: Policy[] = this.generateSamplePolicies(125);
 
   filteredPolicies: Policy[] = [];
   
