@@ -143,16 +143,96 @@
         <table class="policies-table">
           <thead>
             <tr>
-              <th>Policy ID <span class="sort-icon">⌄</span></th>
-              <th>Name <span class="sort-icon">⌄</span></th>
-              <th>Type <span class="sort-icon">⌄</span></th>
-              <th>Filters <span class="sort-icon">⌄</span></th>
-              <th>Target <span class="sort-icon">⌄</span></th>
-              <th>Last Updated <span class="sort-icon">⌄</span></th>
-              <th>Creation Time <span class="sort-icon">⌄</span></th>
-              <th>Actions/Checkboxes <span class="sort-icon">⌄</span></th>
-              <th>Status <span class="sort-icon">⌄</span></th>
-              <th>Actions <span class="sort-icon">⌄</span></th>
+              <th class="sortable" (click)="onSort('id')">
+                Policy ID
+                <span class="sort-arrows" [class]="getSortIcon('id')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('name')">
+                Name
+                <span class="sort-arrows" [class]="getSortIcon('name')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('type')">
+                Type
+                <span class="sort-arrows" [class]="getSortIcon('type')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('filters')">
+                Filters
+                <span class="sort-arrows" [class]="getSortIcon('filters')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('target')">
+                Target
+                <span class="sort-arrows" [class]="getSortIcon('target')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('lastUpdated')">
+                Last Updated
+                <span class="sort-arrows" [class]="getSortIcon('lastUpdated')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('creationTime')">
+                Creation Time
+                <span class="sort-arrows" [class]="getSortIcon('creationTime')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th>Actions/Checkboxes</th>
+              <th class="sortable" (click)="onSort('status')">
+                Status
+                <span class="sort-arrows" [class]="getSortIcon('status')">
+                  <svg class="sort-arrow-up" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5 5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
