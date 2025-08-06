@@ -30,6 +30,15 @@ export class PoliciesComponent implements OnInit {
   selectedFile: File | null = null;
   showActionDropdown: number | null = null;
 
+  // Pagination properties
+  currentPage: number = 1;
+  pageSize: number = 25;
+  totalItems: number = 0;
+  totalPages: number = 0;
+  pageSizeOptions: number[] = [10, 25, 50, 100];
+  displayedPolicies: Policy[] = [];
+  showPageSizeDropdown: boolean = false;
+
   newPolicy = {
     name: '',
     type: 'Domain',
