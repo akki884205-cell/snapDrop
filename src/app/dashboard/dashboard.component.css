@@ -270,18 +270,6 @@
 /* Clean up - removed old card styles */
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "statistics policy-types"
-      "format-types format-types"
-      "policy-status policy-status"
-      "detailed-status detailed-status"
-      "additional-status additional-status";
-  }
-}
-
 @media (max-width: 768px) {
   .sidebar {
     width: 100px;
@@ -295,28 +283,13 @@
     padding: 16px;
   }
 
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "statistics"
-      "policy-types"
-      "format-types"
-      "policy-status"
-      "detailed-status"
-      "additional-status";
+  .policy-stats-row {
+    flex-direction: column;
   }
 
-  .stats-grid,
-  .detailed-status-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-legend {
-    grid-template-columns: 1fr;
-  }
-
-  .top-header {
-    padding: 0 16px;
+  .stat-separator {
+    width: 100%;
+    height: 1px;
   }
 }
 
@@ -329,39 +302,11 @@
     margin-left: 70px;
   }
 
-  .sidebar-header {
-    padding: 12px 4px;
-  }
-
-  .logo-text {
-    font-size: 8px;
-  }
-
-  .nav-item span {
-    font-size: 8px;
-  }
-
-  .nav-item {
-    padding: 10px 4px;
-    margin: 2px 4px;
-    gap: 4px;
-  }
-
-  .nav-item.active::before {
-    left: -4px;
-    height: 25px;
-    width: 2px;
-  }
-
   .welcome-text {
     display: none;
   }
 
-  .card {
-    padding: 16px;
-  }
-
-  .top-header {
-    padding: 0 8px;
+  .policy-statistics-section {
+    margin: 0 8px;
   }
 }
