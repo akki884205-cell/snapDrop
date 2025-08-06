@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   
   // Dashboard statistics
   policyStats = {
-    totalPolicies: 651,
+    totalPolicies: 661,
     active: 9,
     inactive: 87,
     rejected: 43
