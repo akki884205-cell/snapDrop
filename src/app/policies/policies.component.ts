@@ -377,7 +377,7 @@ export class PoliciesComponent implements OnInit {
   private initializeForm(): void {
     this.policyForm = this.formBuilder.group({
       name: ['', [Validators.required, this.noWhitespaceValidator]],
-      type: ['domain', [Validators.required]],
+      type: ['Domain', [Validators.required]],
       domain: [''],
       ip: [''],
       port: [''],
@@ -391,7 +391,7 @@ export class PoliciesComponent implements OnInit {
     });
 
     // Set initial validation for default type
-    this.updateValidationForType('domain');
+    this.updateValidationForType('Domain');
   }
 
   private updateValidationForType(type: string): void {
@@ -407,35 +407,38 @@ export class PoliciesComponent implements OnInit {
     applicationControl?.clearValidators();
 
     // Reset values for unused fields
-    if (type !== 'domain') {
+    if (type !== 'Domain') {
       domainControl?.setValue('');
     }
-    if (type !== 'ipport') {
+    if (type !== 'IP' && type !== 'IP-Port') {
       ipControl?.setValue('');
       portControl?.setValue('');
     }
-    if (type !== 'application') {
+    if (type !== 'Application') {
       applicationControl?.setValue('');
     }
 
     // Set validators based on type
     switch (type) {
-      case 'domain':
+      case 'Domain':
         domainControl?.setValidators([
           Validators.required,
           this.noWhitespaceValidator,
           this.domainValidator
         ]);
         break;
-      case 'ipport':
+      case 'IP':
+      case 'IP-Port':
         ipControl?.setValidators([
           Validators.required,
           this.noWhitespaceValidator,
           this.ipValidator
         ]);
-        portControl?.setValidators([this.portValidator]);
+        if (type === 'IP-Port') {
+          portControl?.setValidators([this.portValidator]);
+        }
         break;
-      case 'application':
+      case 'Application':
         applicationControl?.setValidators([
           Validators.required,
           this.applicationValidator
@@ -555,7 +558,7 @@ export class PoliciesComponent implements OnInit {
 
   // Getters for template
   get currentPolicyType(): string {
-    return this.policyForm.get('type')?.value || 'domain';
+    return this.policyForm.get('type')?.value || 'Domain';
   }
 
   get isFormValid(): boolean {
@@ -706,16 +709,20 @@ export class PoliciesComponent implements OnInit {
 
     // Map form type to API type
     switch (formValue.type) {
-      case 'domain':
-        filterType = 'domain';
+      case 'Domain':
+        filterType = 'Domain';
         filterValue = formValue.domain;
         break;
-      case 'ipport':
+      case 'IP':
+        filterType = 'IP';
+        filterValue = formValue.ip;
+        break;
+      case 'IP-Port':
         filterType = 'IP-Port';
         filterValue = formValue.port ? `${formValue.ip};${formValue.port}` : formValue.ip;
         break;
-      case 'application':
-        filterType = 'application';
+      case 'Application':
+        filterType = 'Application';
         filterValue = formValue.application;
         break;
     }
@@ -748,13 +755,16 @@ export class PoliciesComponent implements OnInit {
     // Build target based on type
     let target = '';
     switch (formValue.type) {
-      case 'domain':
+      case 'Domain':
         target = formValue.domain;
         break;
-      case 'ipport':
+      case 'IP':
+        target = formValue.ip;
+        break;
+      case 'IP-Port':
         target = formValue.port ? `${formValue.ip}:${formValue.port}` : formValue.ip;
         break;
-      case 'application':
+      case 'Application':
         target = formValue.application;
         break;
     }
@@ -799,7 +809,7 @@ export class PoliciesComponent implements OnInit {
   private resetForm(): void {
     this.policyForm.reset({
       name: '',
-      type: 'domain',
+      type: 'Domain',
       domain: '',
       ip: '',
       port: '',
@@ -807,7 +817,7 @@ export class PoliciesComponent implements OnInit {
       activatePolicy: false
     });
     this.filteredApplications = [];
-    this.updateValidationForType('domain');
+    this.updateValidationForType('Domain');
 
     // Clear submission states
     this.isSubmitting = false;
