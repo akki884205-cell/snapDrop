@@ -788,11 +788,41 @@ export class PoliciesComponent implements OnInit {
   }
 
   private getErrorMessage(error: any): string {
-    if (error.error?.message) {
-      return error.error.message;
+    console.error('Full error object:', error);
+
+    // Check for HTTP error response
+    if (error.error) {
+      // If error.error is a string
+      if (typeof error.error === 'string') {
+        return error.error;
+      }
+
+      // If error.error has message property
+      if (error.error.message) {
+        return error.error.message;
+      }
+
+      // If error.error has other properties, try to extract meaningful info
+      if (error.error.error) {
+        return error.error.error;
+      }
+
+      // Try to stringify the error object
+      try {
+        return JSON.stringify(error.error);
+      } catch (e) {
+        // If stringification fails, fall through to other checks
+      }
     }
+
+    // Check for direct message
     if (error.message) {
       return error.message;
+    }
+
+    // Check for specific HTTP status codes
+    if (error.status === 0) {
+      return 'Network error. Please check your connection and try again.';
     }
     if (error.status === 401) {
       return 'Authentication failed. Please login again.';
@@ -800,9 +830,26 @@ export class PoliciesComponent implements OnInit {
     if (error.status === 403) {
       return 'Access denied. You do not have permission to create policies.';
     }
+    if (error.status === 404) {
+      return 'API endpoint not found. Please check the server configuration.';
+    }
+    if (error.status === 422) {
+      return 'Invalid data provided. Please check your input and try again.';
+    }
     if (error.status === 500) {
       return 'Server error. Please try again later.';
     }
+
+    // If all else fails, try to extract any meaningful text from the error
+    if (error.statusText && error.statusText !== 'Unknown Error') {
+      return `Error ${error.status}: ${error.statusText}`;
+    }
+
+    // Last resort - return a generic message with status if available
+    if (error.status) {
+      return `Request failed with status ${error.status}. Please try again.`;
+    }
+
     return 'An unexpected error occurred. Please try again.';
   }
 
