@@ -638,8 +638,8 @@
         <button
           class="btn-upload"
           (click)="onUploadFileSubmit()"
-          [disabled]="!selectedFile || isUploading"
-          [class.disabled]="!selectedFile || isUploading"
+          [disabled]="!selectedFile || isUploading || uploadError"
+          [class.disabled]="!selectedFile || isUploading || uploadError"
           [class.loading]="isUploading"
         >
           <span *ngIf="!isUploading">Upload</span>
