@@ -88,8 +88,11 @@ export class PoliciesComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.initializeForm();
+  }
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
