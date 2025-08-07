@@ -697,8 +697,13 @@ export class PoliciesComponent implements OnInit {
       },
       error: (error) => {
         this.isSubmitting = false;
+        console.error('Policy creation failed - Full error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error body:', error.error);
+
         this.submitError = this.getErrorMessage(error);
-        console.error('Policy creation failed:', error);
+        console.log('Formatted error message:', this.submitError);
       }
     });
   }
