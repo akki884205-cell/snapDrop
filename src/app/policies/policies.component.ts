@@ -55,13 +55,21 @@ export class PoliciesComponent implements OnInit {
     { key: 'status', label: 'Status' }
   ];
 
-  newPolicy = {
-    name: '',
-    type: 'Domain',
-    description: '',
-    autoRefresh: false,
-    applyPolicy: false
-  };
+  // Reactive Form
+  policyForm!: FormGroup;
+
+  // Application autocomplete
+  applicationOptions: string[] = [];
+  filteredApplications: string[] = [];
+
+  // Mock applications for autocomplete
+  private mockApplications = [
+    'Chrome Browser', 'Firefox Browser', 'Microsoft Edge', 'Safari Browser',
+    'WhatsApp', 'Telegram', 'Discord', 'Slack', 'Microsoft Teams',
+    'Netflix', 'YouTube', 'Spotify', 'Amazon Prime', 'Disney Plus',
+    'Microsoft Office', 'Adobe Photoshop', 'Visual Studio Code', 'IntelliJ IDEA',
+    'Zoom', 'Google Meet', 'Skype', 'WebEx'
+  ];
   
   policies: Policy[] = this.generateSamplePolicies(125);
 
