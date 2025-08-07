@@ -676,6 +676,10 @@ export class PoliciesComponent implements OnInit {
     const formValue = this.policyForm.value;
     const payload = this.createApiPayload(formValue);
 
+    console.log('Form values:', formValue);
+    console.log('API payload:', payload);
+    console.log('API endpoint:', this.apiUrl);
+
     this.createPolicy(payload).subscribe({
       next: (response) => {
         this.isSubmitting = false;
