@@ -424,14 +424,14 @@ export class PoliciesComponent implements OnInit {
     applicationControl?.updateValueAndValidity();
   }
 
-  // Custom Validators
-  private noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+  // Custom Validators - using arrow functions to preserve 'this' context
+  private noWhitespaceValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
     const isWhitespace = (control.value || '').trim().length === 0;
     return isWhitespace ? { whitespace: true } : null;
   }
 
-  private domainValidator(control: AbstractControl): ValidationErrors | null {
+  private domainValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
 
     const domainRegex = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
@@ -440,7 +440,7 @@ export class PoliciesComponent implements OnInit {
     return isValid ? null : { invalidDomain: true };
   }
 
-  private ipValidator(control: AbstractControl): ValidationErrors | null {
+  private ipValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
 
     const value = control.value.trim();
