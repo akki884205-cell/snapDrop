@@ -347,6 +347,240 @@ export class PoliciesComponent implements OnInit {
     return 'sort-none';
   }
 
+  // Form initialization and validation
+  private initializeForm(): void {
+    this.policyForm = this.formBuilder.group({
+      name: ['', [Validators.required, this.noWhitespaceValidator]],
+      type: ['domain', [Validators.required]],
+      domain: [''],
+      ip: [''],
+      port: [''],
+      application: [''],
+      applyPolicy: [false]
+    });
+
+    // Subscribe to type changes to update validation dynamically
+    this.policyForm.get('type')?.valueChanges.subscribe(type => {
+      this.updateValidationForType(type);
+    });
+
+    // Set initial validation for default type
+    this.updateValidationForType('domain');
+  }
+
+  private updateValidationForType(type: string): void {
+    const domainControl = this.policyForm.get('domain');
+    const ipControl = this.policyForm.get('ip');
+    const portControl = this.policyForm.get('port');
+    const applicationControl = this.policyForm.get('application');
+
+    // Clear all validators first
+    domainControl?.clearValidators();
+    ipControl?.clearValidators();
+    portControl?.clearValidators();
+    applicationControl?.clearValidators();
+
+    // Reset values for unused fields
+    if (type !== 'domain') {
+      domainControl?.setValue('');
+    }
+    if (type !== 'ipport') {
+      ipControl?.setValue('');
+      portControl?.setValue('');
+    }
+    if (type !== 'application') {
+      applicationControl?.setValue('');
+    }
+
+    // Set validators based on type
+    switch (type) {
+      case 'domain':
+        domainControl?.setValidators([
+          Validators.required,
+          this.noWhitespaceValidator,
+          this.domainValidator
+        ]);
+        break;
+      case 'ipport':
+        ipControl?.setValidators([
+          Validators.required,
+          this.noWhitespaceValidator,
+          this.ipValidator
+        ]);
+        portControl?.setValidators([this.portValidator]);
+        break;
+      case 'application':
+        applicationControl?.setValidators([
+          Validators.required,
+          this.applicationValidator
+        ]);
+        break;
+    }
+
+    // Update validity
+    domainControl?.updateValueAndValidity();
+    ipControl?.updateValueAndValidity();
+    portControl?.updateValueAndValidity();
+    applicationControl?.updateValueAndValidity();
+  }
+
+  // Custom Validators
+  private noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    const isWhitespace = (control.value || '').trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
+  }
+
+  private domainValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const domainRegex = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
+    const isValid = domainRegex.test(control.value.trim());
+
+    return isValid ? null : { invalidDomain: true };
+  }
+
+  private ipValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const value = control.value.trim();
+
+    // Check for CIDR notation
+    if (value.includes('/')) {
+      return this.validateCIDR(value);
+    }
+
+    // Check for IPv4 or IPv6
+    return this.validateIP(value);
+  }
+
+  private validateIP(ip: string): ValidationErrors | null {
+    const ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    const ipv6Regex = /^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$|^::1$|^::$/;
+
+    if (ipv4Regex.test(ip) || ipv6Regex.test(ip)) {
+      return null;
+    }
+
+    return { invalidIP: true };
+  }
+
+  private validateCIDR(cidr: string): ValidationErrors | null {
+    const parts = cidr.split('/');
+    if (parts.length !== 2) {
+      return { invalidCIDR: true };
+    }
+
+    const [ip, prefix] = parts;
+    const prefixNum = parseInt(prefix, 10);
+
+    // Validate IP part
+    const ipValidation = this.validateIP(ip);
+    if (ipValidation) {
+      return { invalidCIDR: true };
+    }
+
+    // Validate prefix
+    const isIPv4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip);
+    const maxPrefix = isIPv4 ? 32 : 128;
+
+    if (isNaN(prefixNum) || prefixNum < 0 || prefixNum > maxPrefix) {
+      return { invalidCIDR: true };
+    }
+
+    return null;
+  }
+
+  private portValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null; // Port is optional
+
+    const portNum = parseInt(control.value, 10);
+    if (isNaN(portNum) || portNum < 1 || portNum > 65535) {
+      return { invalidPort: true };
+    }
+
+    return null;
+  }
+
+  private applicationValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+
+    const isValid = this.mockApplications.includes(control.value);
+    return isValid ? null : { invalidApplication: true };
+  }
+
+  // Application autocomplete methods
+  onApplicationSearch(searchTerm: string): void {
+    if (!searchTerm || searchTerm.length < 2) {
+      this.filteredApplications = [];
+      return;
+    }
+
+    // Simulate API call with debouncing
+    this.filteredApplications = this.mockApplications
+      .filter(app => app.toLowerCase().includes(searchTerm.toLowerCase()))
+      .slice(0, 8); // Limit to 8 results
+  }
+
+  onApplicationSelect(application: string): void {
+    this.policyForm.get('application')?.setValue(application);
+    this.filteredApplications = [];
+  }
+
+  // Getters for template
+  get currentPolicyType(): string {
+    return this.policyForm.get('type')?.value || 'domain';
+  }
+
+  get isFormValid(): boolean {
+    return this.policyForm.valid;
+  }
+
+  // Error message getters
+  getFieldError(fieldName: string): string {
+    const field = this.policyForm.get(fieldName);
+    if (!field || !field.touched || !field.errors) {
+      return '';
+    }
+
+    const errors = field.errors;
+
+    if (errors['required']) {
+      return `${this.getFieldDisplayName(fieldName)} is required`;
+    }
+    if (errors['whitespace']) {
+      return `${this.getFieldDisplayName(fieldName)} cannot be empty`;
+    }
+    if (errors['invalidDomain']) {
+      return 'Please enter a valid domain name';
+    }
+    if (errors['invalidIP']) {
+      return 'Please enter a valid IPv4/IPv6 address';
+    }
+    if (errors['invalidCIDR']) {
+      return 'Please enter a valid CIDR notation';
+    }
+    if (errors['invalidPort']) {
+      return 'Port must be between 1 and 65535';
+    }
+    if (errors['invalidApplication']) {
+      return 'Please select a valid application';
+    }
+
+    return '';
+  }
+
+  private getFieldDisplayName(fieldName: string): string {
+    const displayNames: { [key: string]: string } = {
+      name: 'Name',
+      domain: 'Domain',
+      ip: 'IP Address',
+      port: 'Port',
+      application: 'Application'
+    };
+    return displayNames[fieldName] || fieldName;
+  }
+
   onAddNewPolicy(): void {
     this.showSuccessMessage = true;
     setTimeout(() => {
