@@ -407,7 +407,7 @@
           <!-- Dynamic fields based on selected type -->
 
           <!-- Domain Type Fields -->
-          <div class="dynamic-fields" *ngIf="currentPolicyType === 'domain'">
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'Domain'">
             <div class="form-group">
               <label class="form-label">Domain*</label>
               <input
@@ -422,8 +422,8 @@
             </div>
           </div>
 
-          <!-- IP Port Type Fields -->
-          <div class="dynamic-fields" *ngIf="currentPolicyType === 'ipport'">
+          <!-- IP and IP-Port Type Fields -->
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'IP' || currentPolicyType === 'IP-Port'">
             <div class="form-row">
               <div class="form-group half-width">
                 <label class="form-label">IP Address*</label>
@@ -438,7 +438,7 @@
                 <small class="form-hint">IPv4, IPv6, or CIDR notation supported</small>
               </div>
 
-              <div class="form-group half-width">
+              <div class="form-group half-width" *ngIf="currentPolicyType === 'IP-Port'">
                 <label class="form-label">Port</label>
                 <input
                   type="number"
@@ -456,7 +456,7 @@
           </div>
 
           <!-- Application Type Fields -->
-          <div class="dynamic-fields" *ngIf="currentPolicyType === 'application'">
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'Application'">
             <div class="form-group">
               <label class="form-label">Application*</label>
               <div class="autocomplete-container">
