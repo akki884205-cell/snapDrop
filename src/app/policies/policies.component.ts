@@ -632,18 +632,38 @@ export class PoliciesComponent implements OnInit {
   }
 
   onAddPolicy(): void {
-    // Add the new policy to the list
+    if (!this.policyForm.valid) {
+      this.markFormGroupTouched();
+      return;
+    }
+
+    const formValue = this.policyForm.value;
     const newPolicyId = (this.policies.length + 1).toString().padStart(6, '0');
+
+    // Build target based on type
+    let target = '';
+    switch (formValue.type) {
+      case 'domain':
+        target = formValue.domain;
+        break;
+      case 'ipport':
+        target = formValue.port ? `${formValue.ip}:${formValue.port}` : formValue.ip;
+        break;
+      case 'application':
+        target = formValue.application;
+        break;
+    }
+
     const newPolicy: Policy = {
       id: newPolicyId,
-      name: this.newPolicy.name || 'New Policy',
-      type: this.newPolicy.type,
-      filters: 'Label',
-      target: 'Label',
-      lastUpdated: new Date().toLocaleString(),
-      creationTime: 'Label',
+      name: formValue.name,
+      type: formValue.type.charAt(0).toUpperCase() + formValue.type.slice(1),
+      filters: 'Auto-generated',
+      target: target,
+      lastUpdated: new Date().toLocaleDateString(),
+      creationTime: new Date().toLocaleDateString(),
       actions: 'Label',
-      toggleActive: this.newPolicy.applyPolicy,
+      toggleActive: formValue.applyPolicy,
       status: 'In Progress'
     };
 
@@ -659,13 +679,24 @@ export class PoliciesComponent implements OnInit {
   }
 
   private resetForm(): void {
-    this.newPolicy = {
+    this.policyForm.reset({
       name: '',
-      type: 'Domain',
-      description: '',
-      autoRefresh: false,
+      type: 'domain',
+      domain: '',
+      ip: '',
+      port: '',
+      application: '',
       applyPolicy: false
-    };
+    });
+    this.filteredApplications = [];
+    this.updateValidationForType('domain');
+  }
+
+  private markFormGroupTouched(): void {
+    Object.keys(this.policyForm.controls).forEach(key => {
+      const control = this.policyForm.get(key);
+      control?.markAsTouched();
+    });
   }
 
   onCancelUpload(): void {
