@@ -900,8 +900,13 @@ export class PoliciesComponent implements OnInit {
   }
 
   onCancelUpload(): void {
+    if (this.isUploading) {
+      return; // Prevent closing modal during upload
+    }
     this.showUploadModal = false;
     this.selectedFile = null;
+    this.uploadError = '';
+    this.uploadSuccess = '';
   }
 
   onFileSelected(event: any): void {
