@@ -907,7 +907,16 @@ export class PoliciesComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
+      const validationResult = this.validateFile(file);
+      if (validationResult.isValid) {
+        this.selectedFile = file;
+        this.uploadError = '';
+      } else {
+        this.selectedFile = null;
+        this.uploadError = validationResult.error;
+        // Clear the input
+        event.target.value = '';
+      }
     }
   }
 
