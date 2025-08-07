@@ -663,7 +663,83 @@ export class PoliciesComponent implements OnInit {
       return;
     }
 
+    this.isSubmitting = true;
+    this.submitError = '';
+    this.submitSuccess = '';
+
     const formValue = this.policyForm.value;
+    const payload = this.createApiPayload(formValue);
+
+    this.createPolicy(payload).subscribe({
+      next: (response) => {
+        this.isSubmitting = false;
+        this.submitSuccess = 'Policy created successfully!';
+
+        // Add to local data for UI update
+        this.addPolicyToLocalData(formValue);
+
+        // Close modal and reset form
+        this.showCreateModal = false;
+        this.resetForm();
+
+        // Show success message
+        this.showSuccessMessage = true;
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          this.submitSuccess = '';
+        }, 3000);
+      },
+      error: (error) => {
+        this.isSubmitting = false;
+        this.submitError = this.getErrorMessage(error);
+        console.error('Policy creation failed:', error);
+      }
+    });
+  }
+
+  private createApiPayload(formValue: any): PolicyCreateRequest {
+    let filterValue = '';
+    let filterType = '';
+
+    // Map form type to API type
+    switch (formValue.type) {
+      case 'domain':
+        filterType = 'domain';
+        filterValue = formValue.domain;
+        break;
+      case 'ipport':
+        filterType = 'IP-Port';
+        filterValue = formValue.port ? `${formValue.ip};${formValue.port}` : formValue.ip;
+        break;
+      case 'application':
+        filterType = 'application';
+        filterValue = formValue.application;
+        break;
+    }
+
+    return {
+      filterName: formValue.name,
+      filterType: filterType,
+      filterValue: filterValue,
+      filterPid: '',
+      domainIpValue: '',
+      filterStatus: formValue.activatePolicy ? 'ACTIVE' : 'INACTIVE',
+      netifyFilter: true
+    };
+  }
+
+  private createPolicy(payload: PolicyCreateRequest): Observable<PolicyCreateResponse> {
+    const token = this.authService.getAuthToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'accept': '*/*'
+    });
+
+    return this.http.post<PolicyCreateResponse>(this.apiUrl, payload, { headers });
+  }
+
+  private addPolicyToLocalData(formValue: any): void {
     const newPolicyId = (this.policies.length + 1).toString().padStart(6, '0');
 
     // Build target based on type
@@ -690,18 +766,31 @@ export class PoliciesComponent implements OnInit {
       creationTime: new Date().toLocaleDateString(),
       actions: 'Label',
       toggleActive: formValue.activatePolicy,
-      status: 'In Progress'
+      status: 'COMPLETED'
     };
 
     this.policies.push(newPolicy);
     this.filteredPolicies = [...this.policies];
     this.updatePagination();
-    this.showCreateModal = false;
-    this.showSuccessMessage = true;
-    setTimeout(() => {
-      this.showSuccessMessage = false;
-    }, 3000);
-    this.resetForm();
+  }
+
+  private getErrorMessage(error: any): string {
+    if (error.error?.message) {
+      return error.error.message;
+    }
+    if (error.message) {
+      return error.message;
+    }
+    if (error.status === 401) {
+      return 'Authentication failed. Please login again.';
+    }
+    if (error.status === 403) {
+      return 'Access denied. You do not have permission to create policies.';
+    }
+    if (error.status === 500) {
+      return 'Server error. Please try again later.';
+    }
+    return 'An unexpected error occurred. Please try again.';
   }
 
   private resetForm(): void {
