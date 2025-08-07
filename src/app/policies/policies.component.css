@@ -1534,3 +1534,38 @@
     transform: rotate(360deg);
   }
 }
+
+/* Upload Modal Specific Styles */
+.file-requirements {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(74, 144, 164, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(74, 144, 164, 0.3);
+}
+
+.file-hint {
+  color: #4A90A4;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.upload-error-message {
+  margin-bottom: 16px;
+}
+
+.upload-success-message {
+  margin-bottom: 16px;
+}
+
+.btn-upload:disabled,
+.btn-upload.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(74, 144, 164, 0.5);
+}
+
+.btn-upload.loading {
+  position: relative;
+  pointer-events: none;
+}
