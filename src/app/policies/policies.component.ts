@@ -805,6 +805,11 @@ export class PoliciesComponent implements OnInit {
     });
     this.filteredApplications = [];
     this.updateValidationForType('domain');
+
+    // Clear submission states
+    this.isSubmitting = false;
+    this.submitError = '';
+    this.submitSuccess = '';
   }
 
   private markFormGroupTouched(): void {
