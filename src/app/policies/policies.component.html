@@ -487,13 +487,33 @@
           <div class="form-group apply-section">
             <span class="apply-label">Apply this policy</span>
             <div class="apply-toggle"
-                 [class.active]="policyForm.get('applyPolicy')?.value"
-                 (click)="policyForm.get('applyPolicy')?.setValue(!policyForm.get('applyPolicy')?.value)">
+                 [class.active]="policyForm.get('activatePolicy')?.value"
+                 (click)="policyForm.get('activatePolicy')?.setValue(!policyForm.get('activatePolicy')?.value)">
               <div class="toggle-handle">
-                <svg *ngIf="policyForm.get('applyPolicy')?.value" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <svg *ngIf="policyForm.get('activatePolicy')?.value" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                 </svg>
               </div>
+            </div>
+          </div>
+
+          <!-- Error Messages -->
+          <div class="form-error-message" *ngIf="submitError">
+            <div class="error-alert">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+              </svg>
+              {{ submitError }}
+            </div>
+          </div>
+
+          <!-- Success Messages -->
+          <div class="form-success-message" *ngIf="submitSuccess">
+            <div class="success-alert">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              {{ submitSuccess }}
             </div>
           </div>
 
@@ -504,14 +524,22 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn-cancel" (click)="onCancelModal()">Cancel</button>
+          <button type="button" class="btn-cancel" (click)="onCancelModal()" [disabled]="isSubmitting">Cancel</button>
           <button
             type="submit"
             class="btn-add"
-            [disabled]="!isFormValid"
-            [class.disabled]="!isFormValid"
+            [disabled]="!isFormValid || isSubmitting"
+            [class.disabled]="!isFormValid || isSubmitting"
+            [class.loading]="isSubmitting"
           >
-            Add Policy
+            <span *ngIf="!isSubmitting">Add Policy</span>
+            <span *ngIf="isSubmitting" class="loading-content">
+              <svg class="loading-spinner" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+              </svg>
+              Creating...
+            </span>
           </button>
         </div>
       </form>
