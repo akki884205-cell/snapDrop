@@ -945,16 +945,90 @@ export class PoliciesComponent implements OnInit {
   }
 
   onUploadFileSubmit(): void {
-    if (this.selectedFile) {
-      // Process the uploaded file
-      console.log('Uploading file:', this.selectedFile.name);
-      this.showUploadModal = false;
-      this.showSuccessMessage = true;
-      setTimeout(() => {
-        this.showSuccessMessage = false;
-      }, 3000);
-      this.selectedFile = null;
+    if (!this.selectedFile) {
+      this.uploadError = 'Please select a file to upload.';
+      return;
     }
+
+    const validationResult = this.validateFile(this.selectedFile);
+    if (!validationResult.isValid) {
+      this.uploadError = validationResult.error;
+      return;
+    }
+
+    this.isUploading = true;
+    this.uploadError = '';
+    this.uploadSuccess = '';
+
+    this.uploadFile(this.selectedFile).subscribe({
+      next: (response) => {
+        this.isUploading = false;
+        this.uploadSuccess = 'File uploaded successfully!';
+
+        // Close modal and reset
+        setTimeout(() => {
+          this.showUploadModal = false;
+          this.selectedFile = null;
+          this.uploadSuccess = '';
+          this.showSuccessMessage = true;
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+        }, 1500);
+      },
+      error: (error) => {
+        this.isUploading = false;
+        console.error('File upload failed:', error);
+        this.uploadError = this.getErrorMessage(error);
+      }
+    });
+  }
+
+  private validateFile(file: File): { isValid: boolean; error: string } {
+    // Check file type
+    const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
+    if (!this.ACCEPTED_FILE_TYPES.includes(fileExtension)) {
+      return {
+        isValid: false,
+        error: `Invalid file type. Only CSV files are supported.`
+      };
+    }
+
+    // Check file size
+    if (file.size < this.MIN_FILE_SIZE) {
+      return {
+        isValid: false,
+        error: `File size is too small. Minimum size is 1 KB.`
+      };
+    }
+
+    if (file.size > this.MAX_FILE_SIZE) {
+      return {
+        isValid: false,
+        error: `File size is too large. Maximum size is 5 MB.`
+      };
+    }
+
+    return { isValid: true, error: '' };
+  }
+
+  private uploadFile(file: File): Observable<any> {
+    const token = this.authService.getAuthToken();
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'accept': '*/*'
+      // Note: Don't set Content-Type for FormData, let browser set it with boundary
+    });
+
+    console.log('Uploading file:', file.name);
+    console.log('File size:', file.size, 'bytes');
+    console.log('Upload endpoint:', this.uploadApiUrl);
+
+    return this.http.post(this.uploadApiUrl, formData, { headers });
   }
 
   onDownloadTemplate(): void {
