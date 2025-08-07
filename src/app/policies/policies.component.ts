@@ -491,7 +491,7 @@ export class PoliciesComponent implements OnInit {
     return null;
   }
 
-  private portValidator(control: AbstractControl): ValidationErrors | null {
+  private portValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null; // Port is optional
 
     const portNum = parseInt(control.value, 10);
@@ -502,7 +502,7 @@ export class PoliciesComponent implements OnInit {
     return null;
   }
 
-  private applicationValidator(control: AbstractControl): ValidationErrors | null {
+  private applicationValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
 
     const isValid = this.mockApplications.includes(control.value);
