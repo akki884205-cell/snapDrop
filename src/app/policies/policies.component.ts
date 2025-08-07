@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
 import { AuthService, User } from '../services/auth.service';
 
 export interface Policy {
