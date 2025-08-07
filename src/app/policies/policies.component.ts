@@ -576,6 +576,10 @@ export class PoliciesComponent implements OnInit {
     return this.policyForm.valid;
   }
 
+  get isUploadEnabled(): boolean {
+    return !!(this.selectedFile && !this.isUploading && !this.uploadError);
+  }
+
   // Error message getters
   getFieldError(fieldName: string): string {
     const field = this.policyForm.get(fieldName);
