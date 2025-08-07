@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, of, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService, User } from '../services/auth.service';
 
 export interface Policy {
@@ -15,6 +16,22 @@ export interface Policy {
   actions: string;
   toggleActive: boolean;
   status: 'COMPLETED' | 'Failed' | 'In Progress';
+}
+
+export interface PolicyCreateRequest {
+  filterName: string;
+  filterType: string;
+  filterValue: string;
+  filterPid: string;
+  domainIpValue: string;
+  filterStatus: string;
+  netifyFilter: boolean;
+}
+
+export interface PolicyCreateResponse {
+  success: boolean;
+  message: string;
+  data?: any;
 }
 
 @Component({
@@ -62,6 +79,14 @@ export class PoliciesComponent implements OnInit {
   applicationOptions: string[] = [];
   filteredApplications: string[] = [];
 
+  // API configuration
+  private apiUrl = 'http://172.50.34.107:9089/api/filter-management';
+
+  // Loading and submission states
+  isSubmitting: boolean = false;
+  submitError: string = '';
+  submitSuccess: string = '';
+
   // Mock applications for autocomplete
   private mockApplications = [
     'Chrome Browser', 'Firefox Browser', 'Microsoft Edge', 'Safari Browser',
@@ -89,7 +114,8 @@ export class PoliciesComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http: HttpClient
   ) {
     this.initializeForm();
   }
@@ -356,7 +382,7 @@ export class PoliciesComponent implements OnInit {
       ip: [''],
       port: [''],
       application: [''],
-      applyPolicy: [false]
+      activatePolicy: [false]
     });
 
     // Subscribe to type changes to update validation dynamically
@@ -663,7 +689,7 @@ export class PoliciesComponent implements OnInit {
       lastUpdated: new Date().toLocaleDateString(),
       creationTime: new Date().toLocaleDateString(),
       actions: 'Label',
-      toggleActive: formValue.applyPolicy,
+      toggleActive: formValue.activatePolicy,
       status: 'In Progress'
     };
 
@@ -686,7 +712,7 @@ export class PoliciesComponent implements OnInit {
       ip: '',
       port: '',
       application: '',
-      applyPolicy: false
+      activatePolicy: false
     });
     this.filteredApplications = [];
     this.updateValidationForType('domain');
