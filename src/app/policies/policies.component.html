@@ -465,7 +465,7 @@
                   [class.error]="policyForm.get('application')?.touched && policyForm.get('application')?.invalid"
                   placeholder="Search and select application"
                   formControlName="application"
-                  (input)="onApplicationSearch($event.target.value)"
+                  (input)="onApplicationSearch($any($event.target).value)"
                   autocomplete="off"
                 >
                 <div class="autocomplete-dropdown" *ngIf="filteredApplications.length > 0">
