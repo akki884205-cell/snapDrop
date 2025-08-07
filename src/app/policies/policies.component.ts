@@ -81,11 +81,22 @@ export class PoliciesComponent implements OnInit {
 
   // API configuration
   private apiUrl = 'http://172.50.34.107:9089/api/filter-management';
+  private uploadApiUrl = 'http://172.50.34.107:9089/api/filter-management/upload';
 
   // Loading and submission states
   isSubmitting: boolean = false;
   submitError: string = '';
   submitSuccess: string = '';
+
+  // File upload states
+  isUploading: boolean = false;
+  uploadError: string = '';
+  uploadSuccess: string = '';
+
+  // File validation constants
+  private readonly ACCEPTED_FILE_TYPES = ['.csv'];
+  private readonly MIN_FILE_SIZE = 1 * 1024; // 1 KB
+  private readonly MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
   // Mock applications for autocomplete
   private mockApplications = [
