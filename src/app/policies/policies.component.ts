@@ -653,6 +653,9 @@ export class PoliciesComponent implements OnInit {
   }
 
   onCancelModal(): void {
+    if (this.isSubmitting) {
+      return; // Prevent closing modal during submission
+    }
     this.showCreateModal = false;
     this.resetForm();
   }
