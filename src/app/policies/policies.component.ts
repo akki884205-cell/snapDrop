@@ -924,7 +924,15 @@ export class PoliciesComponent implements OnInit {
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.selectedFile = files[0];
+      const file = files[0];
+      const validationResult = this.validateFile(file);
+      if (validationResult.isValid) {
+        this.selectedFile = file;
+        this.uploadError = '';
+      } else {
+        this.selectedFile = null;
+        this.uploadError = validationResult.error;
+      }
     }
   }
 
