@@ -15,7 +15,7 @@ export interface Policy {
   creationTime: string;
   actions: string;
   toggleActive: boolean;
-  status: 'COMPLETED' | 'Failed' | 'In Progress';
+  status: string;
 }
 
 export interface PolicyCreateRequest {
