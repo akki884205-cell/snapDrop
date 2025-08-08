@@ -173,26 +173,85 @@ export class PoliciesComponent implements OnInit {
     this.loadPolicies();
   }
 
-  private generateSamplePolicies(count: number): Policy[] {
-    const policies: Policy[] = [];
-    const types = ['Domain', 'IP Port', 'Application'];
-    const statuses: ('COMPLETED' | 'Failed' | 'In Progress')[] = ['COMPLETED', 'Failed', 'In Progress'];
+  private loadPolicies(): void {
+    this.isLoadingPolicies = true;
+    this.policiesError = '';
 
-    for (let i = 1; i <= count; i++) {
-      policies.push({
-        id: i.toString().padStart(6, '0'),
-        name: `Policy ${i}`,
-        type: types[i % types.length],
-        filters: `Filter ${i}`,
-        target: `Target ${i}`,
-        lastUpdated: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-        creationTime: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-        actions: 'Label',
-        toggleActive: Math.random() > 0.5,
-        status: statuses[i % statuses.length]
-      });
+    this.fetchPolicies(this.currentPage - 1, this.pageSize).subscribe({
+      next: (response) => {
+        this.isLoadingPolicies = false;
+        this.policies = this.mapApiPoliciesToLocalPolicies(response.content);
+        this.filteredPolicies = [...this.policies];
+
+        // Update pagination based on API response
+        if (response.totalElements !== undefined) {
+          this.totalItems = response.totalElements;
+          this.totalPages = response.totalPages || Math.ceil(this.totalItems / this.pageSize);
+        } else {
+          this.totalItems = this.policies.length;
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+        }
+
+        this.updateDisplayedPolicies();
+      },
+      error: (error) => {
+        this.isLoadingPolicies = false;
+        this.policiesError = this.getErrorMessage(error);
+        console.error('Failed to load policies:', error);
+      }
+    });
+  }
+
+  private fetchPolicies(page: number, size: number): Observable<PolicyListResponse> {
+    const token = this.authService.getAuthToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'accept': '*/*'
+    });
+
+    const params = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString()
+    });
+
+    const url = `${this.listApiUrl}?${params.toString()}`;
+    console.log('Fetching policies from:', url);
+
+    return this.http.get<PolicyListResponse>(url, { headers });
+  }
+
+  private mapApiPoliciesToLocalPolicies(apiPolicies: PolicyApiItem[]): Policy[] {
+    return apiPolicies.map(apiPolicy => ({
+      id: apiPolicy.id.toString(),
+      name: apiPolicy.filterName,
+      type: apiPolicy.filterType,
+      filters: 'Auto-generated', // Not provided in API response
+      target: apiPolicy.domainIpValue || apiPolicy.filterValue,
+      lastUpdated: apiPolicy.probeProvisionedTime ?
+        new Date(apiPolicy.probeProvisionedTime).toLocaleDateString() :
+        new Date(apiPolicy.updationTime).toLocaleDateString(),
+      creationTime: new Date(apiPolicy.creationTime).toLocaleDateString(),
+      actions: 'Label',
+      toggleActive: this.getToggleActiveStatus(apiPolicy.filterStatus),
+      status: apiPolicy.filterStatus
+    }));
+  }
+
+  private getToggleActiveStatus(filterStatus: string): boolean {
+    // Return true if active, false if rejected, and handle inactive/in progress specially
+    switch (filterStatus.toLowerCase()) {
+      case 'active':
+      case 'activated':
+        return true;
+      case 'rejected':
+      case 'failed':
+        return false;
+      case 'inactive':
+      case 'in progress':
+      case 'pending':
+      default:
+        return false; // Will be handled with greyed out styling
     }
-    return policies;
   }
 
   onSearch(): void {
