@@ -394,7 +394,7 @@
 }
 
 .sort-arrows.sort-asc .sort-arrow-down {
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .sort-arrows.sort-desc {
@@ -407,12 +407,12 @@
 }
 
 .sort-arrows.sort-desc .sort-arrow-up {
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 .sort-arrows.sort-none .sort-arrow-up,
 .sort-arrows.sort-none .sort-arrow-down {
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 .policies-table {
