@@ -288,9 +288,8 @@ export class PoliciesComponent implements OnInit {
     // Apply current sorting if any
     this.applySorting();
 
-    // Reset to first page when filtering
-    this.currentPage = 1;
-    this.updatePagination();
+    // Update displayed policies (we're handling pagination via API now, so just display all filtered)
+    this.updateDisplayedPolicies();
   }
 
   // Pagination methods
