@@ -790,8 +790,8 @@ export class PoliciesComponent implements OnInit {
         this.isSubmitting = false;
         this.submitSuccess = 'Policy created successfully!';
 
-        // Add to local data for UI update
-        this.addPolicyToLocalData(formValue);
+        // Reload policies from API to get updated list
+        this.loadPolicies();
 
         // Close modal and reset form
         this.showCreateModal = false;
