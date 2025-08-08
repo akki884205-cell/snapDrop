@@ -34,6 +34,34 @@ export interface PolicyCreateResponse {
   data?: any;
 }
 
+export interface PolicyApiItem {
+  id: number;
+  filterName: string;
+  filterType: string;
+  filterValue: string;
+  sourceType: string;
+  filterPid: string;
+  filterStatus: string;
+  userUpdatedStatus: string;
+  creationTime: number;
+  updationTime: number;
+  probeProvisionedTime: number | null;
+  domainIpValue: string;
+  ready: boolean;
+  netifyFilter: boolean;
+  activated: boolean;
+  deleted: boolean;
+}
+
+export interface PolicyListResponse {
+  content: PolicyApiItem[];
+  pageable?: any;
+  totalElements?: number;
+  totalPages?: number;
+  size?: number;
+  number?: number;
+}
+
 @Component({
   selector: 'app-policies',
   templateUrl: './policies.component.html',
