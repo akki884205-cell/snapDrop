@@ -863,43 +863,6 @@ export class PoliciesComponent implements OnInit {
     return this.http.post<PolicyCreateResponse>(this.apiUrl, payload, { headers });
   }
 
-  private addPolicyToLocalData(formValue: any): void {
-    const newPolicyId = (this.policies.length + 1).toString().padStart(6, '0');
-
-    // Build target based on type
-    let target = '';
-    switch (formValue.type) {
-      case 'Domain':
-        target = formValue.domain;
-        break;
-      case 'IP':
-        target = formValue.ip;
-        break;
-      case 'IP-Port':
-        target = formValue.port ? `${formValue.ip}:${formValue.port}` : formValue.ip;
-        break;
-      case 'Application':
-        target = formValue.application;
-        break;
-    }
-
-    const newPolicy: Policy = {
-      id: newPolicyId,
-      name: formValue.name,
-      type: formValue.type.charAt(0).toUpperCase() + formValue.type.slice(1),
-      filters: 'Auto-generated',
-      target: target,
-      lastUpdated: new Date().toLocaleDateString(),
-      creationTime: new Date().toLocaleDateString(),
-      actions: 'Label',
-      toggleActive: formValue.activatePolicy,
-      status: 'COMPLETED'
-    };
-
-    this.policies.push(newPolicy);
-    this.filteredPolicies = [...this.policies];
-    this.updatePagination();
-  }
 
   private getErrorMessage(error: any): string {
     console.error('Full error object:', error);
