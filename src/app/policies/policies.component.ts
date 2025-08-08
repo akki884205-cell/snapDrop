@@ -198,6 +198,14 @@ export class PoliciesComponent implements OnInit {
         this.isLoadingPolicies = false;
         this.policiesError = this.getErrorMessage(error);
         console.error('Failed to load policies:', error);
+
+        // If it's an authentication error, redirect to login
+        if (error.status === 401) {
+          console.warn('Authentication failed, redirecting to login');
+          this.authService.logout().subscribe(() => {
+            this.router.navigate(['/']);
+          });
+        }
       }
     });
   }
