@@ -110,6 +110,7 @@ export class PoliciesComponent implements OnInit {
   // API configuration
   private apiUrl = 'http://172.50.34.107:9089/api/filter-management';
   private uploadApiUrl = 'http://172.50.34.107:9089/api/filter-management/upload';
+  private listApiUrl = 'http://172.50.34.107:9089/api/filter-management';
 
   // Loading and submission states
   isSubmitting: boolean = false;
