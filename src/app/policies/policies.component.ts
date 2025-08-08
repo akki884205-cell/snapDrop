@@ -209,15 +209,13 @@ export class PoliciesComponent implements OnInit {
       'accept': '*/*'
     });
 
-    const params = new URLSearchParams({
-      page: page.toString(),
-      size: size.toString()
-    });
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
 
-    const url = `${this.listApiUrl}?${params.toString()}`;
-    console.log('Fetching policies from:', url);
+    console.log('Fetching policies from:', this.listApiUrl, 'with params:', { page, size });
 
-    return this.http.get<PolicyListResponse>(url, { headers });
+    return this.http.get<PolicyListResponse>(this.listApiUrl, { headers, params });
   }
 
   private mapApiPoliciesToLocalPolicies(apiPolicies: PolicyApiItem[]): Policy[] {
