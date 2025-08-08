@@ -316,27 +316,27 @@ export class PoliciesComponent implements OnInit {
     this.pageSize = newPageSize;
     this.currentPage = 1;
     this.showPageSizeDropdown = false;
-    this.updatePagination();
+    this.loadPolicies(); // Reload from API with new page size
   }
 
   onPageChange(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.updateDisplayedPolicies();
+      this.loadPolicies(); // Reload from API with new page
     }
   }
 
   onPreviousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.updateDisplayedPolicies();
+      this.loadPolicies(); // Reload from API
     }
   }
 
   onNextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updateDisplayedPolicies();
+      this.loadPolicies(); // Reload from API
     }
   }
 
