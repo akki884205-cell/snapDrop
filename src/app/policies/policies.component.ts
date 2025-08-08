@@ -140,7 +140,7 @@ export class PoliciesComponent implements OnInit {
     'Zoom', 'Google Meet', 'Skype', 'WebEx'
   ];
   
-  policies: Policy[] = this.generateSamplePolicies(125);
+  policies: Policy[] = [];
 
   filteredPolicies: Policy[] = [];
   
