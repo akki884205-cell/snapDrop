@@ -236,7 +236,44 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let policy of displayedPolicies; let i = index" class="table-row">
+            <!-- Loading indicator -->
+            <tr *ngIf="isLoadingPolicies" class="loading-row">
+              <td colspan="9" class="loading-cell">
+                <div class="loading-indicator">
+                  <svg class="loading-spinner" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                    <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+                  </svg>
+                  Loading policies...
+                </div>
+              </td>
+            </tr>
+
+            <!-- Error indicator -->
+            <tr *ngIf="policiesError && !isLoadingPolicies" class="error-row">
+              <td colspan="9" class="error-cell">
+                <div class="error-indicator">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+                  </svg>
+                  {{ policiesError }}
+                  <button class="retry-btn" (click)="loadPolicies()">Retry</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- No data indicator -->
+            <tr *ngIf="!isLoadingPolicies && !policiesError && displayedPolicies.length === 0" class="no-data-row">
+              <td colspan="9" class="no-data-cell">
+                <div class="no-data-indicator">
+                  No policies found
+                </div>
+              </td>
+            </tr>
+
+            <!-- Policy data rows -->
+            <tr *ngFor="let policy of displayedPolicies; let i = index" class="table-row"
+                [class.greyed-out]="policy.status.toLowerCase() === 'inactive' || policy.status.toLowerCase() === 'in progress'">
               <td class="policy-id">{{ policy.id }}</td>
               <td class="policy-name">{{ policy.name }}</td>
               <td class="policy-type">{{ policy.type }}</td>
