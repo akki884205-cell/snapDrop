@@ -476,6 +476,8 @@
   border-bottom: 1px solid var(--border-color);
   font-size: 13px;
   vertical-align: middle;
+  white-space: nowrap; /* Prevent text wrapping in scrollable table */
+  min-width: 100px; /* Ensure minimum column width */
 }
 
 .table-row:hover {
