@@ -1599,6 +1599,36 @@
   pointer-events: none;
 }
 
+/* Table Scrolling Improvements */
+.table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure pagination section is always visible */
+.pagination-section {
+  position: relative;
+  z-index: 5;
+  background: var(--bg-primary);
+  padding: 16px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
 /* Table Loading and Error States */
 .loading-row,
 .error-row,
