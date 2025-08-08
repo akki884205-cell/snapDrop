@@ -345,10 +345,11 @@
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 300px); /* Reserve space for header, controls, and pagination */
+  min-height: 200px;
+  max-height: 60vh; /* Limit to 60% of viewport height */
 }
 
 .table-wrapper {
