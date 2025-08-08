@@ -1569,3 +1569,63 @@
   position: relative;
   pointer-events: none;
 }
+
+/* Table Loading and Error States */
+.loading-row,
+.error-row,
+.no-data-row {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.loading-cell,
+.error-cell,
+.no-data-cell {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.loading-indicator,
+.error-indicator,
+.no-data-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.loading-indicator .loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.error-indicator {
+  color: #f44336;
+}
+
+.retry-btn {
+  background: #4A90A4;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 8px;
+  transition: background 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: #357a8b;
+}
+
+/* Greyed out row for inactive/in progress policies */
+.table-row.greyed-out {
+  opacity: 0.5;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.table-row.greyed-out .policy-toggle-switch {
+  pointer-events: none;
+  opacity: 0.6;
+}
