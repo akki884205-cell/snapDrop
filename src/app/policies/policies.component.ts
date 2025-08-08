@@ -168,9 +168,9 @@ export class PoliciesComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     if (!this.currentUser) {
       this.router.navigate(['/']);
+      return;
     }
-    this.filteredPolicies = [...this.policies];
-    this.updatePagination();
+    this.loadPolicies();
   }
 
   private generateSamplePolicies(count: number): Policy[] {
