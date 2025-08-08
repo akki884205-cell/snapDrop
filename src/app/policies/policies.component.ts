@@ -207,9 +207,7 @@ export class PoliciesComponent implements OnInit {
 
     if (!token) {
       console.error('No authentication token available');
-      return new Observable(observer => {
-        observer.error({ message: 'Authentication token not available. Please login again.' });
-      });
+      return throwError(() => ({ message: 'Authentication token not available. Please login again.' }));
     }
 
     const headers = new HttpHeaders({
