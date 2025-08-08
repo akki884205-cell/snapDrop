@@ -173,7 +173,7 @@ export class PoliciesComponent implements OnInit {
     this.loadPolicies();
   }
 
-  private loadPolicies(): void {
+  loadPolicies(): void {
     this.isLoadingPolicies = true;
     this.policiesError = '';
 
