@@ -355,8 +355,9 @@
 .table-wrapper {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: calc(100vh - 350px); /* Limit table height to prevent covering pagination */
+  max-height: calc(60vh - 100px); /* Responsive height that leaves room for pagination */
   flex: 1;
+  min-height: 150px;
 }
 
 /* Ensure table header stays visible during scroll */
