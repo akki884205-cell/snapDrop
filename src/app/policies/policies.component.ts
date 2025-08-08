@@ -865,67 +865,78 @@ export class PoliciesComponent implements OnInit {
 
   private getErrorMessage(error: any): string {
     console.error('Full error object:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error constructor:', error?.constructor?.name);
 
-    // Check for HTTP error response
-    if (error.error) {
-      // If error.error is a string
-      if (typeof error.error === 'string') {
-        return error.error;
+    // Handle Event objects (like network errors)
+    if (error instanceof Event || (error && error.isTrusted !== undefined)) {
+      return 'Network connection error. Please check your internet connection and try again.';
+    }
+
+    // Handle HttpErrorResponse
+    if (error && error.status !== undefined) {
+      // Check for HTTP error response body
+      if (error.error) {
+        // If error.error is a string
+        if (typeof error.error === 'string') {
+          return error.error;
+        }
+
+        // If error.error has message property
+        if (error.error.message) {
+          return error.error.message;
+        }
+
+        // If error.error has other properties, try to extract meaningful info
+        if (error.error.error) {
+          return error.error.error;
+        }
       }
 
-      // If error.error has message property
-      if (error.error.message) {
-        return error.error.message;
+      // Check for specific HTTP status codes
+      if (error.status === 0) {
+        return 'Network error. Please check your connection and try again.';
+      }
+      if (error.status === 401) {
+        return 'Authentication failed. Please login again.';
+      }
+      if (error.status === 403) {
+        return 'Access denied. You do not have permission to access this resource.';
+      }
+      if (error.status === 404) {
+        return 'API endpoint not found. Please check the server configuration.';
+      }
+      if (error.status === 422) {
+        return 'Invalid data provided. Please check your input and try again.';
+      }
+      if (error.status === 500) {
+        return 'Server error. Please try again later.';
       }
 
-      // If error.error has other properties, try to extract meaningful info
-      if (error.error.error) {
-        return error.error.error;
+      // Generic HTTP error with status
+      if (error.statusText && error.statusText !== 'Unknown Error') {
+        return `Error ${error.status}: ${error.statusText}`;
       }
 
-      // Try to stringify the error object
-      try {
-        return JSON.stringify(error.error);
-      } catch (e) {
-        // If stringification fails, fall through to other checks
-      }
-    }
-
-    // Check for direct message
-    if (error.message) {
-      return error.message;
-    }
-
-    // Check for specific HTTP status codes
-    if (error.status === 0) {
-      return 'Network error. Please check your connection and try again.';
-    }
-    if (error.status === 401) {
-      return 'Authentication failed. Please login again.';
-    }
-    if (error.status === 403) {
-      return 'Access denied. You do not have permission to create policies.';
-    }
-    if (error.status === 404) {
-      return 'API endpoint not found. Please check the server configuration.';
-    }
-    if (error.status === 422) {
-      return 'Invalid data provided. Please check your input and try again.';
-    }
-    if (error.status === 500) {
-      return 'Server error. Please try again later.';
-    }
-
-    // If all else fails, try to extract any meaningful text from the error
-    if (error.statusText && error.statusText !== 'Unknown Error') {
-      return `Error ${error.status}: ${error.statusText}`;
-    }
-
-    // Last resort - return a generic message with status if available
-    if (error.status) {
       return `Request failed with status ${error.status}. Please try again.`;
     }
 
+    // Handle Error objects with message
+    if (error instanceof Error && error.message) {
+      return error.message;
+    }
+
+    // Check for direct message property
+    if (error && typeof error.message === 'string') {
+      return error.message;
+    }
+
+    // Handle string errors
+    if (typeof error === 'string') {
+      return error;
+    }
+
+    // Last resort
     return 'An unexpected error occurred. Please try again.';
   }
 
