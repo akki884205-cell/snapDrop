@@ -122,6 +122,10 @@ export class PoliciesComponent implements OnInit {
   uploadError: string = '';
   uploadSuccess: string = '';
 
+  // Policy list loading states
+  isLoadingPolicies: boolean = false;
+  policiesError: string = '';
+
   // File validation constants
   private readonly ACCEPTED_FILE_TYPES = ['.csv'];
   private readonly MIN_FILE_SIZE = 1 * 1024; // 1 KB
