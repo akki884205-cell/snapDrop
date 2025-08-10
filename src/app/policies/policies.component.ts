@@ -213,6 +213,12 @@ export class PoliciesComponent implements OnInit {
   private fetchPolicies(page: number, size: number): Observable<PolicyListResponse> {
     const token = this.authService.getAuthToken();
 
+    console.log('=== fetchPolicies Debug Info ===');
+    console.log('API URL:', this.listApiUrl);
+    console.log('Page:', page, 'Size:', size);
+    console.log('Token available:', !!token);
+    console.log('Token length:', token ? token.length : 0);
+
     if (!token) {
       console.error('No authentication token available');
       return throwError(() => ({ message: 'Authentication token not available. Please login again.' }));
@@ -227,8 +233,12 @@ export class PoliciesComponent implements OnInit {
       .set('page', page.toString())
       .set('size', size.toString());
 
-    console.log('Fetching policies from:', this.listApiUrl, 'with params:', { page, size });
-    console.log('Using token:', token ? 'Token available' : 'No token');
+    const fullUrl = `${this.listApiUrl}?${params.toString()}`;
+    console.log('Full request URL:', fullUrl);
+    console.log('Request headers:', {
+      'Authorization': `Bearer ${token.substring(0, 20)}...`,
+      'accept': '*/*'
+    });
 
     return this.http.get<PolicyListResponse>(this.listApiUrl, { headers, params });
   }
