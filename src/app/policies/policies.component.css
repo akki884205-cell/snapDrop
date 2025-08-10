@@ -674,11 +674,12 @@
 /* Pagination */
 .pagination-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
   padding: 16px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 32px;
 }
 
 .pagination-left {
