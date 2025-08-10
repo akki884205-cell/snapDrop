@@ -896,58 +896,92 @@ export class PoliciesComponent implements OnInit {
     console.error('Full error object:', error);
     console.error('Error type:', typeof error);
     console.error('Error constructor:', error?.constructor?.name);
+    console.error('Error status:', error?.status);
+    console.error('Error statusText:', error?.statusText);
+    console.error('Error error property:', error?.error);
+    console.error('Error message property:', error?.message);
 
     // Handle Event objects (like network errors)
     if (error instanceof Event || (error && error.isTrusted !== undefined)) {
       return 'Network connection error. Please check your internet connection and try again.';
     }
 
-    // Handle HttpErrorResponse
-    if (error && error.status !== undefined) {
-      // Check for HTTP error response body
+    // Handle HttpErrorResponse specifically
+    if (error && error.constructor?.name === 'HttpErrorResponse') {
+      console.log('Handling HttpErrorResponse');
+
+      // First try to extract meaningful error from the response body
       if (error.error) {
-        // If error.error is a string
-        if (typeof error.error === 'string') {
+        console.log('Error has error property:', error.error);
+
+        // If error.error is a string message
+        if (typeof error.error === 'string' && error.error.trim()) {
           return error.error;
         }
 
-        // If error.error has message property
-        if (error.error.message) {
-          return error.error.message;
-        }
+        // If error.error is an object with message
+        if (error.error && typeof error.error === 'object') {
+          console.log('Error.error is object:', error.error);
 
-        // If error.error has other properties, try to extract meaningful info
-        if (error.error.error) {
-          return error.error.error;
+          if (error.error.message && typeof error.error.message === 'string') {
+            return error.error.message;
+          }
+
+          if (error.error.error && typeof error.error.error === 'string') {
+            return error.error.error;
+          }
+
+          if (error.error.detail && typeof error.error.detail === 'string') {
+            return error.error.detail;
+          }
+
+          // Try to extract any string value from the error object
+          const errorKeys = Object.keys(error.error);
+          for (const key of errorKeys) {
+            if (typeof error.error[key] === 'string' && error.error[key].trim()) {
+              return error.error[key];
+            }
+          }
         }
       }
 
-      // Check for specific HTTP status codes
+      // Fall back to status-based messages
+      switch (error.status) {
+        case 0:
+          return 'Network error. Please check your connection and try again.';
+        case 401:
+          return 'Authentication failed. Please login again.';
+        case 403:
+          return 'Access denied. You do not have permission to access this resource.';
+        case 404:
+          return 'API endpoint not found. Please check the server configuration.';
+        case 422:
+          return 'Invalid data provided. Please check your input and try again.';
+        case 500:
+          return 'Server error. Please try again later.';
+        case 502:
+          return 'Bad gateway. The server is temporarily unavailable.';
+        case 503:
+          return 'Service unavailable. Please try again later.';
+        case 504:
+          return 'Gateway timeout. The request took too long to process.';
+        default:
+          if (error.statusText && error.statusText !== 'Unknown Error') {
+            return `HTTP ${error.status}: ${error.statusText}`;
+          }
+          return `Request failed with status ${error.status}. Please try again.`;
+      }
+    }
+
+    // Handle regular HTTP errors (backward compatibility)
+    if (error && typeof error.status === 'number') {
+      console.log('Handling regular HTTP error with status:', error.status);
+
       if (error.status === 0) {
         return 'Network error. Please check your connection and try again.';
       }
-      if (error.status === 401) {
-        return 'Authentication failed. Please login again.';
-      }
-      if (error.status === 403) {
-        return 'Access denied. You do not have permission to access this resource.';
-      }
-      if (error.status === 404) {
-        return 'API endpoint not found. Please check the server configuration.';
-      }
-      if (error.status === 422) {
-        return 'Invalid data provided. Please check your input and try again.';
-      }
-      if (error.status === 500) {
-        return 'Server error. Please try again later.';
-      }
 
-      // Generic HTTP error with status
-      if (error.statusText && error.statusText !== 'Unknown Error') {
-        return `Error ${error.status}: ${error.statusText}`;
-      }
-
-      return `Request failed with status ${error.status}. Please try again.`;
+      return `HTTP error ${error.status}. Please try again.`;
     }
 
     // Handle Error objects with message
@@ -956,16 +990,17 @@ export class PoliciesComponent implements OnInit {
     }
 
     // Check for direct message property
-    if (error && typeof error.message === 'string') {
+    if (error && typeof error.message === 'string' && error.message.trim()) {
       return error.message;
     }
 
     // Handle string errors
-    if (typeof error === 'string') {
+    if (typeof error === 'string' && error.trim()) {
       return error;
     }
 
-    // Last resort
+    // Last resort with more info
+    console.warn('Could not extract meaningful error message, using generic message');
     return 'An unexpected error occurred. Please try again.';
   }
 
