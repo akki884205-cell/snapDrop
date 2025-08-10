@@ -239,7 +239,7 @@
           <tbody>
             <!-- Loading indicator -->
             <tr *ngIf="isLoadingPolicies" class="loading-row">
-              <td colspan="9" class="loading-cell">
+              <td colspan="10" class="loading-cell">
                 <div class="loading-indicator">
                   <svg class="loading-spinner" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
@@ -252,7 +252,7 @@
 
             <!-- Error indicator -->
             <tr *ngIf="policiesError && !isLoadingPolicies" class="error-row">
-              <td colspan="9" class="error-cell">
+              <td colspan="10" class="error-cell">
                 <div class="error-indicator">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
@@ -265,7 +265,7 @@
 
             <!-- No data indicator -->
             <tr *ngIf="!isLoadingPolicies && !policiesError && displayedPolicies.length === 0" class="no-data-row">
-              <td colspan="9" class="no-data-cell">
+              <td colspan="10" class="no-data-cell">
                 <div class="no-data-indicator">
                   No policies found
                 </div>
