@@ -1,17 +1,45 @@
 <div class="policies-container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-container">
-        <div class="logo-icon">
-          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 4H24C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" stroke="white" stroke-width="2"/>
-            <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Top Header -->
+  <header class="app-header">
+    <div class="logo-container">
+      <div class="logo-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Connection dots -->
+          <circle cx="4" cy="16" r="2" fill="currentColor"/>
+          <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
+          <circle cx="12" cy="24" r="1.5" fill="currentColor"/>
+
+          <!-- Connection lines -->
+          <line x1="6" y1="16" x2="10" y2="16" stroke="currentColor" stroke-width="1"/>
+          <line x1="12" y1="10" x2="12" y2="14" stroke="currentColor" stroke-width="1"/>
+          <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" stroke-width="1"/>
+
+          <!-- Lock icon -->
+          <rect x="14" y="14" width="12" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="16" y="16" width="8" height="6" rx="1" fill="currentColor" fill-opacity="0.1"/>
+          <path d="M18 14V12C18 10.8954 18.8954 10 20 10C21.1046 10 22 10.8954 22 12V14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <circle cx="20" cy="19" r="1" fill="currentColor"/>
+        </svg>
+      </div>
+      <h1 class="logo-text">SnapDrop</h1>
+    </div>
+
+    <div class="header-right">
+      <div class="user-info">
+        <span class="welcome-text">Welcome, Admin User</span>
+        <button class="logout-btn" (click)="onLogout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
           </svg>
-        </div>
-        <h1 class="logo-text">SnapDrop</h1>
+          Logout
+        </button>
       </div>
     </div>
+  </header>
+
+  <div class="app-content">
+    <!-- Sidebar -->
+    <aside class="sidebar">
     
     <nav class="sidebar-nav">
       <div class="main-nav">
@@ -31,7 +59,7 @@
           </div>
           <span>POLICIES</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" routerLink="/reports">
           <div class="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M17,12H15.5L13.5,7H10.5L8.5,12H7L9.5,6H14.5L17,12Z"/>
@@ -42,7 +70,7 @@
       </div>
       
       <div class="bottom-nav">
-        <div class="nav-item">
+        <div class="nav-item" routerLink="/profile">
           <div class="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
@@ -50,7 +78,7 @@
           </div>
           <span>PROFILE</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" routerLink="/settings">
           <div class="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
@@ -64,21 +92,6 @@
 
   <!-- Main Content Area -->
   <div class="main-content">
-    <!-- Top Header -->
-    <header class="top-header">
-      <div class="header-right">
-        <div class="user-info">
-          <span class="welcome-text">Welcome, {{ currentUser?.name || 'Admin User' }}</span>
-          <button class="logout-btn" (click)="onLogout()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-            </svg>
-            Logout
-          </button>
-        </div>
-      </div>
-    </header>
-
     <!-- Policies Content -->
     <main class="policies-main">
       <!-- Search and Filter Section -->
@@ -88,21 +101,17 @@
             <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
             </svg>
-            <input 
-              type="text" 
-              placeholder="Search policies..." 
-              [(ngModel)]="searchTerm" 
+            <input
+              type="text"
+              placeholder="Search policies..."
+              [(ngModel)]="searchTerm"
               (input)="onSearch()"
               class="search-input"
             >
-          </div>
-          
-          <div class="filter-dropdown">
             <button class="filter-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3,2H21V4H20L14,15V22H10V15L4,4H3V2M19,4H5L10.5,14.5H13.5L19,4Z"/>
               </svg>
-              Filters
             </button>
           </div>
         </div>
@@ -131,66 +140,304 @@
 
       <!-- Data Table -->
       <div class="table-container">
-        <table class="policies-table">
+        <div class="table-wrapper">
+          <table class="policies-table">
           <thead>
             <tr>
-              <th>Policy ID <span class="sort-icon">⌄</span></th>
-              <th>Name <span class="sort-icon">⌄</span></th>
-              <th>Type <span class="sort-icon">⌄</span></th>
-              <th>Filters <span class="sort-icon">⌄</span></th>
-              <th>Target <span class="sort-icon">⌄</span></th>
-              <th>Last Updated <span class="sort-icon">⌄</span></th>
-              <th>Creation Time <span class="sort-icon">⌄</span></th>
-              <th>Actions/Checkboxes <span class="sort-icon">⌄</span></th>
-              <th>Status <span class="sort-icon">⌄</span></th>
-              <th>Actions <span class="sort-icon">⌄</span></th>
+              <th class="sortable" (click)="onSort('id')">
+                Policy ID
+                <span class="sort-arrows" [class]="getSortIcon('id')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('name')">
+                Name
+                <span class="sort-arrows" [class]="getSortIcon('name')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('type')">
+                Type
+                <span class="sort-arrows" [class]="getSortIcon('type')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('filters')">
+                Filters
+                <span class="sort-arrows" [class]="getSortIcon('filters')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('target')">
+                Target
+                <span class="sort-arrows" [class]="getSortIcon('target')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('provisionTime')">
+                Provision Time
+                <span class="sort-arrows" [class]="getSortIcon('provisionTime')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('lastUpdated')">
+                Last Updated
+                <span class="sort-arrows" [class]="getSortIcon('lastUpdated')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th class="sortable" (click)="onSort('creationTime')">
+                Creation Time
+                <span class="sort-arrows" [class]="getSortIcon('creationTime')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th style="text-align: center;">Actions/Checkboxes</th>
+              <th class="sortable" (click)="onSort('status')">
+                Status
+                <span class="sort-arrows" [class]="getSortIcon('status')">
+                  <svg class="sort-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 14l5-5 5 5H7z"/>
+                  </svg>
+                  <svg class="sort-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5H7z"/>
+                  </svg>
+                </span>
+              </th>
+              <th style="text-align: center;">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let policy of filteredPolicies" class="table-row">
+            <!-- Loading indicator -->
+            <tr *ngIf="isLoadingPolicies" class="loading-row">
+              <td colspan="10" class="loading-cell">
+                <div class="loading-indicator">
+                  <svg class="loading-spinner" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                    <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+                  </svg>
+                  Loading policies...
+                </div>
+              </td>
+            </tr>
+
+            <!-- Error indicator -->
+            <tr *ngIf="policiesError && !isLoadingPolicies" class="error-row">
+              <td colspan="10" class="error-cell">
+                <div class="error-indicator">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+                  </svg>
+                  {{ policiesError }}
+                  <button class="retry-btn" (click)="loadPolicies()">Retry</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- No data indicator -->
+            <tr *ngIf="!isLoadingPolicies && !policiesError && displayedPolicies.length === 0" class="no-data-row">
+              <td colspan="10" class="no-data-cell">
+                <div class="no-data-indicator">
+                  No policies found
+                </div>
+              </td>
+            </tr>
+
+            <!-- Policy data rows -->
+            <tr *ngFor="let policy of displayedPolicies; let i = index" class="table-row"
+                [class.greyed-out]="policy.status.toLowerCase() === 'inactive' || policy.status.toLowerCase() === 'in progress'">
               <td class="policy-id">{{ policy.id }}</td>
               <td class="policy-name">{{ policy.name }}</td>
               <td class="policy-type">{{ policy.type }}</td>
               <td class="policy-filters">{{ policy.filters }}</td>
               <td class="policy-target">{{ policy.target }}</td>
+              <td class="policy-provision">{{ policy.provisionTime }}</td>
               <td class="policy-updated">{{ policy.lastUpdated }}</td>
               <td class="policy-creation">{{ policy.creationTime }}</td>
-              <td class="policy-checkboxes">{{ policy.actions }}</td>
+              <td class="policy-checkboxes">
+                <div class="toggle-container">
+                  <div class="policy-toggle-switch" 
+                       [class.active]="policy.toggleActive && policy.status.toLowerCase() === 'active'" 
+                       [class.rejected]="policy.status.toLowerCase() === 'rejected'"
+                       [class.grey]="policy.status.toLowerCase() === 'inactive' || policy.status.toLowerCase() === 'in progress' || (!policy.toggleActive && policy.status.toLowerCase() !== 'rejected')"
+                       [class.loading]="isPolicyToggleLoading(policy.id)"
+                       [class.disabled]="isPolicyToggleDisabled(policy.id)"
+                       (click)="!isPolicyToggleDisabled(policy.id) && onTogglePolicy(policy, i)">
+                    <div class="toggle-handle">
+                      <!-- Loading spinner -->
+                      <svg *ngIf="isPolicyToggleLoading(policy.id)" class="loading-spinner" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                        <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+                      </svg>
+                      <!-- Status icons -->
+                      <svg *ngIf="!isPolicyToggleLoading(policy.id) && ((policy.toggleActive && policy.status.toLowerCase() === 'active') || policy.status.toLowerCase() === 'rejected')" 
+                           width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path *ngIf="policy.status.toLowerCase() === 'rejected'" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        <path *ngIf="policy.toggleActive && policy.status.toLowerCase() === 'active'" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  <!-- Toggle messages -->
+                  <div class="toggle-messages">
+                    <!-- Error message -->
+                    <div *ngIf="getPolicyToggleError(policy.id)" class="toggle-error-message">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+                      </svg>
+                      <span>{{ getPolicyToggleError(policy.id) }}</span>
+                    </div>
+                    
+                    <!-- Success message -->
+                    <div *ngIf="getPolicyToggleSuccess(policy.id)" class="toggle-success-message">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                      <span>{{ getPolicyToggleSuccess(policy.id) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
               <td class="policy-status">
                 <div class="status-container">
                   <div class="status-indicator" [class]="getStatusIndicatorClass(policy.status)"></div>
                   <span class="status-badge" [class]="getStatusClass(policy.status)">
                     {{ policy.status }}
                   </span>
+                  <!-- Polling indicator -->
+                  <div *ngIf="isPolicyToggleLoading(policy.id)" class="polling-indicator">
+                    <svg class="polling-spinner" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                      <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+                    </svg>
+                    <span class="polling-text">Updating...</span>
+                  </div>
                 </div>
               </td>
               <td class="policy-actions">
                 <div class="action-buttons">
-                  <button class="action-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"/>
-                    </svg>
-                  </button>
+                  <div class="action-dropdown">
+                    <button class="action-btn" (click)="toggleActionDropdown(i); $event.stopPropagation()">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"/>
+                      </svg>
+                    </button>
+                    <div class="action-dropdown-menu" *ngIf="showActionDropdown === i" (click)="$event.stopPropagation()">
+                      <button class="action-dropdown-item" (click)="onEditPolicy(policy, i)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+                        </svg>
+                        Edit
+                      </button>
+                      <button class="action-dropdown-item" (click)="onDeletePolicy(policy, i)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                        </svg>
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
 
       <!-- Pagination -->
       <div class="pagination-section">
-        <div class="pagination-info">
-          Showing 1 to 3 of 3 entries
+        <div class="pagination-left">
+          <div class="pagination-info">
+            {{ getShowingText() }}
+          </div>
+          <div class="page-size-selector">
+            <div class="page-size-dropdown" (click)="togglePageSizeDropdown(); $event.stopPropagation()">
+              <span class="page-size-text">{{ pageSize }} entries</span>
+              <svg class="dropdown-arrow" [class.open]="showPageSizeDropdown" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 10l5 5 5-5z"/>
+              </svg>
+            </div>
+            <div class="page-size-menu" *ngIf="showPageSizeDropdown" (click)="$event.stopPropagation()">
+              <div
+                *ngFor="let size of pageSizeOptions"
+                class="page-size-option"
+                [class.selected]="size === pageSize"
+                (click)="onPageSizeChange(size)"
+              >
+                {{ size }} entries
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="pagination-controls">
-          <button class="pagination-btn" disabled>
+          <button
+            class="pagination-btn"
+            [disabled]="currentPage === 1"
+            (click)="onPreviousPage()"
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
             </svg>
           </button>
-          <span class="pagination-current">1</span>
-          <button class="pagination-btn" disabled>
+
+          <div class="page-numbers">
+            <button
+              *ngFor="let page of getPageNumbers()"
+              class="page-number"
+              [class.active]="page === currentPage"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <button
+            class="pagination-btn"
+            [disabled]="currentPage === totalPages"
+            (click)="onNextPage()"
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
             </svg>
@@ -199,14 +446,307 @@
       </div>
 
       <!-- Success Message -->
-      <div class="success-message">
+      <div class="success-message" *ngIf="showSuccessMessage">
         <div class="success-content">
           <div class="success-icon">✓</div>
           <span class="success-text">Success</span>
           <span class="success-detail">New policy added</span>
-          <button class="success-close">×</button>
+          <button class="success-close" (click)="hideSuccessMessage()">×</button>
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- Create New Policy Modal -->
+  <div class="modal-overlay" *ngIf="showCreateModal" (click)="onCancelModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Create New Policy</h2>
+        <button class="modal-close" (click)="onCancelModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="policyForm" (ngSubmit)="onAddPolicy()">
+        <div class="modal-body">
+          <!-- Always visible fields: Name and Type -->
+          <div class="form-row">
+            <div class="form-group half-width">
+              <label class="form-label">Name*</label>
+              <input
+                type="text"
+                class="form-input"
+                [class.error]="policyForm.get('name')?.touched && policyForm.get('name')?.invalid"
+                placeholder="Enter policy name"
+                formControlName="name"
+              >
+              <small class="form-error" *ngIf="getFieldError('name')">{{ getFieldError('name') }}</small>
+            </div>
+
+            <div class="form-group half-width">
+              <label class="form-label">Type*</label>
+              <div class="select-wrapper">
+                <select class="form-select" formControlName="type">
+                  <option value="Domain">Domain</option>
+                  <option value="IP">IP</option>
+                  <option value="IP-Port">IP-Port</option>
+                  <option value="Application">Application</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic fields based on selected type -->
+
+          <!-- Domain Type Fields -->
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'Domain'">
+            <div class="form-group">
+              <label class="form-label">Domain*</label>
+              <input
+                type="text"
+                class="form-input"
+                [class.error]="policyForm.get('domain')?.touched && policyForm.get('domain')?.invalid"
+                placeholder="Enter domain name (e.g., example.com)"
+                formControlName="domain"
+              >
+              <small class="form-error" *ngIf="getFieldError('domain')">{{ getFieldError('domain') }}</small>
+              <small class="form-hint">Enter a valid domain name</small>
+            </div>
+          </div>
+
+          <!-- IP and IP-Port Type Fields -->
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'IP' || currentPolicyType === 'IP-Port'">
+            <div class="form-row">
+              <div class="form-group half-width">
+                <label class="form-label">IP Address*</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [class.error]="policyForm.get('ip')?.touched && policyForm.get('ip')?.invalid"
+                  placeholder="Enter IP address or CIDR"
+                  formControlName="ip"
+                >
+                <small class="form-error" *ngIf="getFieldError('ip')">{{ getFieldError('ip') }}</small>
+                <small class="form-hint">IPv4, IPv6, or CIDR notation supported</small>
+              </div>
+
+              <div class="form-group half-width" *ngIf="currentPolicyType === 'IP-Port'">
+                <label class="form-label">Port</label>
+                <input
+                  type="number"
+                  class="form-input"
+                  [class.error]="policyForm.get('port')?.touched && policyForm.get('port')?.invalid"
+                  placeholder="Enter port (1-65535)"
+                  formControlName="port"
+                  min="1"
+                  max="65535"
+                >
+                <small class="form-error" *ngIf="getFieldError('port')">{{ getFieldError('port') }}</small>
+                <small class="form-hint">Optional. Range: 1-65535</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Application Type Fields -->
+          <div class="dynamic-fields" *ngIf="currentPolicyType === 'Application'">
+            <div class="form-group">
+              <label class="form-label">Application*</label>
+              <div class="autocomplete-container">
+                <input
+                  type="text"
+                  class="form-input"
+                  [class.error]="policyForm.get('application')?.touched && policyForm.get('application')?.invalid"
+                  placeholder="Search and select application"
+                  formControlName="application"
+                  (input)="onApplicationSearch($any($event.target).value)"
+                  autocomplete="off"
+                >
+                <div class="autocomplete-dropdown" *ngIf="filteredApplications.length > 0">
+                  <div
+                    *ngFor="let app of filteredApplications"
+                    class="autocomplete-item"
+                    (click)="onApplicationSelect(app)"
+                  >
+                    {{ app }}
+                  </div>
+                </div>
+              </div>
+              <small class="form-error" *ngIf="getFieldError('application')">{{ getFieldError('application') }}</small>
+              <small class="form-hint">Type to search for applications</small>
+            </div>
+          </div>
+
+          <!-- Apply Policy Toggle -->
+          <div class="form-group apply-section">
+            <span class="apply-label">Apply this policy</span>
+            <div class="apply-toggle"
+                 [class.active]="policyForm.get('activatePolicy')?.value"
+                 (click)="policyForm.get('activatePolicy')?.setValue(!policyForm.get('activatePolicy')?.value)">
+              <div class="toggle-handle">
+                <svg *ngIf="policyForm.get('activatePolicy')?.value" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Messages -->
+          <div class="form-error-message" *ngIf="submitError">
+            <div class="error-alert">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+              </svg>
+              {{ submitError }}
+            </div>
+          </div>
+
+          <!-- Success Messages -->
+          <div class="form-success-message" *ngIf="submitSuccess">
+            <div class="success-alert">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              {{ submitSuccess }}
+            </div>
+          </div>
+
+          <!-- Form Validation Summary -->
+          <div class="form-validation-summary" *ngIf="!isFormValid && (policyForm.touched || policyForm.dirty)">
+            <small class="validation-warning">Please fix the validation errors above before submitting.</small>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" (click)="onCancelModal()" [disabled]="isSubmitting">Cancel</button>
+          <button
+            type="submit"
+            class="btn-add"
+            [disabled]="!isFormValid || isSubmitting"
+            [class.disabled]="!isFormValid || isSubmitting"
+            [class.loading]="isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">Add Policy</span>
+            <span *ngIf="isSubmitting" class="loading-content">
+              <svg class="loading-spinner" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+              </svg>
+              Creating...
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Upload File Modal -->
+  <div class="modal-overlay" *ngIf="showUploadModal" (click)="onCancelUpload()">
+    <div class="modal-container upload-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload File</h2>
+        <button class="modal-close" (click)="onCancelUpload()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="upload-area"
+             (drop)="onFileDrop($event)"
+             (dragover)="onDragOver($event)"
+             (dragleave)="onDragLeave($event)">
+          <div class="upload-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+          </div>
+          <p class="upload-text">Drag and drop your files here to upload</p>
+        </div>
+
+        <div class="upload-divider">
+          <span>OR</span>
+        </div>
+
+        <div class="file-selection">
+          <label class="file-label">Choose File</label>
+          <div class="file-input-container">
+            <input
+              type="file"
+              id="fileInput"
+              (change)="onFileSelected($event)"
+              class="file-input"
+              accept=".csv"
+            >
+            <div class="file-display">
+              <span class="file-name">{{ selectedFile?.name || 'No file selected' }}</span>
+              <button class="file-browse-btn" onclick="document.getElementById('fileInput').click()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="file-requirements">
+          <small class="file-hint">
+            <strong>Requirements:</strong> CSV files only, 1 KB - 5 MB
+          </small>
+        </div>
+
+        <!-- Error Messages -->
+        <div class="upload-error-message" *ngIf="uploadError">
+          <div class="error-alert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.58L19 8l-9 9z"/>
+            </svg>
+            {{ uploadError }}
+          </div>
+        </div>
+
+        <!-- Success Messages -->
+        <div class="upload-success-message" *ngIf="uploadSuccess">
+          <div class="success-alert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            {{ uploadSuccess }}
+          </div>
+        </div>
+
+        <div class="template-download">
+          <button class="template-btn" (click)="onDownloadTemplate()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+            </svg>
+            Download the upload format here
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="onCancelUpload()" [disabled]="isUploading">Cancel</button>
+        <button
+          class="btn-upload"
+          (click)="onUploadFileSubmit()"
+          [disabled]="!isUploadEnabled"
+          [class.disabled]="!isUploadEnabled"
+          [class.loading]="isUploading"
+        >
+          <span *ngIf="!isUploading">Upload</span>
+          <span *ngIf="isUploading" class="loading-content">
+            <svg class="loading-spinner" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+              <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+            </svg>
+            Uploading...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
   </div>
 </div>
