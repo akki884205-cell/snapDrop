@@ -354,6 +354,20 @@ export class PoliciesComponent implements OnInit {
     }
   }
 
+  onFirstPage(): void {
+    if (this.currentPage !== 1) {
+      this.currentPage = 1;
+      this.loadPolicies(); // Reload from API
+    }
+  }
+
+  onLastPage(): void {
+    if (this.currentPage !== this.totalPages && this.totalPages > 0) {
+      this.currentPage = this.totalPages;
+      this.loadPolicies(); // Reload from API
+    }
+  }
+
   getPageNumbers(): number[] {
     const pages: number[] = [];
     const maxPages = 6; // Show maximum 6 page numbers
