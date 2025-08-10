@@ -357,16 +357,31 @@
         </div>
 
         <div class="pagination-controls">
+          <!-- First page button -->
+          <button
+            class="pagination-btn first-last-btn"
+            [disabled]="currentPage === 1"
+            (click)="onFirstPage()"
+            title="First page"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.41,16.59L13.82,12L18.41,7.41L17,6L11,12L17,18L18.41,16.59M6,6V18H8V6H6Z"/>
+            </svg>
+          </button>
+
+          <!-- Previous page button -->
           <button
             class="pagination-btn"
             [disabled]="currentPage === 1"
             (click)="onPreviousPage()"
+            title="Previous page"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
             </svg>
           </button>
 
+          <!-- Page numbers -->
           <div class="page-numbers">
             <button
               *ngFor="let page of getPageNumbers()"
@@ -378,13 +393,27 @@
             </button>
           </div>
 
+          <!-- Next page button -->
           <button
             class="pagination-btn"
             [disabled]="currentPage === totalPages"
             (click)="onNextPage()"
+            title="Next page"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+            </svg>
+          </button>
+
+          <!-- Last page button -->
+          <button
+            class="pagination-btn first-last-btn"
+            [disabled]="currentPage === totalPages"
+            (click)="onLastPage()"
+            title="Last page"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5.59,7.41L10.18,12L5.59,16.59L7,18L13,12L7,6L5.59,7.41M16,6V18H18V6H16Z"/>
             </svg>
           </button>
         </div>
