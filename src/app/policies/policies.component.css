@@ -1311,14 +1311,14 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--border-color);
   z-index: 1;
 }
 
 .upload-divider span {
-  background: rgba(0, 30, 60, 0.95);
+  background: var(--bg-card);
   padding: 0 16px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   font-size: 14px;
   position: relative;
   z-index: 2;
