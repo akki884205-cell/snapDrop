@@ -1054,7 +1054,7 @@
 
 .checkbox-label {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-primary);
   cursor: pointer;
   margin: 0;
 }
