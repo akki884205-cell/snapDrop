@@ -1272,28 +1272,28 @@
 }
 
 .upload-area {
-  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border: 2px dashed var(--border-color);
   border-radius: 12px;
   padding: 40px 20px;
   text-align: center;
-  background: rgba(0, 40, 80, 0.3);
+  background: var(--bg-secondary);
   margin-bottom: 20px;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .upload-area:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(0, 40, 80, 0.5);
+  border-color: #4A90A4;
+  background: var(--bg-primary);
 }
 
 .upload-icon {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   margin-bottom: 16px;
 }
 
 .upload-text {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-primary);
   font-size: 14px;
   margin: 0;
 }
