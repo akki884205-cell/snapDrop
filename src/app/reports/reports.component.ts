@@ -23,7 +23,7 @@ export class ReportsComponent implements OnInit {
   blockedDomains: BlockedDomain[] = [];
   blockedSearch = '';
   blockedPage = 1;
-  pageSize = 50;
+  pageSize = 10;
 
   // Violators state
   violatorsLoading = false;
