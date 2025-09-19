@@ -127,9 +127,20 @@ export class ReportsComponent implements OnInit {
     this.trendError = '';
     const days = this.rangeDays();
     this.reports.getRequestsTrend(days, this.trendGranularity).subscribe({
-      next: (data) => { this.trend = data; this.trendLoading = false; },
+      next: (data) => {
+        this.trend = data;
+        this.endTrendLoading();
+      },
       error: () => { this.trendError = 'Failed to load trend'; this.trendLoading = false; }
     });
+  }
+
+  private endTrendLoading(): void {
+    if (typeof requestAnimationFrame !== 'undefined') {
+      requestAnimationFrame(() => { this.trendLoading = false; });
+    } else {
+      setTimeout(() => { this.trendLoading = false; }, 0);
+    }
   }
 
   // Helpers
