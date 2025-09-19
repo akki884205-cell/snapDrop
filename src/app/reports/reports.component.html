@@ -121,6 +121,29 @@
 
       <!-- Dashboards Content -->
       <div class="dashboards-content" *ngIf="activeTab === 'dashboards'">
+        <!-- Global Time Range Filter -->
+        <section class="report-section-card" aria-label="Global time range filter">
+          <div class="section-header">
+            <div class="section-title"><h3 class="title-text">Time Range</h3></div>
+            <div class="section-actions">
+              <div class="btn-group">
+                <button class="btn" [class.active]="globalPreset==='24h'" (click)="setGlobalPreset('24h')">24h</button>
+                <button class="btn" [class.active]="globalPreset==='7d'" (click)="setGlobalPreset('7d')">7d</button>
+                <button class="btn" [class.active]="globalPreset==='30d'" (click)="setGlobalPreset('30d')">30d</button>
+                <button class="btn" [class.active]="globalPreset==='90d'" (click)="setGlobalPreset('90d')">90d</button>
+                <button class="btn" [class.active]="globalPreset==='custom'" (click)="setGlobalPreset('custom')">Custom</button>
+              </div>
+              <div *ngIf="globalPreset==='custom'" class="custom-range">
+                <label class="sr-only" for="gFrom">From</label>
+                <input id="gFrom" class="date-input" type="date" [(ngModel)]="globalFrom" (change)="onGlobalRangeChange()" />
+                <label class="sr-only" for="gTo">To</label>
+                <input id="gTo" class="date-input" type="date" [(ngModel)]="globalTo" (change)="onGlobalRangeChange()" />
+              </div>
+              <button class="btn" (click)="refreshAll()">Refresh</button>
+            </div>
+          </div>
+        </section>
+
         <!-- 1. Top 1000 Blocked Domains -->
         <section class="report-section-card" aria-label="Top blocked domains">
           <header class="section-header">
