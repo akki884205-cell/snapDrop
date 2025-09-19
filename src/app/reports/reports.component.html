@@ -157,6 +157,7 @@
               <input class="search-input" type="search" placeholder="Search domains" [(ngModel)]="blockedSearch" aria-label="Search domains" />
               <button class="btn" (click)="exportBlockedCSV()" aria-label="Export to CSV">Export CSV</button>
               <button class="btn" (click)="exportBlockedExcel()" aria-label="Export to Excel">Export Excel</button>
+              <button class="btn" (click)="resetAllFilters()">Reset View</button>
               <button class="btn ghost" (click)="showBlocked = !showBlocked" [attr.aria-expanded]="showBlocked">{{ showBlocked ? 'Collapse' : 'Expand' }}</button>
             </div>
           </header>
@@ -208,6 +209,7 @@
             </div>
             <div class="section-actions">
               <input class="search-input" type="search" placeholder="Search IP" [(ngModel)]="violatorSearch" aria-label="Search IP" (focus)="onViolatorFilterFocus()" (blur)="onViolatorFilterBlur()" />
+              <button class="btn" (click)="resetAllFilters()">Reset View</button>
               <button class="btn" (click)="showViolators = !showViolators" [attr.aria-expanded]="showViolators">{{ showViolators ? 'Collapse' : 'Expand' }}</button>
             </div>
           </header>
@@ -303,6 +305,7 @@
                 <input type="checkbox" [checked]="trendShowPercent" (change)="onTrendPercentToggle($any($event.target).checked)" />
                 <span>Show %</span>
               </label>
+              <button class="btn" (click)="resetAllFilters()">Reset View</button>
               <button class="btn ghost" (click)="showTrend = !showTrend" [attr.aria-expanded]="showTrend">{{ showTrend ? 'Collapse' : 'Expand' }}</button>
             </div>
           </header>
