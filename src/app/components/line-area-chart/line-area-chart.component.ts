@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 
 export interface LinePoint { t: number; a: number; b: number; }
 
@@ -8,13 +8,15 @@ export interface LinePoint { t: number; a: number; b: number; }
   styleUrls: ['./line-area-chart.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LineAreaChartComponent {
+export class LineAreaChartComponent implements AfterViewInit, OnDestroy {
   @Input() points: LinePoint[] = [];
   @Input() showPercent = false;
   @Input() ariaLabel = 'Allowed vs Blocked requests over time';
 
   width = 600;
   height = 220;
+  private ro?: ResizeObserver;
+  constructor(private el: ElementRef<HTMLElement>) {}
   padding = { top: 10, right: 10, bottom: 20, left: 40 };
 
   get innerW() { return this.width - this.padding.left - this.padding.right; }
@@ -71,4 +73,21 @@ export class LineAreaChartComponent {
   areaPathBlocked(): string { return this.areaPath(p => p.b); }
   linePathAllowed(): string { return this.linePath(p => p.a); }
   linePathBlocked(): string { return this.linePath(p => p.b); }
+
+  ngAfterViewInit(): void {
+    const update = () => {
+      const rect = this.el.nativeElement.getBoundingClientRect();
+      this.width = Math.max(320, Math.floor(rect.width));
+    };
+    update();
+    this.ro = new ResizeObserver(() => update());
+    this.ro.observe(this.el.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    if (this.ro) {
+      this.ro.disconnect();
+      this.ro = undefined;
+    }
+  }
 }
