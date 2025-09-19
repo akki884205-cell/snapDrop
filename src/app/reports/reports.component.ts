@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
 import { ReportsService, BlockedDomain, ViolatorIP, RequestsPoint, Granularity } from '../services/reports.service';
@@ -49,6 +49,7 @@ export class ReportsComponent implements OnInit {
   // Selections for cross-filter
   selectedCountry: string | null = null;
   selectedDomainLabel: string | null = null;
+  selectedViolatorIP: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -205,6 +206,8 @@ export class ReportsComponent implements OnInit {
   onRowClick(v: ViolatorIP): void {
     this.selectedIP = v;
     this.selectedCountry = v.country || null;
+    this.selectedViolatorIP = v.ip;
+    this.violatorSearch = v.ip;
     this.showIPModal = true;
   }
   closeIPModal(): void { this.showIPModal = false; }
@@ -222,6 +225,28 @@ export class ReportsComponent implements OnInit {
   onCountrySelect(country: string): void { this.selectedCountry = country; }
 
   onDomainBarSelect(label: string): void { this.blockedSearch = label; this.blockedPage = 1; }
+
+  onPieSelect(label: string): void { this.selectedViolatorIP = label; this.violatorSearch = label; this.violatorsPage = 1; }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void { this.resetAllFilters(); }
+
+  resetAllFilters(): void {
+    this.selectedCountry = null;
+    this.selectedDomainLabel = null;
+    this.selectedViolatorIP = null;
+    this.blockedSearch = '';
+    this.violatorSearch = '';
+    this.blockedPage = 1;
+    this.violatorsPage = 1;
+    this.trendShowPercent = false;
+    this.globalPreset = '30d';
+    const end = new Date();
+    const start = new Date(end.getTime() - 29 * 24 * 60 * 60 * 1000);
+    this.globalFrom = this.toInputDate(start);
+    this.globalTo = this.toInputDate(end);
+    this.refreshAll();
+  }
 
   get trendSummary() {
     const totalAllowed = this.trend.reduce((s, p) => s + p.allowed, 0);
