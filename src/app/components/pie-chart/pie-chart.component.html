@@ -1,0 +1,14 @@
+<svg class="pie-chart" [attr.width]="size" [attr.height]="size" role="img" [attr.aria-label]="ariaLabel">
+  <g [attr.transform]="'translate(' + size/2 + ',' + size/2 + ')'">
+    <ng-container *ngFor="let a of arcs">
+      <path [attr.d]="a.d" [attr.fill]="a.color"></path>
+    </ng-container>
+  </g>
+</svg>
+<div class="pie-legend">
+  <div class="legend-item" *ngFor="let d of data; let i = index">
+    <span class="legend-swatch" [style.background]="d.color || palette(i)"></span>
+    <span class="legend-label">{{ d.label }}</span>
+    <span class="legend-value">{{ d.value | number }}</span>
+  </div>
+</div>
