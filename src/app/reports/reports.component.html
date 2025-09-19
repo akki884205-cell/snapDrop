@@ -121,27 +121,180 @@
 
       <!-- Dashboards Content -->
       <div class="dashboards-content" *ngIf="activeTab === 'dashboards'">
-        <div class="report-card">
-          <div class="card-header">
-            <div class="card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
-              </svg>
+        <!-- 1. Top 1000 Blocked Domains -->
+        <section class="report-section-card" aria-label="Top blocked domains">
+          <header class="section-header">
+            <div class="section-title">
+              <h3 class="title-text">Top 1000 Blocked Domains</h3>
+              <span class="summary-pill" title="Total unique blocked domains">
+                Total: <strong class="text-red">{{ blockedSummaryUnique | number }}</strong>
+              </span>
             </div>
-            <div class="card-info">
-              <h3 class="card-title">Service Sensor</h3>
-              <p class="card-description">View status of all CT and third party services</p>
+            <div class="section-actions">
+              <input class="search-input" type="search" placeholder="Search domains" [(ngModel)]="blockedSearch" aria-label="Search domains" />
+              <button class="btn" (click)="exportBlockedCSV()" aria-label="Export to CSV">Export CSV</button>
+              <button class="btn" (click)="exportBlockedExcel()" aria-label="Export to Excel">Export Excel</button>
+              <button class="btn ghost" (click)="showBlocked = !showBlocked" [attr.aria-expanded]="showBlocked">{{ showBlocked ? 'Collapse' : 'Expand' }}</button>
             </div>
-            <button class="card-menu">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"/>
-              </svg>
-            </button>
+          </header>
+
+          <div *ngIf="blockedLoading" class="section-loading">
+            <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
           </div>
-          <div class="card-footer">
-            <button class="view-button" (click)="onViewServiceSensor()">View</button>
+          <div *ngIf="blockedError && !blockedLoading" class="section-error">{{ blockedError }} <button class="btn" (click)="loadBlocked()">Retry</button></div>
+
+          <div class="section-body" *ngIf="!blockedLoading && !blockedError && showBlocked">
+            <div class="two-col">
+              <div class="table-wrapper" role="region" aria-label="Blocked domains table">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Domain Name</th>
+                      <th>Block Count</th>
+                      <th>Last Blocked Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let d of blockedPageItems">
+                      <td class="col-domain" [title]="d.domain">{{ d.domain }}</td>
+                      <td class="col-number text-red">{{ d.blockCount | number }}</td>
+                      <td class="col-date">{{ d.lastBlocked | date:'medium' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="pagination">
+                  <button class="btn" (click)="onBlockedPageChange(-1)" [disabled]="blockedPage===1">Prev</button>
+                  <span class="page-info">Page {{ blockedPage }} of {{ blockedTotalPages }}</span>
+                  <button class="btn" (click)="onBlockedPageChange(1)" [disabled]="blockedPage===blockedTotalPages">Next</button>
+                </div>
+              </div>
+
+              <div class="chart-wrapper">
+                <app-hbar-chart [data]="blockedTopForChart" [maxBars]="20" ariaLabel="Top 20 blocked domains"></app-hbar-chart>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        <!-- 2. Top 1000 Violators by Client IP -->
+        <section class="report-section-card" aria-label="Top violators by client IP">
+          <header class="section-header">
+            <div class="section-title">
+              <h3 class="title-text">Top 1000 Violators by Client IP</h3>
+            </div>
+            <div class="section-actions">
+              <input class="search-input" type="search" placeholder="Search IP" [(ngModel)]="violatorSearch" aria-label="Search IP" />
+              <button class="btn" (click)="showViolators = !showViolators" [attr.aria-expanded]="showViolators">{{ showViolators ? 'Collapse' : 'Expand' }}</button>
+            </div>
+          </header>
+
+          <div *ngIf="violatorsLoading" class="section-loading">
+            <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
+          </div>
+          <div *ngIf="violatorsError && !violatorsLoading" class="section-error">{{ violatorsError }} <button class="btn" (click)="loadViolators()">Retry</button></div>
+
+          <div class="section-body" *ngIf="!violatorsLoading && !violatorsError && showViolators">
+            <div class="two-col">
+              <div class="table-wrapper" role="region" aria-label="Violators table">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Client IP</th>
+                      <th>Total Violations</th>
+                      <th>Last Seen Timestamp</th>
+                      <th>Country</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let v of violatorsPageItems" (click)="onRowClick(v)" class="row-clickable" tabindex="0">
+                      <td>{{ v.ip }}</td>
+                      <td class="col-number text-red">{{ v.totalViolations | number }}</td>
+                      <td class="col-date">{{ v.lastSeen | date:'medium' }}</td>
+                      <td>{{ v.country || '-' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="pagination">
+                  <button class="btn" (click)="onViolatorsPageChange(-1)" [disabled]="violatorsPage===1">Prev</button>
+                  <span class="page-info">Page {{ violatorsPage }} of {{ violatorsTotalPages }}</span>
+                  <button class="btn" (click)="onViolatorsPageChange(1)" [disabled]="violatorsPage===violatorsTotalPages">Next</button>
+                </div>
+              </div>
+
+              <div class="chart-grid">
+                <app-world-map-heat [data]="violatorsByCountry" ariaLabel="World map of violations"></app-world-map-heat>
+                <app-pie-chart [data]="violatorsPieData" ariaLabel="Top 10 violators share"></app-pie-chart>
+              </div>
+            </div>
+          </div>
+
+          <!-- IP Details Modal -->
+          <div class="modal-backdrop" *ngIf="showIPModal" (click)="closeIPModal()" aria-hidden="true"></div>
+          <div class="modal" *ngIf="showIPModal" role="dialog" aria-modal="true" aria-label="IP details">
+            <div class="modal-header">
+              <h4>IP Details - {{ selectedIP?.ip }}</h4>
+              <button class="btn ghost" (click)="closeIPModal()" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-grid">
+                <div>
+                  <h5>Geolocation</h5>
+                  <p>Country: {{ selectedIP?.country || 'Unknown' }}</p>
+                </div>
+                <div>
+                  <h5>Activity</h5>
+                  <ul class="list-plain">
+                    <li>Last seen: {{ selectedIP?.lastSeen | date:'medium' }}</li>
+                    <li>Total violations: {{ selectedIP?.totalViolations | number }}</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5>Associated domains</h5>
+                  <ul class="list-plain">
+                    <li *ngFor="let d of blockedDomains.slice(0,5)">{{ d.domain }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Denied vs Allowed Requests Trend -->
+        <section class="report-section-card" aria-label="Requests trend">
+          <header class="section-header">
+            <div class="section-title">
+              <h3 class="title-text">Denied vs Allowed Requests (30-day)</h3>
+              <div class="trend-summary">
+                <span class="badge green">Allowed: {{ trendSummary.totalAllowed | number }} <span [class.up]="trendSummary.allowedChange>=0" [class.down]="trendSummary.allowedChange<0">({{ trendSummary.allowedChange | number:'1.0-1' }}%)</span></span>
+                <span class="badge red">Blocked: {{ trendSummary.totalBlocked | number }} <span [class.up]="trendSummary.blockedChange>=0" [class.down]="trendSummary.blockedChange<0">({{ trendSummary.blockedChange | number:'1.0-1' }}%)</span></span>
+              </div>
+            </div>
+            <div class="section-actions">
+              <label class="sr-only" for="fromDate">From date</label>
+              <input id="fromDate" class="date-input" type="date" [(ngModel)]="dateFrom" (change)="onRangeChange()" />
+              <label class="sr-only" for="toDate">To date</label>
+              <input id="toDate" class="date-input" type="date" [(ngModel)]="dateTo" (change)="onRangeChange()" />
+              <div class="btn-group" role="group" aria-label="Granularity">
+                <button class="btn" [class.active]="trendGranularity==='day'" (click)="onTrendGranularity('day')">Daily</button>
+                <button class="btn" [class.active]="trendGranularity==='hour'" (click)="onTrendGranularity('hour')">Hourly</button>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" [checked]="trendShowPercent" (change)="onTrendPercentToggle($event.target.checked)" />
+                <span>Show %</span>
+              </label>
+              <button class="btn ghost" (click)="showTrend = !showTrend" [attr.aria-expanded]="showTrend">{{ showTrend ? 'Collapse' : 'Expand' }}</button>
+            </div>
+          </header>
+
+          <div *ngIf="trendLoading" class="section-loading">
+            <div class="skeleton-row" *ngFor="let i of [1,2,3,4]"></div>
+          </div>
+          <div *ngIf="trendError && !trendLoading" class="section-error">{{ trendError }} <button class="btn" (click)="loadTrend()">Retry</button></div>
+
+          <div class="section-body" *ngIf="!trendLoading && !trendError && showTrend">
+            <app-line-area-chart [points]="trend.map(p=>({t:p.timestamp,a:p.allowed,b:p.blocked}))" [showPercent]="trendShowPercent" ariaLabel="Requests trend chart"></app-line-area-chart>
+          </div>
+        </section>
       </div>
     </main>
   </div>
