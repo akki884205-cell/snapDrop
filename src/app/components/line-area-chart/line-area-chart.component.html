@@ -10,9 +10,9 @@
     </linearGradient>
   </defs>
 
-  <path [attr.d]="areaPath(p => p.a)" fill="url(#gradAllowed)" stroke="none"></path>
-  <path [attr.d]="areaPath(p => p.b)" fill="url(#gradBlocked)" stroke="none"></path>
+  <path [attr.d]="areaPathAllowed()" fill="url(#gradAllowed)" stroke="none"></path>
+  <path [attr.d]="areaPathBlocked()" fill="url(#gradBlocked)" stroke="none"></path>
 
-  <path [attr.d]="linePath(p => p.a)" fill="none" stroke="#2ecc71" stroke-width="2"></path>
-  <path [attr.d]="linePath(p => p.b)" fill="none" stroke="#ff4757" stroke-width="2"></path>
+  <path [attr.d]="linePathAllowed()" fill="none" stroke="#2ecc71" stroke-width="2"></path>
+  <path [attr.d]="linePathBlocked()" fill="none" stroke="#ff4757" stroke-width="2"></path>
 </svg>

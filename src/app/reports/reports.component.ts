@@ -207,6 +207,10 @@ export class ReportsComponent implements OnInit {
   onTrendPercentToggle(v: boolean): void { this.trendShowPercent = v; }
   onRangeChange(): void { this.loadTrend(); }
 
+  get trendLinePoints(): { t: number; a: number; b: number }[] {
+    return this.trend.map(p => ({ t: p.timestamp, a: p.allowed, b: p.blocked }));
+  }
+
   // Downloads
   private downloadCSV(rows: (string|number)[][], filename: string) {
     const csv = rows.map(r => r.map(x => '"' + String(x).replace(/"/g,'""') + '"').join(',')).join('\n');

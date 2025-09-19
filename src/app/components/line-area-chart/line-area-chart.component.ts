@@ -49,7 +49,6 @@ export class LineAreaChartComponent {
       const val = this.showPercent ? (total ? (getVal(p) / total) * 100 : 0) : getVal(p);
       return `${this.xScale(p.t)},${this.yScale(val)}`;
     });
-    // Close to baseline
     const last = this.points[this.points.length - 1];
     const first = this.points[0];
     const baselineY = this.yScale(0);
@@ -66,4 +65,10 @@ export class LineAreaChartComponent {
     });
     return parts.join(' ');
   }
+
+  // Wrapper methods to use in templates (avoid arrow functions in templates)
+  areaPathAllowed(): string { return this.areaPath(p => p.a); }
+  areaPathBlocked(): string { return this.areaPath(p => p.b); }
+  linePathAllowed(): string { return this.linePath(p => p.a); }
+  linePathBlocked(): string { return this.linePath(p => p.b); }
 }
