@@ -1,0 +1,9 @@
+<div class="hbar-chart" role="img" [attr.aria-label]="ariaLabel">
+  <div *ngFor="let d of topData" class="hbar-row" [attr.aria-label]="d.label + ': ' + d.value">
+    <div class="hbar-label" [title]="d.label">{{ d.label }}</div>
+    <div class="hbar-bar-wrapper" aria-hidden="true">
+      <div class="hbar-bar" [style.width]="widthPercent(d.value)" [style.background]="color"></div>
+      <div class="hbar-value">{{ d.value | number }}</div>
+    </div>
+  </div>
+</div>
