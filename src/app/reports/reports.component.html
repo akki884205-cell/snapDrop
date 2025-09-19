@@ -193,7 +193,7 @@
               </div>
 
               <div class="chart-wrapper">
-                <app-hbar-chart [data]="blockedTopForChart" [maxBars]="20" ariaLabel="Top 20 blocked domains"></app-hbar-chart>
+                <app-hbar-chart [data]="blockedTopForChart" [maxBars]="20" (selectLabel)="onDomainBarSelect($event)" ariaLabel="Top 20 blocked domains"></app-hbar-chart>
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@
               </div>
 
               <div class="chart-grid">
-                <app-world-map-heat [data]="violatorsByCountry" ariaLabel="World map of violations"></app-world-map-heat>
+                <app-world-map-heat [data]="violatorsByCountry" [highlightCountry]="selectedCountry" (selectCountry)="onCountrySelect($event)" ariaLabel="World map of violations"></app-world-map-heat>
                 <app-pie-chart [data]="violatorsPieData" ariaLabel="Top 10 violators share"></app-pie-chart>
               </div>
             </div>
