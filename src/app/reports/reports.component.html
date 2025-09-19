@@ -286,7 +286,7 @@
         <section class="report-section-card" aria-label="Requests trend">
           <header class="section-header">
             <div class="section-title">
-              <h3 class="title-text">Denied vs Allowed Requests (30-day)</h3>
+              <h3 class="title-text">Denied vs Allowed Requests</h3>
               <div class="trend-summary">
                 <span class="badge green">Allowed: {{ trendSummary.totalAllowed | number }} <span [class.up]="trendSummary.allowedChange>=0" [class.down]="trendSummary.allowedChange<0">({{ trendSummary.allowedChange | number:'1.0-1' }}%)</span></span>
                 <span class="badge red">Blocked: {{ trendSummary.totalBlocked | number }} <span [class.up]="trendSummary.blockedChange>=0" [class.down]="trendSummary.blockedChange<0">({{ trendSummary.blockedChange | number:'1.0-1' }}%)</span></span>
