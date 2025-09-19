@@ -7,7 +7,8 @@
           <circle [attr.cx]="p.x" [attr.cy]="p.y" [attr.r]="p.r" [attr.fill]="p.color">
             <title>{{ p.label }}: {{ p.value | number }}</title>
           </circle>
-          <text [attr.x]="p.x + p.r + 4" [attr.y]="p.y + 4" class="bubble-label">{{ p.label }} ({{ p.value | number }})</text>
+          <line class="label-link" [attr.x1]="p.x" [attr.y1]="p.y" [attr.x2]="p.labelX - 4" [attr.y2]="p.labelY - 4"></line>
+          <text [attr.x]="p.labelX" [attr.y]="p.labelY" class="bubble-label">{{ p.label }} ({{ p.value | number }})</text>
         </g>
       </ng-container>
     </g>
