@@ -246,7 +246,7 @@
 
               <div class="chart-grid">
                 <app-world-map-heat [data]="violatorsByCountry" [highlightCountry]="selectedCountry" (selectCountry)="onCountrySelect($event)" ariaLabel="World map of violations"></app-world-map-heat>
-                <app-pie-chart [data]="violatorsPieData" ariaLabel="Top 10 violators share"></app-pie-chart>
+                <app-pie-chart [data]="violatorsPieData" [selectedLabel]="selectedViolatorIP" (selectSlice)="onPieSelect($event)" ariaLabel="Top 10 violators share"></app-pie-chart>
               </div>
             </div>
           </div>
