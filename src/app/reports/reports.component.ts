@@ -221,7 +221,7 @@ export class ReportsComponent implements OnInit {
   // Trend derived
   onCountrySelect(country: string): void { this.selectedCountry = country; }
 
-  onDomainBarSelect(label: string): void { this.blockedSearch = label; this.filterPolicies?.(); }
+  onDomainBarSelect(label: string): void { this.blockedSearch = label; this.blockedPage = 1; }
 
   get trendSummary() {
     const totalAllowed = this.trend.reduce((s, p) => s + p.allowed, 0);
