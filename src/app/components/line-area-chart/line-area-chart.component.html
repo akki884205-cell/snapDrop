@@ -1,0 +1,18 @@
+<svg class="line-area" [attr.width]="width" [attr.height]="height" role="img" [attr.aria-label]="ariaLabel">
+  <defs>
+    <linearGradient id="gradAllowed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2ecc71" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2ecc71" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gradBlocked" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff4757" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ff4757" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <path [attr.d]="areaPath(p => p.a)" fill="url(#gradAllowed)" stroke="none"></path>
+  <path [attr.d]="areaPath(p => p.b)" fill="url(#gradBlocked)" stroke="none"></path>
+
+  <path [attr.d]="linePath(p => p.a)" fill="none" stroke="#2ecc71" stroke-width="2"></path>
+  <path [attr.d]="linePath(p => p.b)" fill="none" stroke="#ff4757" stroke-width="2"></path>
+</svg>
