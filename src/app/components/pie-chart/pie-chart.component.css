@@ -1,6 +1,11 @@
 .pie-chart{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px}
+.slice{cursor:pointer;opacity:.9;transition:transform .2s ease, opacity .2s ease}
+.slice:hover{opacity:1;transform:scale(1.02)}
+.slice.selected{opacity:1;filter:brightness(1.1)}
+.slice-under{opacity:.22}
 .pie-legend{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin-top:8px}
-.legend-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px}
+.legend-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;cursor:pointer}
+.legend-item:hover .legend-label{color:var(--text-primary)}
 .legend-swatch{width:10px;height:10px;border-radius:2px}
 .legend-label{font-size:12px;color:var(--text-secondary)}
 .legend-value{font-size:12px;color:var(--text-primary)}
