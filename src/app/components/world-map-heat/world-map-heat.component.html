@@ -3,9 +3,12 @@
     <rect x="0" y="0" [attr.width]="width" [attr.height]="height" class="map-bg"/>
     <g>
       <ng-container *ngFor="let p of points">
-        <circle [attr.cx]="p.x" [attr.cy]="p.y" [attr.r]="p.r" [attr.fill]="p.color">
-          <title>{{ p.label }}: {{ p.value | number }}</title>
-        </circle>
+        <g class="bubble-group" [class.selected]="highlightCountry === p.label" (click)="onBubbleClick(p.label)">
+          <circle [attr.cx]="p.x" [attr.cy]="p.y" [attr.r]="p.r" [attr.fill]="p.color">
+            <title>{{ p.label }}: {{ p.value | number }}</title>
+          </circle>
+          <text [attr.x]="p.x + p.r + 4" [attr.y]="p.y + 4" class="bubble-label">{{ p.label }} ({{ p.value | number }})</text>
+        </g>
       </ng-container>
     </g>
   </svg>
