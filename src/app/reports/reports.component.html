@@ -206,7 +206,7 @@
               <h3 class="title-text">Top 1000 Violators by Client IP</h3>
             </div>
             <div class="section-actions">
-              <input class="search-input" type="search" placeholder="Search IP" [(ngModel)]="violatorSearch" aria-label="Search IP" />
+              <input class="search-input" type="search" placeholder="Search IP" [(ngModel)]="violatorSearch" aria-label="Search IP" (focus)="onViolatorFilterFocus()" (blur)="onViolatorFilterBlur()" />
               <button class="btn" (click)="showViolators = !showViolators" [attr.aria-expanded]="showViolators">{{ showViolators ? 'Collapse' : 'Expand' }}</button>
             </div>
           </header>
@@ -229,7 +229,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let v of violatorsPageItems" (click)="onRowClick(v)" class="row-clickable" tabindex="0">
+                    <tr *ngFor="let v of violatorsPageItems" (mouseenter)="onViolatorRowHover(v)" (mouseleave)="onViolatorRowLeave()" (click)="onRowClick(v)" class="row-clickable" tabindex="0">
                       <td>{{ v.ip }}</td>
                       <td class="col-number text-red">{{ v.totalViolations | number }}</td>
                       <td class="col-date">{{ v.lastSeen | date:'medium' }}</td>
@@ -245,7 +245,7 @@
               </div>
 
               <div class="chart-grid">
-                <app-world-map-heat [data]="violatorsByCountry" [highlightCountry]="selectedCountry" (selectCountry)="onCountrySelect($event)" ariaLabel="World map of violations"></app-world-map-heat>
+                <app-world-map-heat [data]="violatorsByCountry" [highlightCountry]="selectedCountry || hoveredCountry" (selectCountry)="onCountrySelect($event)" ariaLabel="World map of violations"></app-world-map-heat>
                 <app-pie-chart [data]="violatorsPieData" [selectedLabel]="selectedViolatorIP" (selectSlice)="onPieSelect($event)" ariaLabel="Top 10 violators share"></app-pie-chart>
               </div>
             </div>
