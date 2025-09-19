@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 
 export interface Hotspot { country: string; value: number; }
 
