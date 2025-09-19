@@ -40,9 +40,15 @@ export class ReportsComponent implements OnInit {
   trend: RequestsPoint[] = [];
   trendGranularity: Granularity = 'day';
   trendShowPercent = false;
-  trendDays = 30;
-  dateFrom: string = '';
-  dateTo: string = '';
+
+  // Global Time Range
+  globalPreset: '24h'|'7d'|'30d'|'90d'|'custom' = '30d';
+  globalFrom = '';
+  globalTo = '';
+
+  // Selections for cross-filter
+  selectedCountry: string | null = null;
+  selectedDomainLabel: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -58,8 +64,8 @@ export class ReportsComponent implements OnInit {
     }
     const end = new Date();
     const start = new Date(end.getTime() - 29 * 24 * 60 * 60 * 1000);
-    this.dateFrom = this.toInputDate(start);
-    this.dateTo = this.toInputDate(end);
+    this.globalFrom = this.toInputDate(start);
+    this.globalTo = this.toInputDate(end);
 
     this.loadBlocked();
     this.loadViolators();
@@ -91,7 +97,11 @@ export class ReportsComponent implements OnInit {
     this.blockedLoading = true;
     this.blockedError = '';
     this.reports.getTopBlockedDomains(1000).subscribe({
-      next: (data) => { this.blockedDomains = data; this.blockedLoading = false; },
+      next: (data) => {
+        const [from, to] = this.currentRangeMs();
+        this.blockedDomains = data.filter(d => d.lastBlocked >= from && d.lastBlocked <= to);
+        this.blockedLoading = false;
+      },
       error: () => { this.blockedError = 'Failed to load blocked domains'; this.blockedLoading = false; }
     });
   }
@@ -100,7 +110,11 @@ export class ReportsComponent implements OnInit {
     this.violatorsLoading = true;
     this.violatorsError = '';
     this.reports.getTopViolators(1000).subscribe({
-      next: (data) => { this.violators = data; this.violatorsLoading = false; },
+      next: (data) => {
+        const [from, to] = this.currentRangeMs();
+        this.violators = data.filter(v => v.lastSeen >= from && v.lastSeen <= to);
+        this.violatorsLoading = false;
+      },
       error: () => { this.violatorsError = 'Failed to load violators'; this.violatorsLoading = false; }
     });
   }
@@ -108,7 +122,7 @@ export class ReportsComponent implements OnInit {
   loadTrend(): void {
     this.trendLoading = true;
     this.trendError = '';
-    const days = this.computeSelectedDays();
+    const days = this.rangeDays();
     this.reports.getRequestsTrend(days, this.trendGranularity).subscribe({
       next: (data) => { this.trend = data; this.trendLoading = false; },
       error: () => { this.trendError = 'Failed to load trend'; this.trendLoading = false; }
@@ -123,12 +137,23 @@ export class ReportsComponent implements OnInit {
     return `${y}-${m}-${day}`;
   }
 
-  computeSelectedDays(): number {
-    const from = new Date(this.dateFrom + 'T00:00:00Z').getTime();
-    const to = new Date(this.dateTo + 'T23:59:59Z').getTime();
-    const diff = Math.max(1, Math.ceil((to - from) / (24*60*60*1000)) + 1);
-    this.trendDays = diff;
-    return diff;
+  currentRangeMs(): [number, number] {
+    let from: number;
+    let to: number = new Date().getTime();
+    if (this.globalPreset !== 'custom') {
+      const map = { '24h': 1, '7d': 7, '30d': 30, '90d': 90 } as const;
+      const days = map[this.globalPreset] ?? 30;
+      from = to - days * 24 * 60 * 60 * 1000;
+    } else {
+      from = new Date(this.globalFrom + 'T00:00:00Z').getTime();
+      to = new Date(this.globalTo + 'T23:59:59Z').getTime();
+    }
+    return [from, to];
+  }
+
+  rangeDays(): number {
+    const [from, to] = this.currentRangeMs();
+    return Math.max(1, Math.ceil((to - from) / (24*60*60*1000)));
   }
 
   // Blocked table derived
@@ -162,7 +187,11 @@ export class ReportsComponent implements OnInit {
   // Violators table derived
   get violatorsFiltered(): ViolatorIP[] {
     const term = this.violatorSearch.trim();
-    return term ? this.violators.filter(v => v.ip.includes(term)) : this.violators;
+    let list = term ? this.violators.filter(v => v.ip.includes(term)) : this.violators;
+    if (this.selectedCountry) {
+      list = list.filter(v => (v.country || '') === this.selectedCountry);
+    }
+    return list;
   }
   get violatorsTotalPages(): number { return Math.ceil(this.violatorsFiltered.length / this.pageSize) || 1; }
   get violatorsPageItems(): ViolatorIP[] {
@@ -175,13 +204,14 @@ export class ReportsComponent implements OnInit {
   }
   onRowClick(v: ViolatorIP): void {
     this.selectedIP = v;
+    this.selectedCountry = v.country || null;
     this.showIPModal = true;
   }
   closeIPModal(): void { this.showIPModal = false; }
 
   get violatorsByCountry() {
     const map: Record<string, number> = {};
-    this.violators.forEach(v => { const c = v.country || 'US'; map[c] = (map[c] || 0) + v.totalViolations; });
+    this.violatorsFiltered.forEach(v => { const c = v.country || 'US'; map[c] = (map[c] || 0) + v.totalViolations; });
     return Object.keys(map).map(k => ({ country: k, value: map[k] }));
   }
   get violatorsPieData() {
@@ -189,6 +219,10 @@ export class ReportsComponent implements OnInit {
   }
 
   // Trend derived
+  onCountrySelect(country: string): void { this.selectedCountry = country; }
+
+  onDomainBarSelect(label: string): void { this.blockedSearch = label; this.filterPolicies?.(); }
+
   get trendSummary() {
     const totalAllowed = this.trend.reduce((s, p) => s + p.allowed, 0);
     const totalBlocked = this.trend.reduce((s, p) => s + p.blocked, 0);
@@ -205,7 +239,21 @@ export class ReportsComponent implements OnInit {
     this.loadTrend();
   }
   onTrendPercentToggle(v: boolean): void { this.trendShowPercent = v; }
-  onRangeChange(): void { this.loadTrend(); }
+
+  setGlobalPreset(preset: '24h'|'7d'|'30d'|'90d'|'custom'): void {
+    this.globalPreset = preset;
+    if (preset !== 'custom') {
+      this.refreshAll();
+    }
+  }
+
+  onGlobalRangeChange(): void { if (this.globalPreset === 'custom') this.refreshAll(); }
+
+  refreshAll(): void {
+    this.loadBlocked();
+    this.loadViolators();
+    this.loadTrend();
+  }
 
   get trendLinePoints(): { t: number; a: number; b: number }[] {
     return this.trend.map(p => ({ t: p.timestamp, a: p.allowed, b: p.blocked }));
