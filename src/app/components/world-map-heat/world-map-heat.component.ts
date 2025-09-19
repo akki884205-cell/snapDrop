@@ -18,6 +18,8 @@ export class WorldMapHeatComponent implements OnChanges, AfterViewInit, OnDestro
   width = 600;
   height = 300;
   points: Point[] = [];
+  private ro?: ResizeObserver;
+  constructor(private el: ElementRef<HTMLElement>) {}
 
   private coords: Record<string, { lat: number; lon: number }> = {
     US: { lat: 37.5, lon: -96 }, CA: { lat: 56, lon: -106 }, MX: { lat: 23, lon: -102 },
@@ -28,7 +30,23 @@ export class WorldMapHeatComponent implements OnChanges, AfterViewInit, OnDestro
     AE: { lat: 24, lon: 54 }, NL: { lat: 52.3, lon: 5.5 }, SE: { lat: 62, lon: 15 },
   };
 
-  ngOnChanges(): void {
+  ngOnChanges(): void { this.recompute(); }
+
+  ngAfterViewInit(): void {
+    const update = () => {
+      const rect = this.el.nativeElement.getBoundingClientRect();
+      this.width = Math.max(260, Math.floor(rect.width));
+      this.height = Math.round(this.width * 0.5);
+      this.recompute();
+    };
+    update();
+    this.ro = new ResizeObserver(() => update());
+    this.ro.observe(this.el.nativeElement);
+  }
+
+  ngOnDestroy(): void { if (this.ro) { this.ro.disconnect(); this.ro = undefined; } }
+
+  private recompute(): void {
     const max = Math.max(...this.data.map(d => d.value), 1);
     this.points = this.data
       .filter(d => !!this.coords[d.country])
@@ -41,7 +59,7 @@ export class WorldMapHeatComponent implements OnChanges, AfterViewInit, OnDestro
         return { x, y, r, color, label: d.country, value: d.value, labelX: 0, labelY: 0 };
       });
 
-    this.separateBubbles(3, 2); // small spacing, few iterations to keep geo fidelity
+    this.separateBubbles(3, 2);
     this.placeLabels();
   }
 
