@@ -293,10 +293,6 @@
               </div>
             </div>
             <div class="section-actions">
-              <label class="sr-only" for="fromDate">From date</label>
-              <input id="fromDate" class="date-input" type="date" [(ngModel)]="dateFrom" (change)="onRangeChange()" />
-              <label class="sr-only" for="toDate">To date</label>
-              <input id="toDate" class="date-input" type="date" [(ngModel)]="dateTo" (change)="onRangeChange()" />
               <div class="btn-group" role="group" aria-label="Granularity">
                 <button class="btn" [class.active]="trendGranularity==='day'" (click)="onTrendGranularity('day')">Daily</button>
                 <button class="btn" [class.active]="trendGranularity==='hour'" (click)="onTrendGranularity('hour')">Hourly</button>
