@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 
 export interface PieDatum { label: string; value: number; color?: string; }
 
@@ -8,7 +8,7 @@ export interface PieDatum { label: string; value: number; color?: string; }
   styleUrls: ['./pie-chart.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PieChartComponent {
+export class PieChartComponent implements AfterViewInit, OnDestroy {
   @Input() data: PieDatum[] = [];
   @Input() ariaLabel = 'Pie chart';
   @Input() selectedLabel: string | null = null;
@@ -17,6 +17,8 @@ export class PieChartComponent {
   size = 240;
   radius = 100;
   innerRadius = 58;
+  private ro?: ResizeObserver;
+  constructor(private el: ElementRef<HTMLElement>) {}
 
   get total(): number { return this.data.reduce((s, d) => s + d.value, 0) || 1; }
 
@@ -52,6 +54,21 @@ export class PieChartComponent {
   }
 
   onSliceClick(label: string) { this.selectSlice.emit(label); }
+
+  ngAfterViewInit(): void {
+    const update = () => {
+      const rect = this.el.nativeElement.getBoundingClientRect();
+      const s = Math.max(200, Math.min(360, Math.floor(rect.width)));
+      this.size = s;
+      this.radius = Math.round(s * 0.42);
+      this.innerRadius = Math.round(this.radius * 0.58);
+    };
+    update();
+    this.ro = new ResizeObserver(() => update());
+    this.ro.observe(this.el.nativeElement);
+  }
+
+  ngOnDestroy(): void { if (this.ro) { this.ro.disconnect(); this.ro = undefined; } }
 
   palette(i: number): string {
     const colors = ['#4FC3F7','#2ecc71','#ff4757','#f39c12','#9b59b6','#16a085','#e67e22','#e74c3c','#3498db','#95a5a6'];
