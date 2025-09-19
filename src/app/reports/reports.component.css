@@ -184,7 +184,7 @@
 .reports-main {
   flex: 1;
   padding: 24px;
-  overflow-y: auto;
+  overflow-y: visible;
 }
 
 /* Tab Navigation */
