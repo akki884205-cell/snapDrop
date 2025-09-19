@@ -13,6 +13,10 @@ import { ReportsComponent } from './reports/reports.component';
 import { ServiceSensorComponent } from './service-sensor/service-sensor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { HbarChartComponent } from './components/hbar-chart/hbar-chart.component';
+import { LineAreaChartComponent } from './components/line-area-chart/line-area-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { WorldMapHeatComponent } from './components/world-map-heat/world-map-heat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { SettingsComponent } from './settings/settings.component';
     ReportsComponent,
     ServiceSensorComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    HbarChartComponent,
+    LineAreaChartComponent,
+    PieChartComponent,
+    WorldMapHeatComponent
   ],
   imports: [
     BrowserModule,
