@@ -50,6 +50,8 @@ export class ReportsComponent implements OnInit {
   selectedCountry: string | null = null;
   selectedDomainLabel: string | null = null;
   selectedViolatorIP: string | null = null;
+  hoveredCountry: string | null = null;
+  bubbleSortActive = false;
 
   constructor(
     private authService: AuthService,
@@ -215,14 +217,28 @@ export class ReportsComponent implements OnInit {
   get violatorsByCountry() {
     const map: Record<string, number> = {};
     this.violatorsFiltered.forEach(v => { const c = v.country || 'US'; map[c] = (map[c] || 0) + v.totalViolations; });
-    return Object.keys(map).map(k => ({ country: k, value: map[k] }));
+    let arr = Object.keys(map).map(k => ({ country: k, value: map[k] }));
+
+    // Prioritize hovered country if any
+    if (this.hoveredCountry) {
+      arr = arr.sort((a, b) => (a.country === this.hoveredCountry ? -1 : b.country === this.hoveredCountry ? 1 : 0));
+      return arr;
+    }
+
+    // Sort bubbles when filter focused, else stable alphabetical
+    if (this.bubbleSortActive) {
+      arr.sort((a, b) => b.value - a.value);
+    } else {
+      arr.sort((a, b) => a.country.localeCompare(b.country));
+    }
+    return arr;
   }
   get violatorsPieData() {
     return this.violators.slice(0, 10).map(v => ({ label: v.ip, value: v.totalViolations }));
   }
 
   // Trend derived
-  onCountrySelect(country: string): void { this.selectedCountry = country; }
+  onCountrySelect(country: string): void { this.selectedCountry = country; this.bubbleSortActive = false; }
 
   onDomainBarSelect(label: string): void { this.blockedSearch = label; this.blockedPage = 1; }
 
@@ -235,6 +251,8 @@ export class ReportsComponent implements OnInit {
     this.selectedCountry = null;
     this.selectedDomainLabel = null;
     this.selectedViolatorIP = null;
+    this.hoveredCountry = null;
+    this.bubbleSortActive = false;
     this.blockedSearch = '';
     this.violatorSearch = '';
     this.blockedPage = 1;
@@ -247,6 +265,12 @@ export class ReportsComponent implements OnInit {
     this.globalTo = this.toInputDate(end);
     this.refreshAll();
   }
+
+  onViolatorFilterFocus(): void { this.bubbleSortActive = true; }
+  onViolatorFilterBlur(): void { if (!this.selectedViolatorIP && !this.selectedCountry) { this.bubbleSortActive = false; } }
+
+  onViolatorRowHover(v: ViolatorIP): void { this.hoveredCountry = v.country || null; }
+  onViolatorRowLeave(): void { if (!this.selectedCountry) { this.hoveredCountry = null; } }
 
   get trendSummary() {
     const totalAllowed = this.trend.reduce((s, p) => s + p.allowed, 0);
