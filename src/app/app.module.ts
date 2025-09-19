@@ -17,6 +17,7 @@ import { HbarChartComponent } from './components/hbar-chart/hbar-chart.component
 import { LineAreaChartComponent } from './components/line-area-chart/line-area-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { WorldMapHeatComponent } from './components/world-map-heat/world-map-heat.component';
+import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WorldMapHeatComponent } from './components/world-map-heat/world-map-hea
     HbarChartComponent,
     LineAreaChartComponent,
     PieChartComponent,
-    WorldMapHeatComponent
+    WorldMapHeatComponent,
+    LoadingBarComponent
   ],
   imports: [
     BrowserModule,
