@@ -71,36 +71,55 @@ export class AuthService {
    */
   login(email: string, password: string): Observable<LoginResponse> {
     console.log(`[AUTH SERVICE] Login attempt for: ${email}`);
-    
+
+    const normalizedEmail = (email || '').trim().toLowerCase();
+    const providedPassword = (password || '').trim();
+
     // Simulate API delay
     return of(null).pipe(
-      delay(1500), // 1.5 second delay to simulate network request
+      delay(500),
       map(() => {
-        const user = this.mockUsers[email.toLowerCase()];
-        
-        if (!user) {
-          throw new Error('User not found. Please check your email address.');
+        if (!normalizedEmail) {
+          throw new Error('Please enter a valid email address.');
         }
-        
-        if (user.password !== password) {
+        if (!providedPassword) {
+          throw new Error('Please enter your password.');
+        }
+
+        let userRecord = this.mockUsers[normalizedEmail];
+
+        // Auto-provision unknown users for demo environment
+        if (!userRecord) {
+          const newUser: User = {
+            id: Date.now().toString(),
+            email: normalizedEmail,
+            name: this.deriveNameFromEmail(normalizedEmail),
+            role: 'user'
+          };
+          this.mockUsers[normalizedEmail] = { password: providedPassword, user: newUser };
+          userRecord = this.mockUsers[normalizedEmail];
+          console.log('[AUTH SERVICE] Auto-provisioned user:', newUser.email);
+        }
+
+        if (userRecord.password !== providedPassword) {
           throw new Error('Invalid password. Please try again.');
         }
-        
+
         // Generate mock JWT token
-        const token = this.generateMockToken(user.user);
-        
+        const token = this.generateMockToken(userRecord.user);
+
         // Store authentication data
-        this.currentUser = user.user;
+        this.currentUser = userRecord.user;
         this.authToken = token;
-        this.storeAuth(token, user.user);
-        
+        this.storeAuth(token, userRecord.user);
+
         const response: LoginResponse = {
           success: true,
           token: token,
-          user: user.user,
+          user: userRecord.user,
           message: 'Login successful'
         };
-        
+
         console.log('[AUTH SERVICE] Login successful:', response);
         return response;
       })
@@ -207,11 +226,21 @@ export class AuthService {
       email: user.email,
       role: user.role,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24 hours
+      exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)
     }));
     const signature = btoa('mock-signature-' + Math.random().toString(36));
-    
+
     return `${header}.${payload}.${signature}`;
+  }
+
+  private deriveNameFromEmail(email: string): string {
+    const local = email.split('@')[0] || '';
+    const name = local.replace(/\./g, ' ').replace(/_/g, ' ').trim();
+    return name
+      .split(' ')
+      .filter(Boolean)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ') || 'User';
   }
 
   /**
