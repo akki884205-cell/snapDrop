@@ -161,6 +161,7 @@
             </div>
           </header>
 
+          <app-loading-bar *ngIf="blockedLoading" ariaLabel="Loading blocked domains"></app-loading-bar>
           <div *ngIf="blockedLoading" class="section-loading">
             <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
           </div>
@@ -211,6 +212,7 @@
             </div>
           </header>
 
+          <app-loading-bar *ngIf="violatorsLoading" ariaLabel="Loading violators"></app-loading-bar>
           <div *ngIf="violatorsLoading" class="section-loading">
             <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
           </div>
@@ -305,6 +307,7 @@
             </div>
           </header>
 
+          <app-loading-bar *ngIf="trendLoading" ariaLabel="Loading trend"></app-loading-bar>
           <div *ngIf="trendLoading" class="section-loading">
             <div class="skeleton-row" *ngFor="let i of [1,2,3,4]"></div>
           </div>
