@@ -353,6 +353,10 @@
 .section-body { display: block; }
 .two-col { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
 .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Make table, map and pie equal width specifically when requested */
+.two-col.three-equal { grid-template-columns: 1fr 1fr 1fr; }
+.two-col.three-equal .chart-grid { display: contents; }
+.two-col.three-equal .chart-grid > * { min-width: 0; }
 .chart-wrapper { padding: 8px; }
 
 .table-wrapper { overflow: auto; border: 1px solid var(--border-color); border-radius: 8px; }
