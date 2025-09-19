@@ -1,2 +1,6 @@
 .world-map{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;overflow:hidden}
 .map-bg{fill:var(--bg-secondary)}
+.bubble-label{font-size:10px;fill:var(--text-primary)}
+.bubble-group{cursor:pointer;transition:transform .2s ease}
+.bubble-group.selected{animation:pulse .8s ease-in-out 2}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
