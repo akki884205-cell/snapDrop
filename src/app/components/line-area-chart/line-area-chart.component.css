@@ -1,8 +1,2 @@
 :host{display:block;width:100%}
-.line-area {
-  width: 100%;
-  height: auto;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-}
+.line-area { width: 100%; height: auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; cursor: crosshair }
