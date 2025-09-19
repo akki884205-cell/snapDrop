@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter } from '@angular/core';
 
 export interface Hotspot { country: string; value: number; }
 
@@ -13,6 +13,8 @@ interface Point { x: number; y: number; r: number; color: string; label: string;
 export class WorldMapHeatComponent implements OnChanges {
   @Input() data: Hotspot[] = [];
   @Input() ariaLabel = 'World map violation hotspots';
+  @Input() highlightCountry: string | null = null;
+  @Output() selectCountry = new EventEmitter<string>();
   width = 600;
   height = 300;
   points: Point[] = [];
@@ -59,5 +61,9 @@ export class WorldMapHeatComponent implements OnChanges {
   private hexToRgb(hex: string) {
     const v = hex.replace('#','');
     return { r: parseInt(v.substring(0,2),16), g: parseInt(v.substring(2,4),16), b: parseInt(v.substring(4,6),16) };
+  }
+
+  onBubbleClick(country: string): void {
+    this.selectCountry.emit(country);
   }
 }
