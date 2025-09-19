@@ -122,16 +122,19 @@ export class ReportsComponent implements OnInit {
     });
   }
 
+  private trendRequestId = 0;
   loadTrend(): void {
     this.trendLoading = true;
     this.trendError = '';
     const days = this.rangeDays();
+    const reqId = ++this.trendRequestId;
     this.reports.getRequestsTrend(days, this.trendGranularity).subscribe({
       next: (data) => {
+        if (reqId !== this.trendRequestId) return; // ignore stale responses
         this.trend = data;
         this.endTrendLoading();
       },
-      error: () => { this.trendError = 'Failed to load trend'; this.trendLoading = false; }
+      error: () => { if (reqId === this.trendRequestId) { this.trendError = 'Failed to load trend'; this.trendLoading = false; } }
     });
   }
 
