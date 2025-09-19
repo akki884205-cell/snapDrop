@@ -10,7 +10,7 @@ interface Point { x: number; y: number; r: number; color: string; label: string;
   styleUrls: ['./world-map-heat.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WorldMapHeatComponent implements OnChanges {
+export class WorldMapHeatComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() data: Hotspot[] = [];
   @Input() ariaLabel = 'World map violation hotspots';
   @Input() highlightCountry: string | null = null;
