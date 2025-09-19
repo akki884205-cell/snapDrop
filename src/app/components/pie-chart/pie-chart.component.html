@@ -1,12 +1,15 @@
 <svg class="pie-chart" [attr.width]="size" [attr.height]="size" role="img" [attr.aria-label]="ariaLabel">
   <g [attr.transform]="'translate(' + size/2 + ',' + size/2 + ')'">
     <ng-container *ngFor="let a of arcs">
-      <path [attr.d]="a.d" [attr.fill]="a.color"></path>
+      <path class="slice-under" [attr.d]="a.under" [attr.fill]="a.color"></path>
+      <path class="slice" [class.selected]="a.selected" [attr.d]="a.outer + ' ' + a.inner" [attr.fill]="a.color" (click)="onSliceClick(a.label)">
+        <title>{{ a.label }}: {{ a.value | number }}</title>
+      </path>
     </ng-container>
   </g>
 </svg>
 <div class="pie-legend">
-  <div class="legend-item" *ngFor="let d of data; let i = index">
+  <div class="legend-item" *ngFor="let d of data; let i = index" (click)="onSliceClick(d.label)">
     <span class="legend-swatch" [style.background]="d.color || palette(i)"></span>
     <span class="legend-label">{{ d.label }}</span>
     <span class="legend-value">{{ d.value | number }}</span>
