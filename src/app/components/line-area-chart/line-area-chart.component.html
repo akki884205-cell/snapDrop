@@ -1,4 +1,5 @@
-<svg class="line-area" [attr.width]="width" [attr.height]="height" role="img" [attr.aria-label]="ariaLabel">
+<svg #svgEl class="line-area" [attr.width]="width" [attr.height]="height" role="img" [attr.aria-label]="ariaLabel" tabindex="0"
+     (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()" (click)="onClick()" (keydown)="onKey($event)">
   <defs>
     <linearGradient id="gradAllowed" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#2ecc71" stop-opacity="0.4"/>
@@ -15,4 +16,16 @@
 
   <path [attr.d]="linePathAllowed()" fill="none" stroke="#2ecc71" stroke-width="2"></path>
   <path [attr.d]="linePathBlocked()" fill="none" stroke="#ff4757" stroke-width="2"></path>
+
+  <ng-container *ngIf="ci >= 0">
+    <line [attr.x1]="xScale(points[ci].t)" [attr.x2]="xScale(points[ci].t)" [attr.y1]="padding.top" [attr.y2]="padding.top + innerH" stroke="rgba(255,255,255,0.2)" stroke-dasharray="4,4"></line>
+    <circle [attr.cx]="xScale(points[ci].t)" [attr.cy]="yScale(showPercent ? ((points[ci].a/(points[ci].a+points[ci].b))*100) : points[ci].a)" r="3" fill="#2ecc71"></circle>
+    <circle [attr.cx]="xScale(points[ci].t)" [attr.cy]="yScale(showPercent ? ((points[ci].b/(points[ci].a+points[ci].b))*100) : points[ci].b)" r="3" fill="#ff4757"></circle>
+    <g>
+      <rect [attr.x]="xScale(points[ci].t) + 8" [attr.y]="padding.top + 8" rx="4" ry="4" width="160" height="40" fill="rgba(0,0,0,0.5)" stroke="var(--border-color)"></rect>
+      <text [attr.x]="xScale(points[ci].t) + 16" [attr.y]="padding.top + 24" fill="var(--text-primary)" font-size="12">{{ (points[ci].t | date: 'mediumDate') }}</text>
+      <text [attr.x]="xScale(points[ci].t) + 16" [attr.y]="padding.top + 38" fill="#2ecc71" font-size="12">Allowed: {{ points[ci].a | number }}</text>
+      <text [attr.x]="xScale(points[ci].t) + 96" [attr.y]="padding.top + 38" fill="#ff4757" font-size="12">Blocked: {{ points[ci].b | number }}</text>
+    </g>
+  </ng-container>
 </svg>
