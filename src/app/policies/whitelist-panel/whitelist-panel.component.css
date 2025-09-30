@@ -515,6 +515,12 @@
   .panel-header {
     flex-direction: column;
   }
+
+  .pagination-section {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 600px) {
@@ -525,5 +531,16 @@
 
   .actions-cell {
     gap: 6px;
+  }
+
+  .pagination-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }
