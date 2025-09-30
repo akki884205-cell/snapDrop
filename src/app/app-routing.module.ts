@@ -7,11 +7,13 @@ import { ReportsComponent } from './reports/reports.component';
 import { ServiceSensorComponent } from './service-sensor/service-sensor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WhitelistComponent } from './whitelist/whitelist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'policies', component: PoliciesComponent },
+  { path: 'whitelist', component: WhitelistComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'service-sensor', component: ServiceSensorComponent },
   { path: 'profile', component: ProfileComponent },
