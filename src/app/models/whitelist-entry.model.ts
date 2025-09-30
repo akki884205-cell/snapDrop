@@ -7,4 +7,5 @@ export interface WhitelistEntry {
   description?: string;
   createdAt: string;
   updatedAt: string;
+  active: boolean;
 }
