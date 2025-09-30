@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { WhitelistService } from '../../services/whitelist.service';
@@ -12,12 +12,19 @@ import { WhitelistEntry } from '../../models/whitelist-entry.model';
 export class WhitelistPanelComponent implements OnInit, OnDestroy {
   form: FormGroup;
   entries: WhitelistEntry[] = [];
+  displayedEntries: WhitelistEntry[] = [];
   editingId: string | null = null;
   isLoading = true;
   isSaving = false;
   errorMessage = '';
   successMessage = '';
   limitReached = false;
+  currentPage = 1;
+  pageSize = 10;
+  totalItems = 0;
+  totalPages = 1;
+  readonly pageSizeOptions: number[] = [5, 10, 25, 50];
+  showPageSizeDropdown = false;
   private subscription?: Subscription;
   private messageTimer: any;
 
@@ -42,6 +49,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
         if (this.valueControl?.value) {
           this.valueControl.updateValueAndValidity({ emitEvent: false });
         }
+        this.updatePagination();
       },
       error: () => {
         this.errorMessage = 'Unable to load whitelist entries. Please try again.';
@@ -129,8 +137,10 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
       next: entry => {
         this.isSaving = false;
         this.successMessage = this.editingId ? 'Whitelist entry updated.' : 'Whitelist entry added.';
-        this.resetForm();
         this.editingId = null;
+        this.currentPage = 1;
+        this.resetForm();
+        this.updatePagination();
         this.scheduleMessageClear();
       },
       error: err => {
@@ -174,6 +184,10 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     this.whitelistService.removeEntry(entry.id).subscribe({
       next: () => {
         this.successMessage = 'Whitelist entry removed.';
+        if (this.currentPage > this.totalPages) {
+          this.currentPage = this.totalPages;
+        }
+        this.updatePagination();
         this.scheduleMessageClear();
       },
       error: err => {
@@ -185,6 +199,102 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
 
   getStatus(entry: WhitelistEntry): string {
     return entry.active === false ? 'Not Enforced' : 'Enforced';
+  }
+
+  togglePageSizeDropdown(event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.showPageSizeDropdown = !this.showPageSizeDropdown;
+  }
+
+  onPageSizeChange(size: number): void {
+    if (this.pageSize === size) {
+      this.showPageSizeDropdown = false;
+      return;
+    }
+    this.pageSize = size;
+    this.currentPage = 1;
+    this.showPageSizeDropdown = false;
+    this.updatePagination();
+  }
+
+  onPageChange(page: number): void {
+    if (page === this.currentPage) {
+      return;
+    }
+    this.currentPage = page;
+    this.updatePagination();
+  }
+
+  onPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  onNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  onFirstPage(): void {
+    if (this.currentPage !== 1) {
+      this.currentPage = 1;
+      this.updatePagination();
+    }
+  }
+
+  onLastPage(): void {
+    if (this.currentPage !== this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatePagination();
+    }
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPages = 6;
+
+    if (this.totalPages <= maxPages) {
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      let start = Math.max(1, this.currentPage - 2);
+      let end = Math.min(this.totalPages, start + maxPages - 1);
+
+      if (end - start < maxPages - 1) {
+        start = Math.max(1, end - maxPages + 1);
+      }
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  }
+
+  getShowingText(): string {
+    if (this.totalItems === 0) {
+      return 'Showing 0 to 0 of 0 entries';
+    }
+
+    const start = (this.currentPage - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage * this.pageSize, this.totalItems);
+
+    return `Showing ${start} to ${end} of ${this.totalItems} entries`;
+  }
+
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    if (this.showPageSizeDropdown) {
+      this.showPageSizeDropdown = false;
+    }
   }
 
   private resetForm(): void {
@@ -236,4 +346,15 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     const conflictMessage = this.whitelistService.assessConflicts(trimmed, this.editingId || undefined);
     return conflictMessage ? { conflict: conflictMessage } : null;
   };
+
+  private updatePagination(): void {
+    this.totalItems = this.entries.length;
+    this.totalPages = this.totalItems === 0 ? 1 : Math.ceil(this.totalItems / this.pageSize);
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayedEntries = this.totalItems === 0 ? [] : this.entries.slice(start, end);
+  }
 }
