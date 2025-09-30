@@ -187,38 +187,6 @@
   overflow-y: auto;
 }
 
-.policy-view-toggle {
-  display: inline-flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.policy-tab {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 8px 8px 0 0;
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.policy-tab:hover {
-  color: var(--text-secondary);
-}
-
-.policy-tab.active {
-  color: var(--text-primary);
-  background: var(--bg-card);
-  box-shadow: 0 -8px 24px rgba(41, 182, 246, 0.2);
-  border: 1px solid var(--border-color);
-  border-bottom-color: transparent;
-}
-
 /* Controls Section */
 .controls-section {
   display: flex;
