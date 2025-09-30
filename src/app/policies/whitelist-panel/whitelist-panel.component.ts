@@ -137,7 +137,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         const message = err?.message || 'Unable to save whitelist entry.';
         this.errorMessage = message;
-        if (!this.valueControl?.errors && message.includes('Entry already exists')) {
+        if (!this.valueControl?.errors && /entry/i.test(message)) {
           this.valueControl?.setErrors({ conflict: message });
         }
         this.scheduleMessageClear();
