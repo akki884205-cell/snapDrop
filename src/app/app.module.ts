@@ -37,7 +37,8 @@ import { WhitelistComponent } from './whitelist/whitelist.component';
     PieChartComponent,
     WorldMapHeatComponent,
     LoadingBarComponent,
-    WhitelistPanelComponent
+    WhitelistPanelComponent,
+    WhitelistComponent
   ],
   imports: [
     BrowserModule,
