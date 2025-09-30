@@ -20,7 +20,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
   limitReached = false;
   private subscription?: Subscription;
 
-  constructor(private fb: FormBuilder, private whitelistService: WhitelistService) {
+  constructor(private fb: FormBuilder, public whitelistService: WhitelistService) {
     this.form = this.fb.group({
       value: ['', [Validators.required, this.noWhitespaceValidator, this.ipFormatValidator]],
       description: ['']
@@ -135,7 +135,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
   }
 
   onRemove(entry: WhitelistEntry): void {
-    if (!confirm(`Remove ${entry.value} from the whitelist?`)) {
+    if (!window.confirm(`Remove ${entry.value} from the whitelist?`)) {
       return;
     }
 
