@@ -164,6 +164,18 @@ export class PoliciesComponent implements OnInit {
     this.initializeForm();
   }
 
+  setActiveView(view: 'policies' | 'whitelist'): void {
+    if (this.activeView === view) {
+      return;
+    }
+    this.activeView = view;
+    if (view === 'whitelist') {
+      this.showCreateModal = false;
+      this.showUploadModal = false;
+      this.showSuccessMessage = false;
+    }
+  }
+
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
     if (!this.currentUser) {
