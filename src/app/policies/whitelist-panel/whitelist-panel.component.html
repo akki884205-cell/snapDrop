@@ -2,7 +2,7 @@
   <header class="panel-header">
     <div class="panel-heading">
       <h2 class="panel-title">Whitelist</h2>
-      <p class="panel-description">Manage client IPs and subnets that should bypass enforcement. Updates are forwarded to Aegis with action code 1.</p>
+      <p class="panel-description">Manage trusted IP addresses and subnets that are allowed to bypass filtering policies.</p>
     </div>
     <div class="panel-metrics" aria-live="polite">
       <span class="metric-badge">Added: {{ entries.length }}</span>
@@ -76,21 +76,19 @@
       <table class="whitelist-table" *ngIf="!isLoading && entries.length > 0">
         <thead>
           <tr>
-            <th scope="col">Address</th>
-            <th scope="col">Type</th>
-            <th scope="col">Status</th>
-            <th scope="col">Last Updated</th>
-            <th scope="col">Last Added</th>
+            <th scope="col" class="address-column">Address</th>
+            <th scope="col" class="status-column">Status</th>
+            <th scope="col" class="timestamp-column">Last Updated</th>
+            <th scope="col" class="timestamp-column">Last Added</th>
             <th scope="col" class="actions-header">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let entry of entries; trackBy: trackById">
+          <tr *ngFor="let entry of displayedEntries; trackBy: trackById">
             <td class="cell-address" [attr.title]="entry.description || null">{{ entry.value }}</td>
-            <td>{{ entry.type }}</td>
-            <td>{{ getStatus(entry) }}</td>
-            <td>{{ entry.updatedAt | date:'medium' }}</td>
-            <td>{{ entry.createdAt | date:'medium' }}</td>
+            <td class="status-cell">{{ getStatus(entry) }}</td>
+            <td class="timestamp-cell">{{ entry.updatedAt | date:'medium' }}</td>
+            <td class="timestamp-cell">{{ entry.createdAt | date:'medium' }}</td>
             <td class="actions-cell">
               <button type="button" class="icon-btn" (click)="onEdit(entry)" [attr.aria-label]="'Edit ' + entry.value">
                 <span class="icon-pencil"></span>
@@ -102,6 +100,63 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="pagination-section" *ngIf="!isLoading && entries.length > 0">
+        <div class="pagination-left">
+          <div class="pagination-info">{{ getShowingText() }}</div>
+          <div class="page-size-selector" (click)="$event.stopPropagation()">
+            <div class="page-size-dropdown" (click)="togglePageSizeDropdown($event)">
+              <span class="page-size-text">{{ pageSize }} entries</span>
+              <svg class="dropdown-arrow" [class.open]="showPageSizeDropdown" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+            <div class="page-size-menu" *ngIf="showPageSizeDropdown">
+              <div
+                *ngFor="let size of pageSizeOptions"
+                class="page-size-option"
+                [class.selected]="size === pageSize"
+                (click)="onPageSizeChange(size)"
+              >
+                {{ size }} entries
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination-controls">
+          <button class="pagination-btn first-last-btn" [disabled]="currentPage === 1" (click)="onFirstPage()" title="First page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.41,16.59L13.82,12L18.41,7.41L17,6L11,12L17,18L18.41,16.59M6,6V18H8V6H6Z" />
+            </svg>
+          </button>
+          <button class="pagination-btn" [disabled]="currentPage === 1" (click)="onPreviousPage()" title="Previous page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+            </svg>
+          </button>
+          <div class="page-numbers">
+            <button
+              *ngFor="let page of getPageNumbers()"
+              class="page-number"
+              [class.active]="page === currentPage"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
+            </button>
+          </div>
+          <button class="pagination-btn" [disabled]="currentPage === totalPages" (click)="onNextPage()" title="Next page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+            </svg>
+          </button>
+          <button class="pagination-btn first-last-btn" [disabled]="currentPage === totalPages" (click)="onLastPage()" title="Last page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5.59,7.41L10.18,12L5.59,16.59L7,18L13,12L7,6L5.59,7.41M16,6V18H18V6H16Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
 
       <div class="empty-state" *ngIf="!isLoading && entries.length === 0">
         <p>No whitelist entries yet. Add an IP address or subnet to start.</p>
