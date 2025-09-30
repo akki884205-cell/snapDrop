@@ -33,10 +33,10 @@
             [attr.aria-required]="true"
           />
           <div class="field-error" *ngIf="valueControl?.errors && (valueControl?.touched || valueControl?.dirty)">
-            <ng-container *ngIf="valueControl?.errors['required']">Value is required.</ng-container>
-            <ng-container *ngIf="valueControl?.errors['whitespace']">Value cannot be empty.</ng-container>
-            <ng-container *ngIf="valueControl?.errors['invalidIp']">{{ valueControl?.errors['invalidIp'] }}</ng-container>
-            <ng-container *ngIf="valueControl?.errors['duplicate']">Entry already exists in the whitelist.</ng-container>
+            <ng-container *ngIf="valueControl?.errors?.['required']">Value is required.</ng-container>
+            <ng-container *ngIf="valueControl?.errors?.['whitespace']">Value cannot be empty.</ng-container>
+            <ng-container *ngIf="valueControl?.errors?.['invalidIp']">{{ valueControl?.errors?.['invalidIp'] }}</ng-container>
+            <ng-container *ngIf="valueControl?.errors?.['duplicate']">Entry already exists in the whitelist.</ng-container>
           </div>
         </div>
 
