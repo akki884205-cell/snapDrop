@@ -14,6 +14,7 @@ import { ServiceSensorComponent } from './service-sensor/service-sensor.componen
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HbarChartComponent } from './components/hbar-chart/hbar-chart.component';
+import { WhitelistPanelComponent } from './policies/whitelist-panel/whitelist-panel.component';
 import { LineAreaChartComponent } from './components/line-area-chart/line-area-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { WorldMapHeatComponent } from './components/world-map-heat/world-map-heat.component';
@@ -34,7 +35,8 @@ import { LoadingBarComponent } from './components/loading-bar/loading-bar.compon
     LineAreaChartComponent,
     PieChartComponent,
     WorldMapHeatComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    WhitelistPanelComponent
   ],
   imports: [
     BrowserModule,
