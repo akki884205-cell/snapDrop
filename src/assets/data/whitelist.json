@@ -1,0 +1,26 @@
+[
+  {
+    "id": "wl-1",
+    "value": "192.168.1.45",
+    "type": "IPv4",
+    "description": "Corporate VPN gateway",
+    "createdAt": "2024-06-01T08:30:00.000Z",
+    "updatedAt": "2024-06-01T08:30:00.000Z"
+  },
+  {
+    "id": "wl-2",
+    "value": "10.25.0.0/16",
+    "type": "CIDR",
+    "description": "Regional office subnet",
+    "createdAt": "2024-05-15T11:20:00.000Z",
+    "updatedAt": "2024-08-02T09:10:00.000Z"
+  },
+  {
+    "id": "wl-3",
+    "value": "2001:db8:abcd:0012::/64",
+    "type": "CIDR",
+    "description": "IPv6 client block",
+    "createdAt": "2024-07-21T14:05:00.000Z",
+    "updatedAt": "2024-07-21T14:05:00.000Z"
+  }
+]
