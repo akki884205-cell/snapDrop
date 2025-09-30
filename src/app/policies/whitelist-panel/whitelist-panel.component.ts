@@ -39,6 +39,9 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
         } else {
           this.form.get('value')?.enable({ emitEvent: false });
         }
+        if (this.valueControl?.value) {
+          this.valueControl.updateValueAndValidity({ emitEvent: false });
+        }
       },
       error: () => {
         this.errorMessage = 'Unable to load whitelist entries. Please try again.';
