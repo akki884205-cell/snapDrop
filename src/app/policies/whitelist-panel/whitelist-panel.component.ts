@@ -19,6 +19,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
   successMessage = '';
   limitReached = false;
   private subscription?: Subscription;
+  private messageTimer: any;
 
   constructor(private fb: FormBuilder, public whitelistService: WhitelistService) {
     this.form = this.fb.group({
@@ -48,6 +49,10 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    if (this.messageTimer) {
+      clearTimeout(this.messageTimer);
+      this.messageTimer = undefined;
+    }
   }
 
   get remainingSlots(): number {
@@ -158,9 +163,13 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
   }
 
   private scheduleMessageClear(): void {
-    setTimeout(() => {
+    if (this.messageTimer) {
+      clearTimeout(this.messageTimer);
+    }
+    this.messageTimer = setTimeout(() => {
       this.successMessage = '';
       this.errorMessage = '';
+      this.messageTimer = undefined;
     }, 3000);
   }
 
