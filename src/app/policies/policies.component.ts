@@ -69,7 +69,6 @@ export interface PolicyListResponse {
 })
 export class PoliciesComponent implements OnInit {
   currentUser: User | null = null;
-  activeView: 'policies' | 'whitelist' = 'policies';
   searchTerm: string = '';
   selectedFilters: string[] = [];
   showSuccessMessage: boolean = false;
@@ -163,18 +162,6 @@ export class PoliciesComponent implements OnInit {
     private http: HttpClient
   ) {
     this.initializeForm();
-  }
-
-  setActiveView(view: 'policies' | 'whitelist'): void {
-    if (this.activeView === view) {
-      return;
-    }
-    this.activeView = view;
-    if (view === 'whitelist') {
-      this.showCreateModal = false;
-      this.showUploadModal = false;
-      this.showSuccessMessage = false;
-    }
   }
 
   ngOnInit(): void {
