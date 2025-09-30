@@ -188,6 +188,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     this.form.reset({ value: '', description: '' });
     this.form.markAsPristine();
     this.form.markAsUntouched();
+    this.valueControl?.updateValueAndValidity({ emitEvent: false });
   }
 
   private scheduleMessageClear(): void {
