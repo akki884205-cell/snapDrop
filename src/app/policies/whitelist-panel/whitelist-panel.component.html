@@ -5,7 +5,7 @@
       <p class="panel-description">Manage client IPs and subnets that should bypass enforcement. Updates are forwarded to Aegis with action code 1.</p>
     </div>
     <div class="panel-metrics" aria-live="polite">
-      <span class="metric-badge">Total: {{ entries.length }}</span>
+      <span class="metric-badge">Added: {{ entries.length }}</span>
       <span class="metric-badge">Remaining: {{ remainingSlots }}</span>
     </div>
   </header>
@@ -36,7 +36,7 @@
             <ng-container *ngIf="valueControl?.errors?.['required']">Value is required.</ng-container>
             <ng-container *ngIf="valueControl?.errors?.['whitespace']">Value cannot be empty.</ng-container>
             <ng-container *ngIf="valueControl?.errors?.['invalidIp']">{{ valueControl?.errors?.['invalidIp'] }}</ng-container>
-            <ng-container *ngIf="valueControl?.errors?.['duplicate']">Entry already exists in the whitelist.</ng-container>
+            <ng-container *ngIf="valueControl?.errors?.['conflict']">{{ valueControl?.errors?.['conflict'] }}</ng-container>
           </div>
         </div>
 
@@ -78,19 +78,19 @@
           <tr>
             <th scope="col">Address</th>
             <th scope="col">Type</th>
-            <th scope="col">Description</th>
-            <th scope="col">Added</th>
+            <th scope="col">Status</th>
             <th scope="col">Last Updated</th>
-            <th scope="col" class="actions-header">Actions</th>
+            <th scope="col">Last Added</th>
+            <th scope="col" class="actions-header">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of entries; trackBy: trackById">
-            <td class="cell-address">{{ entry.value }}</td>
+            <td class="cell-address" [attr.title]="entry.description || null">{{ entry.value }}</td>
             <td>{{ entry.type }}</td>
-            <td>{{ entry.description || '—' }}</td>
-            <td>{{ entry.createdAt | date:'medium' }}</td>
+            <td>{{ getStatus(entry) }}</td>
             <td>{{ entry.updatedAt | date:'medium' }}</td>
+            <td>{{ entry.createdAt | date:'medium' }}</td>
             <td class="actions-cell">
               <button type="button" class="icon-btn" (click)="onEdit(entry)" [attr.aria-label]="'Edit ' + entry.value">
                 <span class="icon-pencil"></span>
