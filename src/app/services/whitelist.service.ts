@@ -29,7 +29,7 @@ export class WhitelistService {
   private readonly dataUrl = 'assets/data/whitelist.json';
   private readonly limit = 10000;
   private readonly store = new BehaviorSubject<WhitelistEntry[]>([]);
-  private readonly excludedEntries = new Set(['0.0.0.0', '::/128', '::1/128']);
+  private readonly excludedEntries = new Set(['0.0.0.0', '::/128', '::1/128'].map(item => item.toLowerCase()));
   private loaded = false;
 
   constructor(private http: HttpClient) {}
