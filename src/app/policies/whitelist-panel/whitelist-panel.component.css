@@ -253,6 +253,7 @@
   font-size: 13px;
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
 }
 
 .whitelist-table th {
@@ -273,10 +274,16 @@
   white-space: nowrap;
 }
 
+.actions-header {
+  min-width: 120px;
+  text-align: right;
+}
+
 .actions-cell {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  min-width: 120px;
 }
 
 .address-column {
