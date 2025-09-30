@@ -68,7 +68,7 @@
       <span class="table-caption" aria-live="polite">Every change is synchronized with Spectra and Aegis (action code 1).</span>
     </div>
 
-    <div class="table-wrapper" role="region" aria-live="polite" aria-busy="{{ isLoading }}">
+    <div class="table-wrapper" role="region" aria-live="polite" [attr.aria-busy]="isLoading">
       <div class="loading-state" *ngIf="isLoading">
         <div class="loading-bar" *ngFor="let skeleton of [1,2,3,4,5]"></div>
       </div>
@@ -92,10 +92,10 @@
             <td>{{ entry.createdAt | date:'medium' }}</td>
             <td>{{ entry.updatedAt | date:'medium' }}</td>
             <td class="actions-cell">
-              <button type="button" class="icon-btn" (click)="onEdit(entry)" aria-label="Edit {{ entry.value }}">
+              <button type="button" class="icon-btn" (click)="onEdit(entry)" [attr.aria-label]="'Edit ' + entry.value">
                 <span class="icon-pencil"></span>
               </button>
-              <button type="button" class="icon-btn danger" (click)="onRemove(entry)" aria-label="Remove {{ entry.value }}">
+              <button type="button" class="icon-btn danger" (click)="onRemove(entry)" [attr.aria-label]="'Remove ' + entry.value">
                 <span class="icon-trash"></span>
               </button>
             </td>
