@@ -19,6 +19,7 @@ import { LineAreaChartComponent } from './components/line-area-chart/line-area-c
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { WorldMapHeatComponent } from './components/world-map-heat/world-map-heat.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
+import { WhitelistComponent } from './whitelist/whitelist.component';
 
 @NgModule({
   declarations: [
