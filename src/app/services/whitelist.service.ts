@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { WhitelistEntry, WhitelistEntryType } from '../models/whitelist-entry.model';
 
 export type WhitelistChangeKind = 'ADD' | 'UPDATE' | 'REMOVE';
@@ -96,14 +96,14 @@ export class WhitelistService {
   }
 
   removeEntry(id: string): Observable<void> {
-    const current = this.store.value;
+    const current = [...this.store.value];
     const index = current.findIndex(item => item.id === id);
     if (index === -1) {
       return throwError(() => new Error('Whitelist entry not found.'));
     }
 
     const [removed] = current.splice(index, 1);
-    this.store.next([...current]);
+    this.store.next(current);
     this.broadcastUpdate('REMOVE', removed);
     return of(void 0);
   }
@@ -179,27 +179,8 @@ export class WhitelistService {
   }
 
   private isIPv6(value: string): boolean {
-    const segments = value.split(':');
-    if (segments.length < 3 || segments.length > 8) {
-      if (!value.includes('::')) {
-        return false;
-      }
-    }
-
-    if (value.includes('::')) {
-      if (value.indexOf('::') !== value.lastIndexOf('::')) {
-        return false; // only one :: allowed
-      }
-      const replacement = '0:'.repeat(8 - segments.filter(segment => segment.length > 0).length + 1);
-      const expanded = value.replace('::', `:${replacement}`).replace('::', ':');
-      return this.isIPv6(expanded.startsWith(':') ? expanded.slice(1) : expanded);
-    }
-
-    if (segments.length !== 8) {
-      return false;
-    }
-
-    return segments.every(segment => /^[0-9a-fA-F]{1,4}$/.test(segment));
+    const ipv6Pattern = /^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9])?[0-9]))$/;
+    return ipv6Pattern.test(value);
   }
 
   private sortEntries(list: WhitelistEntry[]): WhitelistEntry[] {
