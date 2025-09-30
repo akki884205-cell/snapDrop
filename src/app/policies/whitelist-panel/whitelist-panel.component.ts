@@ -92,7 +92,10 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     const description = (this.descriptionControl?.value as string)?.trim() || undefined;
 
     if (this.isDuplicate(trimmedValue)) {
-      this.valueControl?.setErrors({ duplicate: 'Entry already exists in the whitelist.' });
+      const control = this.valueControl;
+      control?.setErrors({ duplicate: 'Entry already exists in the whitelist.' });
+      control?.markAsTouched();
+      control?.markAsDirty();
       return;
     }
 
