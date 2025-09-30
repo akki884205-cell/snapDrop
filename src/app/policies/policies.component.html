@@ -94,31 +94,8 @@
   <div class="main-content">
     <!-- Policies Content -->
     <main class="policies-main">
-      <div class="policy-view-toggle" role="tablist" aria-label="Policies navigation">
-        <button
-          class="policy-tab"
-          type="button"
-          role="tab"
-          [class.active]="activeView === 'policies'"
-          (click)="setActiveView('policies')"
-          [attr.aria-selected]="activeView === 'policies'"
-        >
-          Policies
-        </button>
-        <button
-          class="policy-tab"
-          type="button"
-          role="tab"
-          [class.active]="activeView === 'whitelist'"
-          (click)="setActiveView('whitelist')"
-          [attr.aria-selected]="activeView === 'whitelist'"
-        >
-          Whitelist
-        </button>
-      </div>
-
       <!-- Search and Filter Section -->
-      <div class="controls-section" *ngIf="activeView === 'policies'">
+      <div class="controls-section">
         <div class="search-section">
           <div class="search-input-container">
             <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -162,7 +139,7 @@
       </div>
 
       <!-- Data Table -->
-      <div class="table-container" *ngIf="activeView === 'policies'">
+      <div class="table-container">
         <div class="table-wrapper">
           <table class="policies-table">
           <thead>
@@ -354,7 +331,7 @@
       </div>
 
       <!-- Pagination -->
-      <div class="pagination-section" *ngIf="activeView === 'policies'">
+      <div class="pagination-section">
         <div class="pagination-left">
           <div class="pagination-info">
             {{ getShowingText() }}
@@ -443,7 +420,7 @@
       </div>
 
       <!-- Success Message -->
-      <div class="success-message" *ngIf="showSuccessMessage && activeView === 'policies'">
+      <div class="success-message" *ngIf="showSuccessMessage">
         <div class="success-content">
           <div class="success-icon">✓</div>
           <span class="success-text">Success</span>
@@ -451,14 +428,11 @@
           <button class="success-close" (click)="hideSuccessMessage()">×</button>
         </div>
       </div>
-      <section class="whitelist-section" *ngIf="activeView === 'whitelist'">
-        <app-whitelist-panel></app-whitelist-panel>
-      </section>
     </main>
   </div>
 
   <!-- Create New Policy Modal -->
-  <div class="modal-overlay" *ngIf="showCreateModal && activeView === 'policies'" (click)="onCancelModal()">
+  <div class="modal-overlay" *ngIf="showCreateModal" (click)="onCancelModal()">
     <div class="modal-container" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 class="modal-title">Create New Policy</h2>
@@ -642,7 +616,7 @@
   </div>
 
   <!-- Upload File Modal -->
-  <div class="modal-overlay" *ngIf="showUploadModal && activeView === 'policies'" (click)="onCancelUpload()">
+  <div class="modal-overlay" *ngIf="showUploadModal" (click)="onCancelUpload()">
     <div class="modal-container upload-modal" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 class="modal-title">Upload File</h2>
