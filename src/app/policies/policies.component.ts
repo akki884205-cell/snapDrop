@@ -69,6 +69,7 @@ export interface PolicyListResponse {
 })
 export class PoliciesComponent implements OnInit {
   currentUser: User | null = null;
+  activeView: 'policies' | 'whitelist' = 'policies';
   searchTerm: string = '';
   selectedFilters: string[] = [];
   showSuccessMessage: boolean = false;
