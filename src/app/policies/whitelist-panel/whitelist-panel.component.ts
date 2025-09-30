@@ -23,7 +23,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, public whitelistService: WhitelistService) {
     this.form = this.fb.group({
-      value: ['', [Validators.required, this.noWhitespaceValidator, this.ipFormatValidator]],
+      value: ['', [Validators.required, this.noWhitespaceValidator, this.ipFormatValidator, this.conflictValidator]],
       description: ['']
     });
   }
@@ -91,12 +91,27 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     const trimmedValue = rawValue?.trim() || '';
     const description = (this.descriptionControl?.value as string)?.trim() || undefined;
 
-    if (this.isDuplicate(trimmedValue)) {
-      const control = this.valueControl;
-      control?.setErrors({ duplicate: 'Entry already exists in the whitelist.' });
-      control?.markAsTouched();
-      control?.markAsDirty();
+    const validation = this.whitelistService.validateValue(trimmedValue);
+    if (!validation.valid) {
+      this.valueControl?.setErrors({ invalidIp: validation.message || 'Invalid entry.' });
+      this.valueControl?.markAsTouched();
+      this.valueControl?.markAsDirty();
       return;
+    }
+
+    const conflictMessage = this.whitelistService.assessConflicts(trimmedValue, this.editingId || undefined);
+    if (conflictMessage) {
+      this.valueControl?.setErrors({ conflict: conflictMessage });
+      this.valueControl?.markAsTouched();
+      this.valueControl?.markAsDirty();
+      return;
+    }
+
+    if (validation.warning) {
+      const confirmed = window.confirm(validation.warning);
+      if (!confirmed) {
+        return;
+      }
     }
 
     this.isSaving = true;
@@ -117,7 +132,11 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.isSaving = false;
-        this.errorMessage = err?.message || 'Unable to save whitelist entry.';
+        const message = err?.message || 'Unable to save whitelist entry.';
+        this.errorMessage = message;
+        if (!this.valueControl?.errors && message.includes('Entry already exists')) {
+          this.valueControl?.setErrors({ conflict: message });
+        }
         this.scheduleMessageClear();
       }
     });
@@ -132,6 +151,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     this.form.markAsPristine();
     this.form.markAsUntouched();
     this.valueControl?.enable({ emitEvent: false });
+    this.valueControl?.updateValueAndValidity({ emitEvent: false });
   }
 
   onCancelEdit(): void {
@@ -140,6 +160,7 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     if (this.limitReached) {
       this.valueControl?.disable({ emitEvent: false });
     }
+    this.valueControl?.updateValueAndValidity({ emitEvent: false });
   }
 
   onRemove(entry: WhitelistEntry): void {
@@ -159,6 +180,10 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  getStatus(entry: WhitelistEntry): string {
+    return entry.active === false ? 'Not Enforced' : 'Enforced';
+  }
+
   private resetForm(): void {
     this.form.reset({ value: '', description: '' });
     this.form.markAsPristine();
@@ -176,11 +201,6 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     }, 3000);
   }
 
-  private isDuplicate(value: string): boolean {
-    const target = value.toLowerCase();
-    return this.entries.some(entry => entry.value.toLowerCase() === target && entry.id !== this.editingId);
-  }
-
   private noWhitespaceValidator = (control: AbstractControl): ValidationErrors | null => {
     if (control.value === null || control.value === undefined) {
       return null;
@@ -195,5 +215,21 @@ export class WhitelistPanelComponent implements OnInit, OnDestroy {
     }
     const result = this.whitelistService.validateValue(control.value);
     return result.valid ? null : { invalidIp: result.message || 'Invalid entry.' };
+  };
+
+  private conflictValidator = (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value || typeof control.value !== 'string') {
+      return null;
+    }
+    const trimmed = control.value.trim();
+    if (!trimmed) {
+      return null;
+    }
+    const validation = this.whitelistService.validateValue(trimmed);
+    if (!validation.valid) {
+      return null;
+    }
+    const conflictMessage = this.whitelistService.assessConflicts(trimmed, this.editingId || undefined);
+    return conflictMessage ? { conflict: conflictMessage } : null;
   };
 }
