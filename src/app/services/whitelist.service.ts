@@ -260,12 +260,18 @@ export class WhitelistService {
       }
 
       if (this.isIPv4(ip)) {
+        if (prefixNum < 0 || prefixNum > 32) {
+          return null;
+        }
         const address = this.ipv4ToBigInt(ip);
         const range = this.computeNetworkRange(address, prefixNum, 'IPv4');
         return { family: 'IPv4', prefix: prefixNum, ...range };
       }
 
       if (this.isIPv6(ip)) {
+        if (prefixNum < 0 || prefixNum > 128) {
+          return null;
+        }
         const address = this.ipv6ToBigInt(ip);
         if (address === null) {
           return null;
