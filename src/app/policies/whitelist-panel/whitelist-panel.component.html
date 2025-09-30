@@ -1,0 +1,111 @@
+<section class="whitelist-panel" aria-label="Whitelist management">
+  <header class="panel-header">
+    <div class="panel-heading">
+      <h2 class="panel-title">Whitelist</h2>
+      <p class="panel-description">Manage client IPs and subnets that should bypass enforcement. Updates are forwarded to Aegis with action code 1.</p>
+    </div>
+    <div class="panel-metrics" aria-live="polite">
+      <span class="metric-badge">Total: {{ entries.length }}</span>
+      <span class="metric-badge">Remaining: {{ remainingSlots }}</span>
+    </div>
+  </header>
+
+  <div class="alert error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="alert success" *ngIf="successMessage">{{ successMessage }}</div>
+
+  <div class="form-card">
+    <div class="form-header">
+      <h3 class="form-title">{{ editingId ? 'Edit whitelist entry' : 'Add whitelist entry' }}</h3>
+      <span class="form-hint" *ngIf="limitReached && !editingId">The whitelist has reached the maximum of {{ whitelistService.maxEntries | number }} entries.</span>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-body">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="whitelistValue">IP address or subnet<span class="required-indicator">*</span></label>
+          <input
+            id="whitelistValue"
+            type="text"
+            formControlName="value"
+            [class.invalid]="valueControl?.invalid && (valueControl?.touched || valueControl?.dirty)"
+            placeholder="e.g. 192.168.1.4 or 2001:db8::/64"
+            [attr.aria-invalid]="valueControl?.invalid"
+            [attr.aria-required]="true"
+          />
+          <div class="field-error" *ngIf="valueControl?.errors && (valueControl?.touched || valueControl?.dirty)">
+            <ng-container *ngIf="valueControl?.errors['required']">Value is required.</ng-container>
+            <ng-container *ngIf="valueControl?.errors['whitespace']">Value cannot be empty.</ng-container>
+            <ng-container *ngIf="valueControl?.errors['invalidIp']">{{ valueControl?.errors['invalidIp'] }}</ng-container>
+            <ng-container *ngIf="valueControl?.errors['duplicate']">Entry already exists in the whitelist.</ng-container>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="whitelistDescription">Description</label>
+          <input
+            id="whitelistDescription"
+            type="text"
+            formControlName="description"
+            maxlength="180"
+            placeholder="Optional context for admins"
+          />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="submitDisabled">
+          <span *ngIf="!isSaving">{{ editingId ? 'Update Entry' : 'Add Entry' }}</span>
+          <span class="loading-label" *ngIf="isSaving">Saving…</span>
+        </button>
+        <button type="button" class="btn-secondary" *ngIf="editingId" (click)="onCancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-card">
+    <div class="table-heading">
+      <h3 class="table-title">Current whitelist entries</h3>
+      <span class="table-caption" aria-live="polite">Every change is synchronized with Spectra and Aegis (action code 1).</span>
+    </div>
+
+    <div class="table-wrapper" role="region" aria-live="polite" aria-busy="{{ isLoading }}">
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="loading-bar" *ngFor="let skeleton of [1,2,3,4,5]"></div>
+      </div>
+
+      <table class="whitelist-table" *ngIf="!isLoading && entries.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Address</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Added</th>
+            <th scope="col">Last Updated</th>
+            <th scope="col" class="actions-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of entries; trackBy: trackById">
+            <td class="cell-address">{{ entry.value }}</td>
+            <td>{{ entry.type }}</td>
+            <td>{{ entry.description || '—' }}</td>
+            <td>{{ entry.createdAt | date:'medium' }}</td>
+            <td>{{ entry.updatedAt | date:'medium' }}</td>
+            <td class="actions-cell">
+              <button type="button" class="icon-btn" (click)="onEdit(entry)" aria-label="Edit {{ entry.value }}">
+                <span class="icon-pencil"></span>
+              </button>
+              <button type="button" class="icon-btn danger" (click)="onRemove(entry)" aria-label="Remove {{ entry.value }}">
+                <span class="icon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="empty-state" *ngIf="!isLoading && entries.length === 0">
+        <p>No whitelist entries yet. Add an IP address or subnet to start.</p>
+      </div>
+    </div>
+  </div>
+</section>
